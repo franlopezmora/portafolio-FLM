@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.masonry-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* vertical gap entre tarjetas (~20px) */
+}
