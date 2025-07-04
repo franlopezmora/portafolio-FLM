@@ -11,19 +11,19 @@ export default function App() {
     {
       titulo: "Gestor de turnos",
       descripcion: "Sistema para turnos de lavadero a domicilio",
-      gif: "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXB3MXgwbHl2dXFwdGs1NzF0d3k2c21uOXhyamRhand3aTRpZ2hjdyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/8KkLpYUZ2bGXQUNlv3/giphy.webp",
+      gif: "public/gifs/gestor-turnos.mp4",
       essay: "Read Essay →"
     },
     {
       titulo: "TPI Backend 2025",
       descripcion: "Microservicios con reportes y notificaciones",
-      gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXB3MXgwbHl2dXFwdGs1NzF0d3k2c21uOXhyamRhand3aTRpZ2hjdyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/kzFutG7OpXXBt28S9A/giphy.webp",
+      gif: "public/gifs/gestor-turnos-sin-comprimir.mp4",
       proto: "View Prototype →"
     },
     {
       titulo: "Buscador de películas",
       descripcion: "Frontend que consume la API de TMDB",
-      gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXB3MXgwbHl2dXFwdGs1NzF0d3k2c21uOXhyamRhand3aTRpZ2hjdyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/fUQ4rhUZJYiQsas6WD/200.webp"
+      gif: "public/gifs/gestor-turnos-sin-comprimir-tanto.mp4"
     },
     {
       titulo: "Editor de código",
@@ -60,7 +60,7 @@ export default function App() {
       proto: "View Prototype →"
     }
   ]
-const proyectosDesordenados = shuffle(proyectos)
+//const proyectosDesordenados = shuffle(proyectos)
 
   const breakpointColumnsObj = {
     default: 3,
@@ -76,7 +76,7 @@ const proyectosDesordenados = shuffle(proyectos)
         className="flex gap-x-2"        // horizontal gap reducido
         columnClassName="masonry-column"
       >
-        {proyectosDesordenados.map((p, idx) => (
+        {proyectos.map((p, idx) => (
           <ProyectoCard key={idx} {...p} />
         ))}
       </Masonry>

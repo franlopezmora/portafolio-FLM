@@ -1,11 +1,23 @@
 export default function ProyectoCard({ titulo, descripcion, gif, essay, proto }) {
   return (
     <div className="bg-white rounded-xl  border border-neutral-200 transition-all duration-300 break-inside-avoid p-4">
-      <img
-        src={gif}
-        alt={titulo}
-        className="w-full object-contain"
-      />
+      {gif?.endsWith(".mp4") ? (
+        <video
+          src={gif}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full object-contain mb-2 rounded-md"
+        />
+      ) : (
+        <img
+          src={gif}
+          alt={titulo}
+          className="w-full object-contain mb-2 rounded-md"
+        />
+      )}
+
 
       <div className=" flex-1 flex flex-col justify-between">
         <div>
