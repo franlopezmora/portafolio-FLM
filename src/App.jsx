@@ -28,7 +28,7 @@ export default function App() {
     {
       titulo: "Editor de código",
       descripcion: "Un editor de markdown con vista previa en tiempo real",
-      gif: "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXB3MXgwbHl2dXFwdGs1NzF0d3k2c21uOXhyamRhand3aTRpZ2hjdyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/j8HIpI6nyLkNUwxP3w/200.webp",
+      gif: "",
       essay: "Read Essay →"
     },
     {
