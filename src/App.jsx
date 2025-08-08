@@ -1,5 +1,6 @@
 import Masonry from "react-masonry-css"
 import ProyectoCard from "./components/ProyectoCard"
+import DarkModeToggle from "./components/DarkModeToggle"
 
 function shuffle(array) {
   return [...array].sort(() => Math.random() - 0.5);
@@ -70,7 +71,10 @@ export default function App() {
   }
 
   return (
-    <main className="bg-neutral-50 text-black min-h-screen px-2 sm:px-2 py-2">
+    <main className="min-h-screen px-2 sm:px-2 py-2 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors">
+      <div className="sticky top-2 z-50 flex justify-end pr-2 mb-1">
+        <DarkModeToggle />
+      </div>
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="flex gap-x-2"        // horizontal gap reducido
