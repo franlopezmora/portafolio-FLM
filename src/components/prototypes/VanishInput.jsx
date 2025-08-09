@@ -16,15 +16,17 @@ export default function VanishInput({
   const [caretOffset, setCaretOffset] = useState(0);
   const [showFakeCaret, setShowFakeCaret] = useState(false);
   const [fakeCaretDuration, setFakeCaretDuration] = useState(700); // ms
+
   const containerRef = useRef(null);
   const inputRef = useRef(null);
   const measureRef = useRef(null);
   const placeholderRef = useRef(null);
+  const charCentersRef = useRef([]);
+  const charWidthsRef = useRef([]);
 
   const iconSize = 24;
   const padding = 24;
   const baseLeft = iconSize + padding;
-  const MAX_PARTICLES_TOTAL = 220;
 
   const updateCaretOffset = () => {
     if (typeof window === 'undefined') return;
@@ -58,20 +60,50 @@ export default function VanishInput({
       e.preventDefault();
       const trimmed = value.trim();
       const nChars = trimmed.length;
-      const totalMs = nChars <= 4 ? 600 : 700; // modo pocas letras
+      const totalMs = nChars <= 4 ? 600 : 700;
+
+      // === medir centros reales por letra ===
+      let widths = [];
+      let centers = [];
+      try {
+        const cs = window.getComputedStyle(containerRef.current || inputRef.current);
+        const font = `${cs.fontWeight || '400'} ${cs.fontSize || '16px'} ${cs.fontFamily || 'sans-serif'}`;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.font = font;
+
+        for (let i = 0; i < nChars; i++) {
+          widths.push(ctx.measureText(trimmed[i]).width);
+        }
+
+        let acc = 0;
+        for (let i = 0; i < nChars; i++) {
+          const w = widths[i];
+          const cx = acc + w / 2;
+          centers.push(cx);
+          acc += w;
+        }
+      } catch {
+        const measured = measureRef.current?.offsetWidth || 0;
+        const avg = nChars ? measured / nChars : 10;
+        widths = Array.from({ length: nChars }, () => avg);
+        centers = widths.map((w, i) => i * avg + w / 2);
+      }
+
+      charCentersRef.current = centers;
+      charWidthsRef.current = widths;
 
       const chars = trimmed.split('').map((char, i) => ({
         id: `${char}-${i}-${Math.random().toString(36).slice(2, 9)}`,
         char,
-        offset: 12 * i,
-        top: 0,
         i,
+        cx: centers[i],
       }));
 
       if (caretOffset !== 0) setShowFakeCaret(true);
       setVanishing(true);
 
-      // limpiar contenido editable para que “desaparezcan” las letras
+      // limpiar contenido editable
       if (inputRef.current) {
         inputRef.current.textContent = '';
         inputRef.current.focus();
@@ -107,7 +139,7 @@ export default function VanishInput({
       }, totalMs - 2);
     }
 
-    // Atajos opcionales (dejá o sacá según necesidad)
+    // Atajos opcionales
     const editable = inputRef.current;
     const textNode = editable?.firstChild;
 
@@ -163,8 +195,6 @@ export default function VanishInput({
   };
 
   // ===== Render =====
-  const n = letters.length;
-  const FEW = n <= 4; // modo pocas letras activo si hay pocas letras en animación
   const TOTAL = (fakeCaretDuration || 700) / 1000; // en segundos
 
   return (
@@ -194,8 +224,8 @@ export default function VanishInput({
             <motion.div
               key="placeholder"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { delay: 0.15, duration: 0.5, ease: 'easeOut' } }}
+              exit={{ opacity: 0, transition: { duration: 0 } }}
               className="absolute text-neutral-500"
               style={{ left: `${baseLeft - 4}px` }}
             >
@@ -209,53 +239,71 @@ export default function VanishInput({
             <div
               ref={inputRef}
               contentEditable
-              className="bg-transparent outline-none text-white caret-transparent"
-              onFocus={() => {
-                setHasFocus(true);
-                updateCaretOffset();
-              }}
-              onBlur={() => setHasFocus(false)}
+              className="bg-transparent outline-none text-white"
               suppressContentEditableWarning
-              onInput={(e) => {
-                const raw = e.currentTarget.textContent;
-                const cleaned = raw.replace(/\n/g, '');
-                setValue(cleaned);
-                updateCaretOffset();
-              }}
               onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleKeyDown(e);
+                  return;
+                }
                 handleKeyDown(e);
                 setTimeout(updateCaretOffset, 0);
               }}
+              onInput={(e) => {
+                const raw = e.currentTarget.textContent;
+                const cleaned = raw.replace(/\n/g, '');
+                if (raw !== cleaned) {
+                  e.currentTarget.textContent = cleaned;
+                  const sel = window.getSelection();
+                  const range = document.createRange();
+                  range.setStart(e.currentTarget.firstChild || e.currentTarget, cleaned.length);
+                  range.collapse(true);
+                  sel.removeAllRanges();
+                  sel.addRange(range);
+                }
+                setValue(cleaned);
+                updateCaretOffset();
+              }}
+              onPaste={(e) => {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\n/g, '');
+                document.execCommand('insertText', false, text);
+              }}
             />
           ) : (
-            <div className="flex">
-              <AnimatePresence mode="popLayout">
-                {letters.map((item, i) => {
-                  const nLoc = letters.length;
-                  const norm = nLoc > 1 ? i / (nLoc - 1) : 0;
-                  const STAGGER_FRACTION = FEW ? 0.2 : 0.6; // menos stagger si pocas letras
-                  const LETTER_DURATION = 0.28;
-                  const delay = TOTAL * STAGGER_FRACTION * norm;
+            <>
+              {/* Letras que desaparecen (R -> L) sincronizadas con el fake caret */}
+              <div className="flex relative z-10">
+                <AnimatePresence mode="popLayout">
+                  {letters.map((item) => {
+                    const TOTAL_S = (fakeCaretDuration || 700) / 1000;
+                    const caretStartX = caretOffset;
+                    const caretEndX = -5;
+                    const letterX = item.cx;
+                    const denom = (caretStartX - caretEndX) || 1;
+                    const f = Math.min(1, Math.max(0, (caretStartX - letterX) / denom));
+                    const tCross = f * TOTAL_S;
+                    const delay = Math.max(0, tCross - 0.36);
+                    const LETTER_TIME = 0.04;
 
-                  const lift = FEW ? 6 : 0; // leve levantada para 1–4 letras
-                  const rot = FEW ? (i % 2 ? 6 : -6) : 0;
-
-                  return (
-                    <motion.span
-                      key={item.id}
-                      initial={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                      animate={{ opacity: 0, scale: 0.5, y: -lift, rotate: rot }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: LETTER_DURATION, delay }}
-                      className="relative inline-block"
-                      style={{ willChange: 'transform, opacity' }}
-                    >
-                      {item.char}
-                    </motion.span>
-                  );
-                })}
-              </AnimatePresence>
-            </div>
+                    return (
+                      <motion.span
+                        key={item.id}
+                        initial={{ opacity: 1 }}
+                        animate={{ opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: LETTER_TIME, delay, ease: 'easeOut' }}
+                        className="relative inline-block"
+                        style={{ willChange: 'opacity, transform' }}
+                      >
+                        {item.char}
+                      </motion.span>
+                    );
+                  })}
+                </AnimatePresence>
+              </div>
+            </>
           )}
         </div>
 
@@ -280,68 +328,6 @@ export default function VanishInput({
           </div>
         )}
       </div>
-
-      {/* Partículas */}
-      {vanishing && (
-        <div
-          className="absolute left-[32px] flex items-center pointer-events-none whitespace-pre pl-2"
-          style={{
-            top: '44%',
-            transform: 'translateY(-50%)',
-            height: '2rem',
-            zIndex: 50,
-            willChange: 'transform, opacity',
-          }}
-        >
-          <AnimatePresence>
-            {letters.map((item, i) => {
-              const nLoc = letters.length;
-              const norm = nLoc > 1 ? i / (nLoc - 1) : 0;
-              const PARTICLE_WINDOW = FEW ? 0.35 : 0.6;
-              const baseDelay = TOTAL * PARTICLE_WINDOW * (1 - norm);
-
-              // Cap total distribuido por letra + clamp por letra en pocas letras
-              const perLetterRaw = Math.max(6, Math.floor(MAX_PARTICLES_TOTAL / Math.max(1, nLoc)));
-              const perLetter = Math.min(perLetterRaw, FEW ? 40 : 28);
-
-              return (
-                <motion.span
-                  key={item.id}
-                  className="absolute"
-                  style={{ left: `${item.offset + baseLeft}px`, top: `${item.top}px` }}
-                >
-                  {[...Array(perLetter)].map((_, j) => {
-                    // Abanico angular para pocas letras; para muchas, mantenemos spread
-                    const angleDeg = FEW
-                      ? -110 + Math.random() * 40 // abanico definido
-                      : -130 + Math.random() * 70; // un poco más amplio con muchas letras
-                    const angle = (angleDeg * Math.PI) / 180;
-                    const distBase = FEW ? 60 : 90;
-                    const distRand = FEW ? 40 : 60;
-                    const dist = distBase + Math.random() * distRand;
-                    const dx = Math.cos(angle) * dist;
-                    const dy = Math.sin(angle) * dist;
-
-                    const dur = FEW ? 0.5 + Math.random() * 0.15 : 0.55 + Math.random() * 0.15;
-                    const dly = baseDelay + j * (FEW ? 0.0018 : 0.0025);
-
-                    return (
-                      <motion.div
-                        key={j}
-                        initial={{ x: 0, y: 12, opacity: 1, scale: 1 }}
-                        animate={{ x: dx, y: 12 + dy, opacity: 0, scale: 0.6 }}
-                        transition={{ duration: dur, delay: dly, ease: 'easeOut' }}
-                        className="absolute rounded-full bg-white"
-                        style={{ width: '1px', height: '1px', willChange: 'transform, opacity' }}
-                      />
-                    );
-                  })}
-                </motion.span>
-              );
-            })}
-          </AnimatePresence>
-        </div>
-      )}
 
       <p className="mt-4 text-neutral-500 text-sm z-10">Type and press Enter</p>
     </div>
