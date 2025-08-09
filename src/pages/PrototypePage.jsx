@@ -9,6 +9,7 @@ import PlaygroundCard from "../components/prototypes/PlaygroundCard";
 import VanishInput from "../components/prototypes/VanishInput";
 import DarkModeDemo from "../components/prototypes/DarkModeDemo";
 import GooeyTooltip from "../components/prototypes/GooeyTooltip";
+import PillNavBarDarkDock from "../components/prototypes/PillNavBarDarkDock";
 
 export default function PrototypePage() {
   const { id } = useParams();
@@ -143,6 +144,34 @@ if (id === "4") {
           <div className="grid place-items-center py-12">
             {/* En card, no hace falta fullScreen */}
             <GooeyTooltip />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+if (id === "5") {
+  return (
+    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-xl font-semibold">Prototype: Gooey Tooltip</h1>
+          <div className="flex items-center gap-4">
+            {/* Toggle Dark Mode */}
+            <DarkModeDemo />
+            <Link to="/" className="text-sm underline">← Back</Link>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
+          <p className="text-neutral-500 mb-6">
+            Pasá el mouse por el botón para ver el tooltip con efecto “gooey”.
+          </p>
+
+          <div className="grid place-items-center py-12">
+            {/* En card, no hace falta fullScreen */}
+            <PillNavBarDarkDock />
           </div>
         </div>
       </div>
