@@ -20,7 +20,7 @@ export default function Home() {
       descripcion: "Microservicios con reportes y notificaciones",
       gif: "public/gifs/gestor-turnos-sin-comprimir.mp4",
       proto: "View Prototype →",
-      prototype: "/prototype/gestor-turnos",      
+      prototype: "/prototype/2",      
       protoLabel: "View Prototype →",
     },
     {

@@ -6,6 +6,7 @@ import { PROTOTYPES } from "../prototypes";
 // 👇 importa tus componentes
 import CustomCursor from "../components/prototypes/CustomCursor";
 import PlaygroundCard from "../components/prototypes/PlaygroundCard";
+import VanishInput from "../components/prototypes/VanishInput";
 
 export default function PrototypePage() {
   const { id } = useParams();
@@ -43,6 +44,35 @@ export default function PrototypePage() {
 
             <div className="grid place-items-center py-8">
               <PlaygroundCard />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+    // ===== Prototype 2: Vanish Input =====
+  if (id === "2") {
+    return (
+      <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-xl font-semibold">Prototype: Vanish Input</h1>
+            <Link to="/" className="text-sm underline">← Back</Link>
+          </div>
+
+          <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
+            <p className="text-neutral-500 mb-6">
+              Escribí y presioná <kbd>Enter</kbd>: las letras “estallan” y el caret hace una animación.
+            </p>
+
+            <div className="grid place-items-center py-12">
+              <VanishInput
+                placeholder="What do you need?"
+                icon="🔍"
+                minWidth={220}
+                onSubmit={(text) => console.log("submit:", text)}
+              />
             </div>
           </div>
         </div>
