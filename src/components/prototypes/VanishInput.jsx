@@ -308,25 +308,31 @@ export default function VanishInput({
         </div>
 
         {/* Caret falso (solo X) */}
-        {showFakeCaret && (
-          <div
-            className="absolute pointer-events-none"
-            style={{
-              left: `${baseLeft}px`,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              zIndex: 9999,
-            }}
-          >
-            <motion.div
-              initial={{ x: caretOffset, opacity: 1 }}
-              animate={{ x: -5, opacity: 1 }}
-              transition={{ duration: TOTAL, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[2px] h-[1.25rem] bg-white rounded"
-              style={{ willChange: 'transform, opacity' }}
-            />
-          </div>
-        )}
+{showFakeCaret && (
+  <div
+    className="absolute pointer-events-none"
+    style={{
+      left: `${baseLeft}px`,
+      top: '50%',
+      transform: 'translateY(-50%)',
+      zIndex: 9999,
+    }}
+  >
+    <motion.div
+      initial={{ x: caretOffset, opacity: 1 }}
+      animate={{ x: -4, opacity: 1 }}
+      transition={{ duration: TOTAL, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        width: '0.6px',
+        height: '1.3rem',           // altura estándar (puedes ajustar)
+        backgroundColor: 'currentColor', // usa el color del texto actual
+        borderRadius: '1px',         // esquinas suaves como el real
+        willChange: 'transform, opacity',
+      }}
+    />
+  </div>
+)}
+
       </div>
 
       <p className="mt-4 text-neutral-500 text-sm z-10">Type and press Enter</p>
