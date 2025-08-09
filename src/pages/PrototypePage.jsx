@@ -80,12 +80,10 @@ if (id === "2") {
 
           <div className="grid place-items-center py-12">
             <VanishInput
-              size="xl"
-              fontSize={28}
-              iconSize={30}
-              paddingX={22}
-              paddingY={16}
-              minWidth={325}
+              placeholder="What do you need?"
+              icon="🔍"
+              minWidth={200}
+              onSubmit={(text) => console.log("submit:", text)}
             />
 
           </div>

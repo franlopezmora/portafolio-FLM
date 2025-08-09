@@ -10,26 +10,26 @@ function shuffle(array) {
 export default function Home() {
   const proyectos = [
     {
-      titulo: "Gestor de turnos",
-      descripcion: "Sistema para turnos de lavadero a domicilio",
+      titulo: "Custom Cursor",
+      descripcion: "",
       gif: "public/gifs/gestor-turnos.mp4",
       prototype: "/prototype/1", 
     },
     {
-      titulo: "TPI Backend 2025",
+      titulo: "Vanish Input",
       descripcion: "Microservicios con reportes y notificaciones",
       gif: "public/gifs/gestor-turnos-sin-comprimir.mp4",
       prototype: "/prototype/2",      
     },
     {
-      titulo: "Buscador de películas",
-      descripcion: "Frontend que consume la API de TMDB",
+      titulo: "Dark Mode Toggle",
+      descripcion: "",
       gif: "public/gifs/gestor-turnos-sin-comprimir-tanto.mp4",
       prototype: "/prototype/3", 
     },
     {
-      titulo: "Editor de código",
-      descripcion: "Un editor de markdown con vista previa en tiempo real",
+      titulo: "Gooey Tooltip",
+      descripcion: "",
       gif: "",
       prototype: "/prototype/4", 
     },
