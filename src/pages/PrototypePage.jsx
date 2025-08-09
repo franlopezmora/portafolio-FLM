@@ -110,6 +110,7 @@ if (id === "3") {
 
           <div className="grid place-items-center py-8">
               <div className="scale-150">
+                
                 <DarkModeDemo />
               </div>
           </div>
@@ -119,30 +120,34 @@ if (id === "3") {
   );
 }
 
-  // ===== Prototype 4: Gooey Tooltip (interactivo)
-  if (id === "4") {
-    return (
-      <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-xl font-semibold">Prototype: Gooey Tooltip</h1>
+// ===== Prototype 4: Gooey Tooltip (interactivo)
+if (id === "4") {
+  return (
+    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-xl font-semibold">Prototype: Gooey Tooltip</h1>
+          <div className="flex items-center gap-4">
+            {/* Toggle Dark Mode */}
+            <DarkModeDemo />
             <Link to="/" className="text-sm underline">← Back</Link>
           </div>
+        </div>
 
-          <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
-            <p className="text-neutral-500 mb-6">
-              Pasá el mouse por el botón para ver el tooltip con efecto “gooey”.
-            </p>
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
+          <p className="text-neutral-500 mb-6">
+            Pasá el mouse por el botón para ver el tooltip con efecto “gooey”.
+          </p>
 
-            <div className="grid place-items-center py-12">
-              {/* En card, no hace falta fullScreen */}
-              <GooeyTooltip />
-            </div>
+          <div className="grid place-items-center py-12">
+            {/* En card, no hace falta fullScreen */}
+            <GooeyTooltip />
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 
 
