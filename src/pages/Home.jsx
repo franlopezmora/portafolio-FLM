@@ -19,47 +19,46 @@ export default function Home() {
       titulo: "TPI Backend 2025",
       descripcion: "Microservicios con reportes y notificaciones",
       gif: "public/gifs/gestor-turnos-sin-comprimir.mp4",
-      proto: "View Prototype →",
       prototype: "/prototype/2",      
-      protoLabel: "View Prototype →",
     },
     {
       titulo: "Buscador de películas",
       descripcion: "Frontend que consume la API de TMDB",
-      gif: "public/gifs/gestor-turnos-sin-comprimir-tanto.mp4"
+      gif: "public/gifs/gestor-turnos-sin-comprimir-tanto.mp4",
+      prototype: "/prototype/3", 
     },
     {
       titulo: "Editor de código",
       descripcion: "Un editor de markdown con vista previa en tiempo real",
       gif: "",
-      essay: "Read Essay →"
+      prototype: "/prototype/4", 
     },
     {
       titulo: "Notificador por Discord",
       descripcion: "Sistema de alertas backend con microservicios",
-      gif: "https://media4.giphy.com/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/3CCXHZWV6F6O9VQ7FL/giphy.webp"
+      gif: "https://media4.giphy.om/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/3CCXHZWV6F6O9VQ7FL/giphy.webp"
     },
     {
       titulo: "TP Redes IP",
       descripcion: "Visualizador de topologías con simulación de paquetes",
-      gif: "https://media3.giphy.com/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/tHIRLHtNwxpjIFqPdV/giphy.webp",
+      gif: "https://media3.giphy.om/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/tHIRLHtNwxpjIFqPdV/giphy.webp",
       prototype: "View Prototype →"
     },
     {
       titulo: "Calculadora reactiva",
       descripcion: "Ejercicio interactivo de investigación operativa",
-      gif: "https://media0.giphy.com/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/Pkm4BdrRYlfiKPGJiW/giphy.webp"
+      gif: "https://media0.giphy.co/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/Pkm4BdrRYlfiKPGJiW/giphy.webp"
     },
     {
       titulo: "Animación de personaje",
       descripcion: "Diseño de indumentaria digital con movimientos",
-      gif: "https://media1.giphy.com/media/v1.Y2lkPTgyYTE0OTNiYnd1dTBobXcyYXFrOTZ6YnVmdTgwaTh3ZGt1Z3p0bnpvOHhucTVrYyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/RB46T9ysjzDEs/200.webp",
+      gif: "https://media1.giphy.commedia/v1.Y2lkPTgyYTE0OTNiYnd1dTBobXcyYXFrOTZ6YnVmdTgwaTh3ZGt1Z3p0bnpvOHhucTVrYyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/RB46T9ysjzDEs/200.webp",
       essay: "Read Essay →"
     },
     {
       titulo: "Dashboard de pruebas",
       descripcion: "Estadísticas en vivo de las pruebas de vehículos",
-      gif: "https://media3.giphy.com/media/v1.Y2lkPTgyYTE0OTNiOHZoeDcxcTV2N3M4cGN4amNibTl3Y3EzbjF1eHZ4aDY4d3VjMXZtMSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/3oEjI80DSa1grNPTDq/200.webp",
+      gif: "https://media3.giphy.com/meia/v1.Y2lkPTgyYTE0OTNiOHZoeDcxcTV2N3M4cGN4amNibTl3Y3EzbjF1eHZ4aDY4d3VjMXZtMSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/3oEjI80DSa1grNPTDq/200.webp",
       prototype: "View Prototype →"
     }
   ]

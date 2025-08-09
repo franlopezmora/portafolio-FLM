@@ -75,16 +75,19 @@ if (id === "2") {
 
         <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
           <p className="text-neutral-500 mb-6">
-            Escribí y presioná <kbd>Enter</kbd>: las letras “estallan” y el caret hace una animación.
+            Escribí y presioná <kbd>Enter</kbd>: las letras se borran y el caret regresa a su lugar.
           </p>
 
           <div className="grid place-items-center py-12">
             <VanishInput
-              placeholder="What do you need?"
-              icon="🔍"
-              minWidth={220}
-              onSubmit={(text) => console.log("submit:", text)}
+              size="xl"
+              fontSize={28}
+              iconSize={30}
+              paddingX={22}
+              paddingY={16}
+              minWidth={325}
             />
+
           </div>
         </div>
       </div>
