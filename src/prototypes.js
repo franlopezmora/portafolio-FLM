@@ -10,9 +10,8 @@ export const PROTOTYPES = {
     src: "/videos/demo.mp4",
   },
   3: {
-    title: "Imagen de ejemplo",
-    type: "image",
-    src: "/images/example.png",
+    title: 'Dark Mode Toggle (interactive)',
+    type: 'react', // etiqueta informativa; no la usa el router, pero sirve en listados
   },
   4: {
     title: "Iframe externo",

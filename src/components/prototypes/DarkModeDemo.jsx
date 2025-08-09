@@ -12,10 +12,10 @@ function getInitialDark() {
   }
 }
 
-export default function DarkModeToggle() {
+export default function DarkModeDemo() {
 
   const [dark, setDark] = useState(getInitialDark)
-  
+
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
     localStorage.setItem('dark', String(dark))
@@ -35,7 +35,7 @@ export default function DarkModeToggle() {
     >
       <Sun
         className={`
-          absolute left-1 w-4 h-4 text-yellow-500
+          absolute left-1 w-4 h-4 text-white-500
           transition-opacity duration-300
           ${dark ? 'opacity-100' : 'opacity-20'}
         `}

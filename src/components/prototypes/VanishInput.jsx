@@ -223,9 +223,12 @@ export default function VanishInput({
           {value === '' && !vanishing && (
             <motion.div
               key="placeholder"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { delay: 0.15, duration: 0.5, ease: 'easeOut' } }}
-              exit={{ opacity: 0, transition: { duration: 0 } }}
+              initial={{ opacity: 0 }} // empieza invisible
+              animate={{
+                opacity: 1,
+                transition: { delay: 0.15, duration: 1, ease: 'easeOut' } // espera 150ms antes de aparecer
+              }}
+              exit={{ opacity: 0, transition: { duration: 0 } }} // sale instantáneo
               className="absolute text-neutral-500"
               style={{ left: `${baseLeft - 4}px` }}
             >
@@ -233,6 +236,7 @@ export default function VanishInput({
             </motion.div>
           )}
         </AnimatePresence>
+
 
         <div className="relative pl-4 w-full whitespace-nowrap overflow-hidden z-10">
           {!vanishing ? (
@@ -323,8 +327,8 @@ export default function VanishInput({
       animate={{ x: -4, opacity: 1 }}
       transition={{ duration: TOTAL, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        width: '0.6px',
-        height: '1.3rem',           // altura estándar (puedes ajustar)
+        width: '0.1px',
+        height: '1.32rem',           // altura estándar (puedes ajustar)
         backgroundColor: 'currentColor', // usa el color del texto actual
         borderRadius: '1px',         // esquinas suaves como el real
         willChange: 'transform, opacity',
