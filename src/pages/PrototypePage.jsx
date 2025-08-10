@@ -10,6 +10,7 @@ import VanishInput from "../components/prototypes/VanishInput";
 import DarkModeDemo from "../components/prototypes/DarkModeDemo";
 import GooeyTooltip from "../components/prototypes/GooeyTooltip";
 import PillNavBarDarkDock from "../components/prototypes/PillNavBarDarkDock";
+import TodoBasic from "../components/prototypes/TodoBasic";
 
 export default function PrototypePage() {
   const { id } = useParams();
@@ -179,6 +180,32 @@ if (id === "5") {
   )
 }
 
+// ===== Prototype 6: Todo list + Animated Checkbox
+if (id === "6") {
+  return (
+    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-xl font-semibold">Prototype: Todo List (Animated Checkbox)</h1>
+          <div className="flex items-center gap-4">
+            <DarkModeDemo />
+            <Link to="/" className="text-sm underline">← Back</Link>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
+          <p className="text-neutral-500 mb-6">
+            Checkbox con tick animado (stroke), glow y ripple al marcar.
+          </p>
+
+          <div className="grid place-items-center py-8">
+            <TodoBasic />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 
 

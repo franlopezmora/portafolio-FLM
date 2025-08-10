@@ -31,8 +31,8 @@ export default function PillNavBarDarkDock({ embedded = false } = {}) {
   const dockLiftPad = 6            // cuánto aumenta el alto del dock al hover (px)
 
     const containerPosClasses = embedded
-    ? "relative mx-auto w-full max-w-lg"                              // ⬅️ dentro de la card
-    : "fixed bottom-8 left-1/2 -translate-x-1/2 w-[92vw] max-w-md"    // ⬅️ flotante global (default)
+    ? "relative mx-auto"                             // ⬅️ dentro de la card
+    : "fixed bottom-8 left-1/2 -translate-x-1/2"   // ⬅️ flotante global (default)
 
 
   return (
@@ -42,6 +42,7 @@ export default function PillNavBarDarkDock({ embedded = false } = {}) {
       onMouseLeave={() => { setIsDockHovering(false); setTooltipFor(null); setHoveredKey(null) }}
       className={`
         ${containerPosClasses}
+        w-[340px]
         rounded-full px-4
         bg-gray-900/80 backdrop-blur-md
         border border-white/10 shadow-2xl

@@ -34,15 +34,17 @@ export default function Home() {
       prototype: "/prototype/4", 
     },
     {
-      titulo: "Notificador por Discord",
-      descripcion: "Sistema de alertas backend con microservicios",
-      gif: "https://media4.giphy.om/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/3CCXHZWV6F6O9VQ7FL/giphy.webp"
+      titulo: "Pill Nav Dock",
+      descripcion: "",
+      gif: "",
+      prototype: "/prototype/5",
     },
     {
-      titulo: "TP Redes IP",
-      descripcion: "Visualizador de topologías con simulación de paquetes",
-      gif: "https://media3.giphy.om/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/tHIRLHtNwxpjIFqPdV/giphy.webp",
-      prototype: "View Prototype →"
+      titulo: "Animated Checkbox",
+      descripcion: "",
+      gif: "",
+      prototype: "/prototype/6",
+      fecha: "Enero 2025"
     },
     {
       titulo: "Calculadora reactiva",
