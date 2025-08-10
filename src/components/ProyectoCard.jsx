@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 export default function ProyectoCard({
   titulo, descripcion, gif, essay, fecha,
   prototype, protoLabel = "View Prototype",
+  overlayPos = "bottom",
+  titleColor = "light",
 }) {
   const isVideo = typeof gif === "string" && /\.(mp4|webm)$/i.test(gif);
   const isExternalPrototype = typeof prototype === "string" && /^https?:\/\//i.test(prototype);
@@ -45,19 +47,33 @@ export default function ProyectoCard({
         )}
 
         {/* Gradiente + overlay */}
-        <div className="absolute inset-0 rounded-[inherit] bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 flex items-end">
-          <div className="relative z-10 flex w-full items-end justify-between p-2">
-            <h2 className="truncate max-w-[70%] text-white font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+        {/* Gradiente + overlay */}
+        <div
+          className={`absolute inset-0 rounded-[inherit] pointer-events-none
+            ${overlayPos === "top"
+              ? "bg-gradient-to-b from-black/55 via-black/10 to-transparent"
+              : "bg-gradient-to-t from-black/55 via-black/10 to-transparent"
+            }`}
+        />
+
+        <div className={`absolute inset-0 flex
+          ${overlayPos === "top" ? "items-start" : "items-end"}`}>
+          <div className={`relative z-10 flex w-full items-center justify-between
+              p-2 ${overlayPos === "top" ? "pt-2" : "pb-2"}`}>
+            <h2 className={`truncate max-w-[70%] ${ titleColor === "dark"
+                ? "text-dark-900"
+                : "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+            }`}>
               {titulo}
             </h2>
             {fecha && (
-              <p className="truncate max-w-[70%] text-gray-400 font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+              <p className="truncate max-w-[70%] text-gray-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
                 {fecha}
               </p>
             )}
           </div>
         </div>
+
       </div>
 
       {/* Descripción */}
@@ -86,9 +102,10 @@ export default function ProyectoCard({
                 href={prototype}
                 target="_blank" rel="noopener noreferrer"
                 className="block w-full text-center text-sm font-medium py-2 rounded-lg
-                           bg-neutral-100 text-neutral-900 border border-neutral-200
-                           dark:bg-neutral-700 dark:text-white/90 dark:border-white/10
-                           hover:bg-neutral-200/70 dark:hover:bg-neutral-600/80 transition"
+                bg-neutral-200 text-gray-900 hover:bg-neutral-300
+                dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
+                transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40"
+
               >
                 {protoLabel}
               </a>
@@ -96,9 +113,10 @@ export default function ProyectoCard({
               <Link
                 to={prototype}
                 className="block w-full text-center text-sm font-medium py-2 rounded-lg
-                           bg-neutral-100 text-neutral-900 border border-neutral-200
-                           dark:bg-neutral-700 dark:text-white/90 dark:border-white/10
-                           hover:bg-neutral-200/70 dark:hover:bg-neutral-600/80 transition"
+                bg-neutral-200 text-gray-900 hover:bg-neutral-300
+                dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
+                transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40"
+
               >
                 {protoLabel}
               </Link>
@@ -108,9 +126,10 @@ export default function ProyectoCard({
               href={essay}
               target="_blank" rel="noopener noreferrer"
               className="block w-full text-center text-sm font-medium py-2 rounded-lg
-                         bg-neutral-100 text-neutral-900 border border-neutral-200
-                         dark:bg-neutral-700 dark:text-white/90 dark:border-white/10
-                         hover:bg-neutral-200/70 dark:hover:bg-neutral-600/80 transition"
+              bg-neutral-200 text-gray-900 hover:bg-neutral-300
+              dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
+              transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40"
+
             >
               Read Essay
             </a>

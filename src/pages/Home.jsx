@@ -13,7 +13,7 @@ export default function Home() {
       titulo: "Custom Cursor",
       descripcion: "",
       gif: "public/gifs/gestor-turnos.mp4",
-      prototype: "/prototype/1", 
+      prototype: "/prototype/1",
     },
     {
       titulo: "Vanish Input",
@@ -56,7 +56,10 @@ export default function Home() {
       titulo: "Animación de personaje",
       descripcion: "",
       gif: "",
-      essay: "Read Essay"
+      essay: "Read Essay",
+      overlayPos: "top",
+      titleColor: "dark",
+      fecha: "Marzo 2025",
     },
     {
       titulo: "Dashboard de pruebas",
