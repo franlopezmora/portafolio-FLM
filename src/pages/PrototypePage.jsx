@@ -151,14 +151,14 @@ if (id === "4") {
   );
 }
 
+// ===== Prototype 5: Pill Nav Dock (embedded en card)
 if (id === "5") {
   return (
     <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Gooey Tooltip</h1>
+          <h1 className="text-xl font-semibold">Prototype: Pill Nav Dock</h1>
           <div className="flex items-center gap-4">
-            {/* Toggle Dark Mode */}
             <DarkModeDemo />
             <Link to="/" className="text-sm underline">← Back</Link>
           </div>
@@ -166,18 +166,19 @@ if (id === "5") {
 
         <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
           <p className="text-neutral-500 mb-6">
-            Pasá el mouse por el botón para ver el tooltip con efecto “gooey”.
+            Navbar dock embebida dentro de la caja.
           </p>
 
-          <div className="grid place-items-center py-12">
-            {/* En card, no hace falta fullScreen */}
-            <PillNavBarDarkDock />
+          {/* Área de demostración: la navbar se alinea al fondo de la caja */}
+          <div className="relative h-56 flex items-end justify-center">
+            <PillNavBarDarkDock embedded />
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
+
 
 
 
