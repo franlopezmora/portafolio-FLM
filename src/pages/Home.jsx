@@ -17,7 +17,7 @@ export default function Home() {
     },
     {
       titulo: "Vanish Input",
-      descripcion: "Microservicios con reportes y notificaciones",
+      descripcion: "",
       gif: "public/gifs/gestor-turnos-sin-comprimir.mp4",
       prototype: "/prototype/2",      
     },
@@ -48,19 +48,20 @@ export default function Home() {
     },
     {
       titulo: "Calculadora reactiva",
-      descripcion: "Ejercicio interactivo de investigación operativa",
-      gif: "https://media0.giphy.co/media/v1.Y2lkPTgyYTE0OTNibGQyeGl4MXY3amdtc3U1ZDMxYzcyNGptNW10ZXd4dzB5MGExbmZ4eSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/Pkm4BdrRYlfiKPGJiW/giphy.webp"
+      descripcion: "",
+      fecha: "Marzo 2025",
+      gif: ""
     },
     {
       titulo: "Animación de personaje",
-      descripcion: "Diseño de indumentaria digital con movimientos",
-      gif: "https://media1.giphy.commedia/v1.Y2lkPTgyYTE0OTNiYnd1dTBobXcyYXFrOTZ6YnVmdTgwaTh3ZGt1Z3p0bnpvOHhucTVrYyZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/RB46T9ysjzDEs/200.webp",
-      essay: "Read Essay →"
+      descripcion: "",
+      gif: "",
+      essay: "Read Essay"
     },
     {
       titulo: "Dashboard de pruebas",
-      descripcion: "Estadísticas en vivo de las pruebas de vehículos",
-      gif: "https://media3.giphy.com/meia/v1.Y2lkPTgyYTE0OTNiOHZoeDcxcTV2N3M4cGN4amNibTl3Y3EzbjF1eHZ4aDY4d3VjMXZtMSZlcD12MV9naWZzX3RyZW5kaW5nJmN0PWc/3oEjI80DSa1grNPTDq/200.webp",
+      descripcion: "",
+      gif: "",
       prototype: "View Prototype →"
     }
   ]

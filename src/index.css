@@ -8,3 +8,7 @@
   flex-direction: column;
   gap: 0.5rem; /* vertical gap entre tarjetas (~20px) */
 }
+
+html, body, #root {
+  overflow-x: hidden;
+}

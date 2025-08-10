@@ -11,6 +11,7 @@ import DarkModeDemo from "../components/prototypes/DarkModeDemo";
 import GooeyTooltip from "../components/prototypes/GooeyTooltip";
 import PillNavBarDarkDock from "../components/prototypes/PillNavBarDarkDock";
 import TodoBasic from "../components/prototypes/TodoBasic";
+import Sidebar from "../components/prototypes/Sidebar";
 
 export default function PrototypePage() {
   const { id } = useParams();
@@ -207,6 +208,47 @@ if (id === "6") {
   )
 }
 
+// ===== Prototype 7: Sidebar demo (embebida)
+if (id === "7") {
+  return (
+    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-xl font-semibold">Prototype: Sidebar</h1>
+          <div className="flex items-center gap-4">
+            <DarkModeDemo />
+            <Link to="/" className="text-sm underline">← Back</Link>
+          </div>
+        </div>
+
+        {/* Caja sin padding y SIN overflow-x */}
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+          {/* Área de preview */}
+          <div className="h-[480px] bg-neutral-950 text-white flex overflow-x-hidden">
+            {/* Sidebar embebida (sin scroll horizontal) */}
+            <Sidebar
+              embedded
+              initialCollapsed={false}  // ponelo en true si querés arrancar colapsada
+            />
+
+            {/* Contenido de ejemplo */}
+            <main className="flex-1 min-w-0 p-4 space-y-3 overflow-auto">
+              <h2 className="text-lg font-semibold">Contenido</h2>
+              <p className="text-white/70">
+                Acá podés scrollear y ver cómo se comporta la sidebar embebida.
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="rounded-xl border border-white/10 bg-white/5 h-24" />
+                ))}
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
   // Resto de prototipos (lo que ya tenías)
