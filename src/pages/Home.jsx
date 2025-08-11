@@ -36,7 +36,9 @@ export default function Home() {
     {
       titulo: "Pill Nav Dock",
       descripcion: "",
-      gif: "",
+      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/nav-dock.mp4",
+      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/nav-dock.webm",
+      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/nav-dock-poster.jpg",
       prototype: "/prototype/5",
     },
     {
