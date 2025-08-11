@@ -211,7 +211,7 @@ if (id === "6") {
 // ===== Prototype 7: Sidebar demo (embebida)
 if (id === "7") {
   return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
+    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4 overflow-x-hidden">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-xl font-semibold">Prototype: Sidebar</h1>
@@ -223,23 +223,23 @@ if (id === "7") {
 
         {/* Caja sin padding y SIN overflow-x */}
         <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
-          {/* Área de preview */}
-          <div className="h-[480px] bg-neutral-950 text-white flex overflow-x-hidden">
-            {/* Sidebar embebida (sin scroll horizontal) */}
+          {/* Área de preview (tema dual) */}
+          <div className="h-[480px] bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white flex overflow-x-hidden">
+            {/* Sidebar embebida */}
             <Sidebar
               embedded
-              initialCollapsed={false}  // ponelo en true si querés arrancar colapsada
+              initialCollapsed={false} // ponelo en true si querés arrancar colapsada
             />
 
             {/* Contenido de ejemplo */}
             <main className="flex-1 min-w-0 p-4 space-y-3 overflow-auto">
               <h2 className="text-lg font-semibold">Contenido</h2>
-              <p className="text-white/70">
-                Acá podés scrollear y ver cómo se comporta la sidebar embebida.
+              <p className="opacity-70">
+                Podés scrollear esta columna y probar la sidebar colapsada/expandida sin scroll horizontal.
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="rounded-xl border border-white/10 bg-white/5 h-24" />
+                  <div key={i} className="rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 h-24" />
                 ))}
               </div>
             </main>
@@ -249,6 +249,7 @@ if (id === "7") {
     </div>
   );
 }
+
 
 
   // Resto de prototipos (lo que ya tenías)

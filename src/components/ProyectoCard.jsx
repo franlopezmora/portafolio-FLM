@@ -5,18 +5,29 @@ export default function ProyectoCard({
   prototype, protoLabel = "View Prototype",
   overlayPos = "bottom",
   titleColor = "light",
+  essayLabel = "Read Essay",
 }) {
   const isVideo = typeof gif === "string" && /\.(mp4|webm)$/i.test(gif);
   const isExternalPrototype = typeof prototype === "string" && /^https?:\/\//i.test(prototype);
-  const isExternalEssay = typeof essay === "string" && /^https?:\/\//i.test(essay);
 
-  const showEssayBlock   = !!(essay && !isExternalEssay);
-  const showEssayLinkBtn = !prototype && isExternalEssay;
+    // Detectamos essay como ruta interna o link externo
+  const essayIsRoute    = typeof essay === "string" && essay.startsWith("/");
+  const essayIsExternal = typeof essay === "string" && /^https?:\/\//i.test(essay);
+
+  const showEssayLinkBtn = essayIsRoute || essayIsExternal;
+  const showEssayBlock   = !!(essay && !showEssayLinkBtn);  
   const showProtoBtn     = !!prototype;
   const showActions      = showEssayBlock || showEssayLinkBtn || showProtoBtn;
   const showDescription  = !!descripcion;
 
   const fullBleedOnly = !showActions && !showDescription;
+
+  const ctaClasses = `
+    block w-full text-center text-sm font-medium py-2 rounded-lg
+    bg-neutral-200 text-gray-900 hover:bg-neutral-300
+    dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
+    transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40
+  `;
 
   return (
     <article
@@ -47,7 +58,6 @@ export default function ProyectoCard({
         )}
 
         {/* Gradiente + overlay */}
-        {/* Gradiente + overlay */}
         <div
           className={`absolute inset-0 rounded-[inherit] pointer-events-none
             ${overlayPos === "top"
@@ -61,7 +71,7 @@ export default function ProyectoCard({
           <div className={`relative z-10 flex w-full items-center justify-between
               p-2 ${overlayPos === "top" ? "pt-2" : "pb-2"}`}>
             <h2 className={`truncate max-w-[70%] ${ titleColor === "dark"
-                ? "text-dark-900"
+                ? "text-neutral-900"
                 : "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
             }`}>
               {titulo}
@@ -96,44 +106,29 @@ export default function ProyectoCard({
             </div>
           )}
 
-          {showProtoBtn ? (
+          {showProtoBtn && (
             isExternalPrototype ? (
-              <a
-                href={prototype}
-                target="_blank" rel="noopener noreferrer"
-                className="block w-full text-center text-sm font-medium py-2 rounded-lg
-                bg-neutral-200 text-gray-900 hover:bg-neutral-300
-                dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
-                transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40"
-
-              >
+              <a href={prototype} target="_blank" rel="noopener noreferrer" className={ctaClasses}>
                 {protoLabel}
               </a>
             ) : (
-              <Link
-                to={prototype}
-                className="block w-full text-center text-sm font-medium py-2 rounded-lg
-                bg-neutral-200 text-gray-900 hover:bg-neutral-300
-                dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
-                transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40"
-
-              >
+              <Link to={prototype} className={ctaClasses}>
                 {protoLabel}
               </Link>
             )
-          ) : showEssayLinkBtn ? (
-            <a
-              href={essay}
-              target="_blank" rel="noopener noreferrer"
-              className="block w-full text-center text-sm font-medium py-2 rounded-lg
-              bg-neutral-200 text-gray-900 hover:bg-neutral-300
-              dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
-              transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40"
+          )}
 
-            >
-              Read Essay
-            </a>
-          ) : null}
+          {showEssayLinkBtn && (
+            essayIsExternal ? (
+              <a href={essay} target="_blank" rel="noopener noreferrer" className={ctaClasses}>
+                {essayLabel}
+              </a>
+            ) : (
+              <Link to={essay} className={ctaClasses}>
+                {essayLabel}
+              </Link>
+            )
+          )}
         </div>
       )}
     </article>

@@ -20,22 +20,23 @@ export default function AnimatedTickCheckbox({
 
   return (
     <button
-      type="button"
-      onClick={handleToggle}
-      onKeyDown={handleKey}
-      aria-pressed={checked}
-      aria-label={checked ? "Desmarcar" : "Marcar"}
-      className={`relative inline-grid place-items-center outline-none ${className}`}
-      style={{ width: size + 10, height: size + 10 }}
-    >
+        type="button"
+        onClick={handleToggle}
+        onKeyDown={handleKey}
+        aria-pressed={checked}
+        aria-label={checked ? "Desmarcar" : "Marcar"}
+        className={`relative inline-grid place-items-center outline-none ${className}`}
+        style={{ width: size + 10, height: size + 10 }}
+      >
       {/* Backplate */}
       <motion.span
-        className="absolute inset-0 rounded-md border"
+        className="absolute inset-0 rounded-md border border-neutral-300 dark:border-white/20"
         initial={false}
         animate={{
           backgroundColor: checked ? "rgba(34,197,94,0.12)" : "rgba(255,255,255,0.02)",
-          borderColor: checked ? color : "rgba(255,255,255,0.3)",
           scale: checked ? 1.05 : 1,
+          // solo override del borde cuando está marcado
+          ...(checked ? { borderColor: color } : {}),
         }}
         transition={{ type: "spring", stiffness: 500, damping: 28 }}
       />
@@ -63,28 +64,32 @@ export default function AnimatedTickCheckbox({
         fill="none"
         className="relative"
       >
-        {/* opcional: contorno interior suave */}
-        <motion.rect
-          x="2" y="2" width="20" height="20" rx="5"
-          stroke={checked ? color : "rgba(255,255,255,0.35)"}
-          strokeWidth="1.2"
-          opacity={0.3}
-        />
-<motion.path
-  d="M6 12l4 4 8-8"
-  stroke={color}
-  strokeWidth="3"
-  strokeLinecap="round"
-  strokeLinejoin="round"
-  initial={{ pathLength: 0, opacity: 0 }}          // evita el punto al primer render
-  animate={{
-    pathLength: checked ? 1 : 0,                    // trazo se dibuja
-    opacity: checked ? 1 : 0,                       // oculto del todo cuando está desmarcado
-  }}
-  transition={{
-    pathLength: { duration: 0.25, ease: "easeOut" },
-  }}
-/>
+      {/* Contorno interno (siempre visible) */}
+      <motion.rect
+        x="2" y="2" width="20" height="20" rx="5"
+        className="text-neutral-400 dark:text-white/40" // gris en claro, blanco suave en oscuro
+        fill="none"
+        stroke="currentColor"                           // usa el color de la clase
+        strokeWidth="1.4"
+        initial={false}
+        animate={{ stroke: checked ? color : "currentColor" }} // al marcar, pasa al color del check
+        transition={{ duration: 0.2 }}
+      />
+      <motion.path
+        d="M6 12l4 4 8-8"
+        stroke={color}
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0 }}          // evita el punto al primer render
+        animate={{
+          pathLength: checked ? 1 : 0,                    // trazo se dibuja
+          opacity: checked ? 1 : 0,                       // oculto del todo cuando está desmarcado
+        }}
+        transition={{
+          pathLength: { duration: 0.25, ease: "easeOut" },
+        }}
+      />
 
       </motion.svg>
       {/* Glow solo cuando está marcado */}

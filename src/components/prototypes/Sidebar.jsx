@@ -40,16 +40,19 @@ export default function Sidebar({
   ]), [itemsProp])
 
   // medidas fijas
-  const W_COLLAPSED = 76        // ancho de la sidebar colapsada
+  const W_COLLAPSED = 76
   const W_EXPANDED  = 200
-  const LABEL_MAX   = 180       // ancho máximo animado del label
-  const ICON_NUDGE  = -8 
+  const LABEL_MAX   = 180
+  const ICON_NUDGE  = -8
 
   return (
     <>
+      {/* Botón mobile */}
       {!embedded && (
         <button
-          className="md:hidden fixed top-3 left-3 z-50 inline-flex items-center justify-center w-10 h-10 rounded-lg bg-neutral-900 text-white/90 border border-white/10"
+          className="md:hidden fixed top-3 left-3 z-50 inline-flex items-center justify-center w-10 h-10 rounded-lg
+                     bg-white text-neutral-900 border border-neutral-200
+                     dark:bg-neutral-900 dark:text-white/90 dark:border-white/10"
           onClick={() => setMobileOpen(true)}
           aria-label="Abrir menú"
         >
@@ -57,6 +60,7 @@ export default function Sidebar({
         </button>
       )}
 
+      {/* Backdrop mobile */}
       {!embedded && (
         <AnimatePresence>
           {mobileOpen && (
@@ -73,7 +77,8 @@ export default function Sidebar({
         className={`
           ${embedded ? "static" : "fixed md:static"} z-50 md:z-auto left-0 top-0
           h-screen md:h-auto
-          bg-neutral-900 text-white/90 border-r border-white/10
+          bg-white text-neutral-900 border-r border-neutral-200
+          dark:bg-neutral-900 dark:text-white/90 dark:border-white/10
           flex flex-col select-none min-w-0
         `}
         initial={false}
@@ -83,16 +88,19 @@ export default function Sidebar({
         }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        {/* Header: grid con primera columna fija (icono) */}
+        {/* Header */}
         <div className="relative h-14 px-2">
           <div className="grid h-full items-center"
                style={{ gridTemplateColumns: `${W_COLLAPSED}px 1fr` }}>
-            {/* Col 1: icono SIEMPRE centrado y del mismo tamaño */}
+            {/* Col 1: icono fijo/centrado */}
             <div className="grid place-items-center" style={{ transform: `translateX(${ICON_NUDGE}px)` }}>
-            <div className="grid place-items-center w-8 h-8 rounded-lg bg-white/10 border border-white/10">
+              <div className="grid place-items-center w-8 h-8 rounded-lg
+                              bg-neutral-100 border border-neutral-200
+                              dark:bg-white/10 dark:border-white/10">
                 <User className="w-5 h-5" />
+              </div>
             </div>
-            </div>
+
             {/* Col 2: label con maxWidth animado */}
             <motion.div
               className="overflow-hidden whitespace-nowrap font-semibold tracking-tight"
@@ -107,7 +115,9 @@ export default function Sidebar({
           {/* Toggle (desktop) */}
           <button
             onClick={() => setCollapsed(v => !v)}
-            className="hidden md:inline-flex absolute -right-3.5 top-3 items-center justify-center w-7 h-7 rounded-full bg-neutral-900 border border-white/10"
+            className="hidden md:inline-flex absolute -right-3.5 top-3 items-center justify-center w-7 h-7 rounded-full
+                       bg-white text-neutral-900 border border-neutral-200
+                       dark:bg-neutral-900 dark:text-white/90 dark:border-white/10"
             aria-label={collapsed ? "Expandir" : "Colapsar"}
             title={collapsed ? "Expandir" : "Colapsar"}
           >
@@ -119,7 +129,8 @@ export default function Sidebar({
           {!embedded && (
             <button
               onClick={() => setMobileOpen(false)}
-              className="md:hidden absolute right-3 top-3 text-white/70 hover:text-white"
+              className="md:hidden absolute right-3 top-3 text-neutral-600 hover:text-neutral-900
+                         dark:text-white/70 dark:hover:text-white"
               aria-label="Cerrar"
             >
               ✕
@@ -127,7 +138,7 @@ export default function Sidebar({
           )}
         </div>
 
-        {/* Nav: misma grilla para cada ítem */}
+        {/* Nav */}
         <nav className="px-2 py-2 flex-1 overflow-y-auto overflow-x-hidden">
           <ul className="space-y-1">
             {items.map((item) => {
@@ -139,15 +150,17 @@ export default function Sidebar({
                     onClick={() => setMobileOpen(false)}
                     className={({ isActive }) =>
                       `grid items-center rounded-lg border h-10 px-1
-                       ${isActive
-                          ? "bg-white/10 border-white/15 text-white"
-                          : "border-transparent hover:bg-white/5 hover:border-white/10 text-white/80"}`
+                       ${
+                         isActive
+                           ? "bg-neutral-200/70 border-neutral-300 text-neutral-900 dark:bg-white/10 dark:border-white/15 dark:text-white"
+                           : "border-transparent text-neutral-700 hover:bg-neutral-100 hover:border-neutral-200 dark:text-white/80 dark:hover:bg-white/5 dark:hover:border-white/10"
+                       }`
                     }
                     style={{ gridTemplateColumns: `${W_COLLAPSED}px 1fr` }}
                   >
-                    {/* Col 1: icono fijo y centrado, con nudge */}
+                    {/* Col 1: icono */}
                     <div className="grid place-items-center" style={{ transform: `translateX(${ICON_NUDGE - 5}px)` }}>
-                    <Icon className="w-5 h-5" />
+                      <Icon className="w-5 h-5" />
                     </div>
 
                     {/* Col 2: label animado */}
@@ -160,12 +173,12 @@ export default function Sidebar({
                       {item.label}
                     </motion.span>
 
-                    {/* Tooltip al estar colapsada */}
+                    {/* Tooltip en colapsado */}
                     {collapsed && (
                       <span
                         className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2
-                                   rounded-md px-2 py-1 text-xs bg-black/90 opacity-0
-                                   border border-white/10 text-white group-hover:opacity-100"
+                                   rounded-md px-2 py-1 text-xs bg-neutral-900 text-white opacity-0
+                                   border border-white/10 group-hover:opacity-100"
                       >
                         {item.label}
                       </span>
@@ -177,15 +190,17 @@ export default function Sidebar({
           </ul>
         </nav>
 
-        {/* Footer: igual patrón */}
-        <div className="border-t border-white/10 px-2 py-2">
+        {/* Footer */}
+        <div className="border-t border-neutral-200 dark:border-white/10 px-2 py-2">
           <button
-            className="grid items-center rounded-lg border border-transparent hover:border-white/10 hover:bg-white/5 h-10 px-1 w-full"
+            className="grid items-center rounded-lg border h-10 px-1 w-full
+                       border-transparent hover:bg-neutral-100 hover:border-neutral-200
+                       dark:hover:bg-white/5 dark:hover:border-white/10"
             style={{ gridTemplateColumns: `${W_COLLAPSED}px 1fr` }}
             onClick={() => alert("Config…")}
           >
             <div className="grid place-items-center" style={{ transform: `translateX(${ICON_NUDGE - 5}px)` }}>
-            <Settings className="w-5 h-5" />
+              <Settings className="w-5 h-5" />
             </div>
             <motion.span
               className="overflow-hidden whitespace-nowrap"
@@ -199,6 +214,7 @@ export default function Sidebar({
         </div>
       </motion.aside>
 
+      {/* Empuje de layout solo fuera de embedded */}
       {!embedded && (
         <div className="hidden md:block" style={{ width: collapsed ? W_COLLAPSED : W_EXPANDED }} />
       )}

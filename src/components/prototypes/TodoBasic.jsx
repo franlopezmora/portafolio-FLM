@@ -42,14 +42,20 @@ export default function TodoBasic() {
           placeholder="Nueva tarea…"
           className="flex-1 rounded-md border border-neutral-200/50 dark:border-neutral-700/60 bg-white/60 dark:bg-neutral-800/60 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-400/60"
         />
-        <button
-          type="submit"
-          className="inline-flex items-center gap-2 rounded-md px-3 py-2 border border-white/10 bg-white/10 hover:bg-white/15 text-white backdrop-blur-sm"
-          title="Agregar"
-        >
-          <Plus className="w-4 h-4" />
-          Agregar
-        </button>
+<button
+  type="submit"
+  className="
+    inline-flex items-center gap-2 rounded-md px-3 py-2
+    bg-neutral-100 text-neutral-900 border border-neutral-200 hover:bg-neutral-200/70
+    dark:bg-white/10 dark:text-white dark:border-white/10 dark:hover:bg-white/15
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60
+  "
+  title="Agregar"
+>
+  <Plus className="w-4 h-4" />
+  <span className="inline-block -translate-y-[1px] transform">Agregar</span>
+</button>
+
       </form>
 
       {/* Lista */}

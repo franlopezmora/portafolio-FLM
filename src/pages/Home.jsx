@@ -56,7 +56,7 @@ export default function Home() {
       titulo: "Animación de personaje",
       descripcion: "",
       gif: "",
-      essay: "Read Essay",
+      essay: "http://localhost:5173/prototype/3",
       overlayPos: "top",
       titleColor: "dark",
       fecha: "Marzo 2025",
