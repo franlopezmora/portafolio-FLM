@@ -83,7 +83,7 @@ if (id === "2") {
 
           <div className="grid place-items-center py-12">
             <VanishInput
-              placeholder="What do you need?"
+              placeholder="¿Qué necesitas?"
               icon="🔍"
               minWidth={200}
               onSubmit={(text) => console.log("submit:", text)}
