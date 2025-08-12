@@ -27,13 +27,17 @@ export default function Home() {
     {
       titulo: "Dark Mode Toggle",
       descripcion: "",
-      gif: "public/gifs/gestor-turnos-sin-comprimir-tanto.mp4",
+      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode-toggle/dark-mode-toggle.mp4",
+      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode-toggle/dark-mode-toggle.webm",
+      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode-toggle/dark-mode-toggle-poster.jpg",
       prototype: "/prototype/3", 
     },
     {
       titulo: "Gooey Tooltip",
       descripcion: "",
-      gif: "",
+      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip.mp4",
+      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip.webm",
+      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip-poster.jpg",
       prototype: "/prototype/4", 
     },
     {
@@ -47,16 +51,22 @@ export default function Home() {
     {
       titulo: "Animated Checkbox",
       descripcion: "",
-      gif: "",
+      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox.mp4",
+      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox.webm",
+      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox-poster.jpg",
       prototype: "/prototype/6",
+      titleColor: "dark",
       fecha: "Enero 2025"
     },
     {
-      titulo: "Calculadora reactiva",
+      titulo: "Side Bar",
       descripcion: "",
-      fecha: "Marzo 2025",
-      gif: ""
-    },
+      fecha: "Junio 2025",
+      prototype: "/prototype/7",
+gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar.mp4",
+webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar.webm",
+poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar-poster.jpg",
+},
     {
       titulo: "Animación de personaje",
       descripcion: "",

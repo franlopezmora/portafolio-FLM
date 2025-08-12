@@ -233,10 +233,7 @@ if (id === "7") {
 
             {/* Contenido de ejemplo */}
             <main className="flex-1 min-w-0 p-4 space-y-3 overflow-auto">
-              <h2 className="text-lg font-semibold">Contenido</h2>
-              <p className="opacity-70">
-                Podés scrollear esta columna y probar la sidebar colapsada/expandida sin scroll horizontal.
-              </p>
+              <h2 className="text-lg font-semibold ml-8">Content</h2>
               <div className="grid grid-cols-2 gap-3">
                 {Array.from({ length: 8 }).map((_, i) => (
                   <div key={i} className="rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 h-24" />

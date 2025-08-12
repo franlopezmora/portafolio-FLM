@@ -42,7 +42,7 @@ export default function Sidebar({
   // medidas fijas
   const W_COLLAPSED = 76
   const W_EXPANDED  = 200
-  const LABEL_MAX   = 180
+  const LABEL_MAX   = 185
   const ICON_NUDGE  = -8
 
   return (
