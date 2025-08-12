@@ -27,11 +27,9 @@ export default function Home() {
     {
       titulo: "Dark Mode Toggle",
       descripcion: "",
-      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode-toggle/dark-mode-toggle.mp4",
-      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode-toggle/dark-mode-toggle.webm",
-      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode-toggle/dark-mode-toggle-poster.jpg",
-      prototype: "/prototype/3", 
-    },
+      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode2/dark-mode2.mp4",
+      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode2/dark-mode2.webm",
+      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode2/dark-mode2-poster.jpg", },
     {
       titulo: "Gooey Tooltip",
       descripcion: "",
