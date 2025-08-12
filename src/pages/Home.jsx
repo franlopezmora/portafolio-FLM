@@ -18,8 +18,11 @@ export default function Home() {
     {
       titulo: "Vanish Input",
       descripcion: "",
-      gif: "public/gifs/gestor-turnos-sin-comprimir.mp4",
-      prototype: "/prototype/2",      
+      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input.mp4",
+      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input.webm",
+      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input-poster.jpg",
+      prototype: "/prototype/2",
+      playbackRate: 1.9,      
     },
     {
       titulo: "Dark Mode Toggle",

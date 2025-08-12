@@ -6,6 +6,7 @@ export default function ProyectoCard({
   overlayPos = "bottom",
   titleColor = "light",
   essayLabel = "Read Essay",
+  playbackRate = 1,
 }) {
   const navigate = useNavigate();
 
@@ -72,6 +73,8 @@ export default function ProyectoCard({
             preload="metadata"
             poster={poster}
             className="w-full h-auto block"
+            onLoadedMetadata={(e) => { e.currentTarget.playbackRate = playbackRate; }}
+            onPlay={(e) => { if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate; }}
             onError={(e) => {
               const v = e.currentTarget;
               if (webm && gif && /\.mp4$/i.test(gif)) {
