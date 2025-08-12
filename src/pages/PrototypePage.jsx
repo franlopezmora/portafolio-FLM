@@ -85,7 +85,7 @@ if (id === "2") {
             <VanishInput
               placeholder="¿Qué necesitas?"
               icon="🔍"
-              minWidth={200}
+              minWidth={179}
               onSubmit={(text) => console.log("submit:", text)}
             />
 
