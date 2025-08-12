@@ -35,10 +35,9 @@ export default function Home() {
     {
       titulo: "Gooey Tooltip",
       descripcion: "",
-      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip.mp4",
-      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip.webm",
-      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip-poster.jpg",
-      prototype: "/prototype/4", 
+  gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2.mp4",
+  webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2.webm",
+  poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2-poster.jpg", prototype: "/prototype/4", 
     },
     {
       titulo: "Pill Nav Dock",

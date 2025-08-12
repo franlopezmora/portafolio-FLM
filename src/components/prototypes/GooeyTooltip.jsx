@@ -2,6 +2,7 @@
 "use client";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { User } from "lucide-react";
 
 export default function GooeyTooltip({ fullScreen = false }) {
   const [open, setOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function GooeyTooltip({ fullScreen = false }) {
           layoutId="gooey"
           className="z-10 w-20 h-20 rounded-full bg-zinc-200 text-black font-bold text-2xl flex items-center justify-center shadow-xl"
         >
-          ?
+          <User className="w-8 h-8" />
         </motion.button>
 
         <AnimatePresence>
@@ -47,9 +48,10 @@ export default function GooeyTooltip({ fullScreen = false }) {
               animate={{ x: 65, y: -120, scale: 1, opacity: 1 }}
               exit={{ x: 0, y: 0, scale: 0.2, opacity: 0 }}
               transition={{ type: "spring", bounce: 0.3, duration: 0.8 }}
-              className="absolute w-52 min-h-[100px] rounded-2xl bg-zinc-200 text-zinc-900 text-center flex items-center justify-center px-4 py-4 pointer-events-none"
+              className="absolute w-52 min-h-[100px] rounded-2xl bg-zinc-200 text-zinc-900 text-center flex flex-col items-center justify-center px-4 py-4 pointer-events-none"
             >
-              Damn that's gooey
+              <h3 className="font-semibold">Francisco</h3>
+              <p className="text-sm text-gray-600">Desarrollador Fullstack</p>
             </motion.div>
           )}
         </AnimatePresence>
