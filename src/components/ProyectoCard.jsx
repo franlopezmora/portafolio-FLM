@@ -44,8 +44,7 @@ export default function ProyectoCard({
         break-inside-avoid rounded-xl border shadow-sm
         bg-white text-neutral-900 border-neutral-200
         dark:bg-neutral-800 dark:text-neutral-100 dark:border-neutral-700
-        transition-colors duration-200
-        hover:shadow-lg hover:-translate-y-0.5 transform
+        transition-colors duration-200 transform
         ${fullBleedOnly ? "p-0" : "p-1"}
         ${prototype ? "cursor-pointer" : "cursor-default"}
       `}
@@ -60,7 +59,7 @@ export default function ProyectoCard({
         className={`
           relative overflow-hidden
           ${fullBleedOnly ? "rounded-xl" : "rounded-lg"}
-          bg-neutral-100 dark:bg-neutral-700 aspect-[16/9]
+          bg-neutral-100 dark:bg-neutral-700
         `}
       >
         {hasVideo ? (
@@ -72,7 +71,7 @@ export default function ProyectoCard({
             loop
             preload="metadata"
             poster={poster}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="w-full h-auto block"
             onError={(e) => {
               const v = e.currentTarget;
               if (webm && gif && /\.mp4$/i.test(gif)) {
@@ -91,10 +90,10 @@ export default function ProyectoCard({
             alt={titulo}
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="w-full h-auto block"
           />
         ) : (
-          <div className="absolute inset-0 animate-pulse" />
+          <div className="w-full min-h-[200px] animate-pulse" />
         )}
 
         {/* Gradiente + overlay */}

@@ -1,6 +1,8 @@
 'use client';
 import { useState, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import lupaPng from "./lupa sin fondo.png";
+import lupaPngBlanca from "./output-onlinepngtools.png"
 
 export default function VanishInput({
   placeholder = 'What do you need?',
@@ -212,12 +214,33 @@ export default function VanishInput({
       </span>
 
       {/* contenedor del input */}
-      <div
-        ref={containerRef}
-        className="relative z-10 bg-black text-white px-3 py-2 rounded-lg border border-neutral-800 shadow-lg overflow-hidden flex items-center"
-        style={{ width: `${inputWidth}px`, transition: 'width 0.3s ease-in-out' }}
-      >
-        <span className="text-neutral-500 w-4 shrink-0">{icon}</span>
+        <div
+          ref={containerRef}
+          className="
+            relative z-10
+            bg-white text-black border border-neutral-300
+            dark:bg-black dark:text-white dark:border-neutral-800
+            px-3 py-2 rounded-lg shadow-lg overflow-hidden flex items-center
+          "
+          style={{ width: `${inputWidth}px`, transition: 'width 0.3s ease-in-out' }}
+        >
+        <span className="w-6 h-6 shrink-0 inline-flex items-center justify-center">
+          {/* Light mode */}
+          <img
+            src={lupaPng}
+            alt=""
+            className="w-5 h-5 object-contain pointer-events-none select-none dark:hidden"
+            draggable="false"
+          />
+          {/* Dark mode */}
+          <img
+            src={lupaPngBlanca}
+            alt=""
+            className="w-5 h-5 object-contain pointer-events-none select-none hidden dark:inline-block"
+            draggable="false"
+          />
+        </span>
+
 
         <AnimatePresence>
           {value === '' && !vanishing && (
@@ -229,7 +252,8 @@ export default function VanishInput({
                 transition: { delay: 0.15, duration: 1, ease: 'easeOut' } // espera 150ms antes de aparecer
               }}
               exit={{ opacity: 0, transition: { duration: 0 } }} // sale instantáneo
-              className="absolute text-neutral-500"
+              className="absolute text-neutral-500 dark:text-neutral-400"
+
               style={{ left: `${baseLeft - 4}px` }}
             >
               {placeholder}
@@ -238,12 +262,12 @@ export default function VanishInput({
         </AnimatePresence>
 
 
-        <div className="relative pl-4 w-full whitespace-nowrap overflow-hidden z-10">
+        <div className="relative pl-2 w-full whitespace-nowrap overflow-hidden z-10">
           {!vanishing ? (
             <div
               ref={inputRef}
               contentEditable
-              className="bg-transparent outline-none text-white"
+              className="bg-transparent outline-none text-black dark:text-white caret-black dark:caret-white"
               suppressContentEditableWarning
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -328,18 +352,19 @@ export default function VanishInput({
       transition={{ duration: TOTAL, ease: [0.16, 1, 0.3, 1] }}
       style={{
         width: '0.1px',
-        height: '1.32rem',           // altura estándar (puedes ajustar)
+        height: '1.33rem',           // altura estándar (puedes ajustar)
         backgroundColor: 'currentColor', // usa el color del texto actual
         borderRadius: '1px',         // esquinas suaves como el real
         willChange: 'transform, opacity',
       }}
+      className="text-black dark:text-white"
     />
   </div>
 )}
 
       </div>
 
-      <p className="mt-4 text-neutral-500 text-sm z-10">Type and press Enter</p>
+      <p className="mt-4 text-neutral-500 text-sm z-10">Escribí y presioná <kbd>Enter</kbd></p>
     </div>
   );
 }
