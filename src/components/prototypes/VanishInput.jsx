@@ -5,7 +5,7 @@ import lupaPng from "./lupa sin fondo.png";
 import lupaPngBlanca from "./output-onlinepngtools.png"
 
 export default function VanishInput({
-  placeholder = 'What do you need?',
+  placeholder = '¿Qué necesitas?',
   icon = '🔍',
   minWidth = 100,
   onSubmit = () => {},
