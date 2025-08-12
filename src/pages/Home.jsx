@@ -29,7 +29,8 @@ export default function Home() {
       descripcion: "",
       gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3.mp4",
       webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3.webm",
-      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3-poster.jpg",{
+      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3-poster.jpg", },
+    {
       titulo: "Gooey Tooltip",
       descripcion: "",
   gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2.mp4",
