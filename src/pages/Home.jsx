@@ -64,7 +64,7 @@ export default function Home() {
       fecha: "Junio 2025",
       prototype: "/prototype/7",
 gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar.mp4",
-webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar.webm",
+webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar2.webm",
 poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar-poster.jpg",
 },
     {
