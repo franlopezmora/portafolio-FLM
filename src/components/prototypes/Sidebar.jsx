@@ -144,22 +144,22 @@ export default function Sidebar({
             {items.map((item) => {
               const Icon = item.icon
               return (
-                <li key={item.to}>
-                  <NavLink
-                    to={item.to}
+                <li key={item.label}>
+                  <button
+                    type="button"
                     onClick={() => setMobileOpen(false)}
-                    className={({ isActive }) =>
-                      `grid items-center rounded-lg border h-10 px-1
-                       ${
-                         isActive
-                           ? "bg-neutral-200/70 border-neutral-300 text-neutral-900 dark:bg-white/10 dark:border-white/15 dark:text-white"
-                           : "border-transparent text-neutral-700 hover:bg-neutral-100 hover:border-neutral-200 dark:text-white/80 dark:hover:bg-white/5 dark:hover:border-white/10"
-                       }`
-                    }
+                    className={`
+                      grid items-center rounded-lg border h-10 px-1 w-full text-left
+                      border-transparent text-neutral-700 hover:bg-neutral-100 hover:border-neutral-200
+                      dark:text-white/80 dark:hover:bg-white/5 dark:hover:border-white/10
+                    `}
                     style={{ gridTemplateColumns: `${W_COLLAPSED}px 1fr` }}
                   >
                     {/* Col 1: icono */}
-                    <div className="grid place-items-center" style={{ transform: `translateX(${ICON_NUDGE - 5}px)` }}>
+                    <div
+                      className="grid place-items-center"
+                      style={{ transform: `translateX(${ICON_NUDGE - 5}px)` }}
+                    >
                       <Icon className="w-5 h-5" />
                     </div>
 
@@ -177,18 +177,19 @@ export default function Sidebar({
                     {collapsed && (
                       <span
                         className="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-2
-                                   rounded-md px-2 py-1 text-xs bg-neutral-900 text-white opacity-0
-                                   border border-white/10 group-hover:opacity-100"
+                                  rounded-md px-2 py-1 text-xs bg-neutral-900 text-white opacity-0
+                                  border border-white/10 group-hover:opacity-100"
                       >
                         {item.label}
                       </span>
                     )}
-                  </NavLink>
+                  </button>
                 </li>
               )
             })}
           </ul>
         </nav>
+
 
         {/* Footer */}
         <div className="border-t border-neutral-200 dark:border-white/10 px-2 py-2">

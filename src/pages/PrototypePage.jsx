@@ -137,10 +137,17 @@ if (id === "4") {
             <Link to="/" className="text-sm underline">← Back</Link>
           </div>
         </div>
-                  <div className="grid fixed -bottom-10 ml-4">
+
+        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
+          <p className="text-neutral-500 mb-6">
+            Pasá el mouse por el botón para ver el tooltip con efecto “gooey”.
+          </p>
+
+          <div className="grid place-items-center py-12">
             {/* En card, no hace falta fullScreen */}
             <GooeyTooltip />
           </div>
+        </div>
 
       </div>
     </div>
