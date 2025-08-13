@@ -1,26 +1,20 @@
 ---
 title: "Crafting Cruma"
-date: "2025-04-01"
+date: "13-08-2025"
 description: "Cómo armamos Cruma, el planificador de horarios hecho por y para estudiantes."
 ---
 
-# Crafting Cruma
-
-En enero, con **Nicolás Garay**, nos pusimos a resolver un quilombo que todos los estudiantes conocemos: **armar horarios sin volverse loco**.  
-La idea de Cruma pintaba simple: elegir materias, ver comisiones, evitar choques… pero atrás había un montón de decisiones chiquitas que, juntas, hacen que la experiencia sea **fluida** y no una lucha contra la compu.
+En julio, con **Nicolás Garay**, nos pusimos a resolver un problema que todos los estudiantes conocemos: **armar horarios sin volverse loco**.  
+La idea de Cruma sonaba simple: elegir materias, ver comisiones, evitar choques… pero atrás había un montón de decisiones chiquitas que, juntas, hacen que la experiencia sea **fluida** y no una lucha contra la compu.
 
 Más que contarte *qué* hicimos, en este ensayo te cuento **cómo lo construimos**: qué fuimos decidiendo, cómo lo dividimos para poder mostrar algo rápido, y sobre todo, en qué detalles le pusimos cariño.
 
-## Shippear temprano, iterar siempre
+import EssayImage from "../components/EssayImage.jsx";
 
-No quisimos clavar el 100% de una. Lo armamos en **capas** para ir mejorando de a poco:
-
-1. **Flujo progresivo**: carrera → cuatrimestre → búsqueda → selección → armar horario.  
-2. **Grilla de tiempo**: fija, bien alineada y de 8:00 a 23:05 cada 5 minutos.  
-3. **Preview y fijado**: interacción clara, sin bloques que se escondan.  
-4. **Extras**: filtros opcionales, estados más claros y detalles finos.
-
-Cada capa se mergeaba apenas era **mejor que lo anterior**. Animaciones y lujos visuales vinieron después, cuando la base ya era sólida.
+<EssayImage 
+  src="cruma.png" 
+  alt="Interfaz de CRUMA mostrando la grilla de horarios"
+/>
 
 ## La grilla: el corazón de todo
 
@@ -36,22 +30,18 @@ Cuando estás probando comisiones, lo que ves como **preview** siempre queda arr
 ## Choques entre previews
 
 Si dos previews chocan en el mismo día y franja, **no se tapan**: la columna se parte a la mitad y cada uno ocupa su lado.  
-Si hay tres o más, rotamos (0/1/0…) y listo.
+Si hay tres o más, se sigue subdividiendo y listo.
 
 En esos casos apretados, mostramos solo lo básico: código, sección y hora. Menos ruido = más claridad.
 
-## El bug que nos enseñó a pensar en identidades
+## El flujo y los “resets”
 
-Resulta que el `comisionId` se repite entre materias. La clave real es **materiaId + comisionId** (y si querés más precisión, sumale el horario). Ese cambio mental nos salvó de varios bugs raros y estados cruzados.
-
-## El flujo y los “resets” que dan paz mental
-
-Cruma no te hace pensar en la app, te deja pensar en tu cursada:
+Cruma no te hace pensar en la app, facilita el armado de tu cronograma:
 
 1. Sin carrera elegida, no mostramos nada.  
 2. Elegís cuatrimestre → traemos materias de ese período y anuales.  
 3. Ahí recién habilitamos búsqueda y filtros.  
-4. Si cambiás carrera o cuatri, reseteamos todo. Nada de “fantasmas” en la pantalla.
+4. Si cambiás carrera o cuatri, reseteamos todo.
 
 ## Búsqueda que no molesta
 
@@ -62,23 +52,21 @@ Y siempre tenés el panel de “Seleccionadas” a mano para sacar lo que quiera
 
 ## El lado B: de PDF a datos útiles
 
-Esta parte fue un parto. Los PDFs del Departamento de Sistemas venían de mil formas:  
-algunos con texto, otros escaneados, tablas irregulares, días desordenados, formatos de hora distintos…
+Esta parte fue lo más complicado. Los horarios venían en formato PDF:  
+Y surgió la duda, ¿Cómo los traducimos a datos crudos?
 
-Terminamos armando un mini-ETL: detectamos si hacía falta OCR, normalizamos todo (unicode, guiones, espacios invisibles), convertimos días a números, horas a formato `H:mm`, y deduplicamos antes de guardar.
-
-Gracias a eso, lo que ves en la grilla **cae exactamente donde debe**, aunque el PDF original fuera un desastre.
+Terminamos armando todos las tablas a mano, para poder pasarlos a CSV, un formato fácil de importar a cualquier Base de Datos.
 
 ## Más allá de Sistemas
 
-Por ahora Cruma anda con los horarios de Sistemas, porque eran los más a mano.  
+Por ahora Cruma anda con los horarios de Sistemas, porque eran nuestra prioridad.  
 Pero el sistema ya está listo para cualquier carrera de la facu: solo falta cargar los datos en el formato correcto y listo.  
 Todo el backend y la lógica del front están pensados para escalar sin dramas.
 
 ## Repo abierto, mate y código
 
 El código está en un repo público: [github.com/franlopezmora/cruma](https://github.com/franlopezmora/cruma).  
-Si querés sumarte, ya sea corrigiendo un bug, cargando horarios de otra carrera o metiendo una mejora visual, adelante. Documentamos todo para que levantarlo sea fácil.
+Si querés sumarte, ya sea corrigiendo un bug, cargando horarios de otra carrera o metiendo una mejora visual, adelante..
 
 ## Lo que se viene
 

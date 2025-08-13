@@ -122,7 +122,7 @@ return (
 
         {/* Header (col 2, contenido centrado) */}
         <header className="">
-          <div className="mx-auto max-w-[1000px] px-2">
+          <div className="mx-auto max-w-[1000px]">
             <h1 className="essay-title">{frontmatter.title || "Untitled"}</h1>
             {(frontmatter.date || frontmatter.description) && (
               <p className="essay-meta mt-1">
