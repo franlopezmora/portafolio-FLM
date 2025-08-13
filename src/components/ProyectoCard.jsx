@@ -13,7 +13,13 @@ export default function ProyectoCard({
   const isExternalPrototype = typeof prototype === "string" && /^https?:\/\//i.test(prototype);
   const essayIsRoute    = typeof essay === "string" && essay.startsWith("/");
   const essayIsExternal = typeof essay === "string" && /^https?:\/\//i.test(essay);
+  const dest = essay
+    ? (essayIsExternal ? { type: "external", url: essay } : { type: "route", url: essay })
+    : prototype
+      ? (isExternalPrototype ? { type: "external", url: prototype } : { type: "route", url: prototype })
+      : null;
 
+  const hasDest = !!dest;
   const showEssayLinkBtn = essayIsRoute || essayIsExternal;
   const showEssayBlock   = !!(essay && !showEssayLinkBtn);
   const showProtoBtn     = !!prototype;
@@ -34,11 +40,11 @@ export default function ProyectoCard({
   `;
 
   const handleCardClick = () => {
-    if (!prototype) return;
-    if (isExternalPrototype) {
-      window.open(prototype, "_blank", "noopener,noreferrer");
+    if (!dest) return;
+    if (dest.type === "external") {
+      window.open(dest.url, "_blank", "noopener,noreferrer");
     } else {
-      navigate(prototype);
+      navigate(dest.url);
     }
   };
 
@@ -50,14 +56,14 @@ export default function ProyectoCard({
         dark:bg-neutral-800 dark:text-neutral-100 dark:border-neutral-700
         transition-colors duration-200 transform
         ${fullBleedOnly ? "p-0" : "p-1"}
-        ${prototype ? "cursor-pointer" : "cursor-default"}
+        ${hasDest ? "cursor-pointer" : "cursor-default"}
       `}
       style={{ borderRadius: "8px" }}
-      role={prototype ? "link" : undefined}
-      tabIndex={prototype ? 0 : undefined}
-      aria-label={prototype ? `Abrir: ${titulo}` : undefined}
+      role={hasDest ? "link" : undefined}
+      tabIndex={hasDest ? 0 : undefined}
+      aria-label={hasDest ? `Abrir: ${essay ? `essay de ${titulo}` : titulo}` : undefined}
       onClick={handleCardClick}
-      onKeyDown={(e) => prototype && (e.key === "Enter" || e.key === " ") && handleCardClick()}
+      onKeyDown={(e) => hasDest && (e.key === "Enter" || e.key === " ") && handleCardClick()}
     >
       {/* Media */}
       <div
@@ -129,43 +135,50 @@ export default function ProyectoCard({
       </div>
 
       {/* Acciones */}
-      {!fullBleedOnly && showActions && (
+      {!fullBleedOnly && (essay || prototype) && (
         <div className="mt-1 space-y-2">
-          {showProtoBtn && (
-            isExternalPrototype ? (
+          {essay ? (
+            essayIsExternal ? (
               <a
-                href={prototype}
+                href={essay}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`
-                  block w-full text-center py-2 rounded-[8px]
-                  text-[14px] font-medium font-sans font-[500]
-                  bg-neutral-200 text-gray-900 hover:bg-neutral-300
-                  dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
-                  transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40
-                `}
+                className={ctaClasses}
                 onClick={(e) => e.stopPropagation()}
               >
-                {protoLabel}
+                {essayLabel}
               </a>
             ) : (
               <Link
-                to={prototype}
-                className={`
-                  block w-full text-center py-2 rounded-[8px]
-                  text-[14px] font-medium font-sans font-[500]
-                  bg-neutral-200 text-gray-900 hover:bg-neutral-300
-                  dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
-                  transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40
-                `}
+                to={essay}
+                className={ctaClasses}
                 onClick={(e) => e.stopPropagation()}
               >
-                {protoLabel}
+                {essayLabel}
               </Link>
             )
+          ) : isExternalPrototype ? (
+            <a
+              href={prototype}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={ctaClasses}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {protoLabel}
+            </a>
+          ) : (
+            <Link
+              to={prototype}
+              className={ctaClasses}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {protoLabel}
+            </Link>
           )}
         </div>
       )}
+
     </article>
 
   );

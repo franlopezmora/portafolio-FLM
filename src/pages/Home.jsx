@@ -1,102 +1,32 @@
-import Masonry from "react-masonry-css"
-import ProyectoCard from "../components/ProyectoCard"
-import DarkModeToggle from "../components/DarkModeToggle"
+import Masonry from "react-masonry-css";
+import ProyectoCard from "../components/ProyectoCard";
+import DarkModeToggle from "../components/DarkModeToggle";
+import { homeItems } from "../content/homeItems";
 
-function shuffle(array) {
-  return [...array].sort(() => Math.random() - 0.5);
-}
-
+// (opcional) parse robusto por si alguna fecha viene como "Junio 2025"
+const parseDate = (d) => {
+  if (!d) return 0;
+  const t = Date.parse(d);
+  if (!Number.isNaN(t)) return t;
+  // ej: "Junio 2025" -> 01 Junio 2025
+  try { return Date.parse(d.replace(/(\w+)\s+(\d{4})/, "01 $1 $2")); } catch { return 0; }
+};
 
 export default function Home() {
-  const proyectos = [
-    {
-      titulo: "Custom Cursor",
-      descripcion: "",
-      gif: "public/gifs/gestor-turnos.mp4",
-      prototype: "/prototype/1",
-    },
-    {
-      titulo: "Vanish Input",
-      descripcion: "",
-      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input.mp4",
-      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input.webm",
-      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input-poster.jpg",
-      prototype: "/prototype/2",
-      playbackRate: 1.9,      
-    },
-    {
-      titulo: "Dark Mode Toggle",
-      descripcion: "",
-      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3.mp4",
-      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3.webm",
-      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3-poster.jpg", },
-    {
-      titulo: "Gooey Tooltip",
-      descripcion: "",
-  gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2.mp4",
-  webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2.webm",
-  poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2-poster.jpg", prototype: "/prototype/4", 
-    },
-    {
-      titulo: "Pill Nav Dock",
-      descripcion: "",
-      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/nav-bar/nav-dock.mp4",
-      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/nav-bar/nav-dock.webm",
-      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/nav-bar/nav-dock-poster.jpg",
-      prototype: "/prototype/5",
-    },
-    {
-      titulo: "Animated Checkbox",
-      descripcion: "",
-      gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox.mp4",
-      webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox.webm",
-      poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox-poster.jpg",
-      prototype: "/prototype/6",
-      titleColor: "dark",
-      fecha: "Enero 2025"
-    },
-    {
-      titulo: "Side Bar",
-      descripcion: "",
-      fecha: "Junio 2025",
-      prototype: "/prototype/7",
-gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar.mp4",
-webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar2.webm",
-poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar-poster.jpg",
-},
-    {
-      titulo: "Animación de personaje",
-      descripcion: "",
-      gif: "",
-      essay: "http://localhost:5173/prototype/3",
-      overlayPos: "top",
-      titleColor: "dark",
-      fecha: "Marzo 2025",
-    },
-    {
-      titulo: "Dashboard de pruebas",
-      descripcion: "",
-      gif: "",
-      prototype: "View Prototype →"
-    }
-  ]
-//const proyectosDesordenados = shuffle(proyectos)
+  // Ordená igual que querés que navegue Prev/Next (más nuevo primero)
+  const proyectos = [...homeItems].sort((a,b) => parseDate(b.fecha) - parseDate(a.fecha));
 
-  const breakpointColumnsObj = {
-    default: 3,
-    1024: 3,
-    768: 2,
-    0: 1
-  }
+  const breakpointColumnsObj = { default: 3, 1024: 3, 768: 2, 0: 1 };
 
   return (
     <main className="min-h-screen px-2 sm:px-2 py-2 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors">
       <div className="sticky top-2 z-50 flex justify-end pr-2 mb-1">
         <DarkModeToggle />
       </div>
+
       <Masonry
         breakpointCols={breakpointColumnsObj}
-        className="flex gap-x-2"        // horizontal gap reducido
+        className="flex gap-x-2"
         columnClassName="masonry-column"
       >
         {proyectos.map((p, idx) => (
@@ -104,5 +34,5 @@ poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/
         ))}
       </Masonry>
     </main>
-  )
+  );
 }
