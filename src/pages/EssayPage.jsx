@@ -105,80 +105,68 @@ const prevItem = idx > 0 ? proyectos[idx - 1] : null;
 const nextItem = idx >= 0 && idx < proyectos.length - 1 ? proyectos[idx + 1] : null;
 
 return (
-  <main className="essay-wrap bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
-    {/* Contenedor general ancho para que el sidebar pueda ir bien a la izquierda */}
-    <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-8">
+<main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen">
+  <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-8 pt-6">
 
-        {/* Masthead */}
-        <div className="
-          grid grid-cols-1
-          lg:grid-cols-[minmax(0,1fr)_minmax(0,1000px)_minmax(0,1fr)]
-          lg:gap-x-[160px] items-baseline pt-6
-        ">
-        {/* Volver (col 1, alineado a la derecha para quedar pegado al contenido) */}
-        <div className="hidden lg:block justify-self-end w-[240px]">
-          <Link className="essay-back" to="/">← Volver</Link>
-        </div>
+    {/* Layout con flexbox para mejor control del sticky */}
+    <div className="flex flex-col lg:flex-row lg:gap-x-[160px]">
+      
+      {/* RAIL IZQUIERDO: Volver + TOC (sticky) */}
+      <aside className="hidden lg:block lg:w-[240px] lg:flex-shrink-0">
+        <div className="sticky top-8">
+          {/* Volver */}
+          <Link className="essay-back block mb-4" to="/">← Volver</Link>
 
-        {/* Header (col 2, contenido centrado) */}
-        <header className="">
-          <div className="mx-auto max-w-[1000px]">
-            <h1 className="essay-title">{frontmatter.title || "Untitled"}</h1>
-            {(frontmatter.date || frontmatter.description) && (
-              <p className="essay-meta mt-1">
-                {frontmatter.date && <span>{frontmatter.date}</span>}
-                {frontmatter.description && <> &middot; <span>{frontmatter.description}</span></>}
-              </p>
-            )}
-          </div>
-        </header>
-
-        {/* Col 3 vacía (aire) */}
-        <div className="hidden lg:block" />
-      </div>
-
-        {/* Cuerpo */}
-        <div className="
-          grid grid-cols-1
-          lg:grid-cols-[minmax(0,1fr)_minmax(0,1000px)_minmax(0,1fr)]
-          lg:gap-x-[160px]
-        ">
-        {/* TOC (col 1, fijo 240px y sticky) */}
-        <aside className="hidden lg:block justify-self-end w-[240px] sticky top-20 self-start pt-2">
-          <nav className="space-y-2 text-sm text-neutral-500 dark:text-neutral-400 pr-2">
+          {/* TOC */}
+          <nav className="space-y-2 text-sm text-neutral-500 dark:text-neutral-400 pr-2 max-h-[calc(100vh-120px)] overflow-y-auto">
             {toc.map((item) => (
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className={`block w-full text-left hover:text-neutral-900 dark:hover:text-neutral-100 transition ${
-                  item.level === "h3" ? "pl-4 text-[13px]" : ""
-                }`}
+                className={`block w-full text-left transition
+                  ${item.level === "h3" ? "pl-4 text-[13px]" : ""}
+                  hover:text-neutral-900 dark:hover:text-neutral-100
+                `}
               >
                 {item.text}
               </button>
             ))}
           </nav>
-        </aside>
+        </div>
+      </aside>
 
-        {/* Contenido (col 2, siempre centrado) */}
-        <section>
-          <article ref={articleRef} className="essay-prose mx-auto max-w-[1000px]">
-            {Mod ? <Mod /> : <div className="text-neutral-500 dark:text-neutral-400">Cargando…</div>}
-          </article>
-            <div className="mx-auto max-w-[1000px] mt-10">
-              <PrevNext
-                prev={prevItem ? { title: prevItem.title, href: prevItem.href } : null}
-                next={nextItem ? { title: nextItem.title, href: nextItem.href } : null}
-              />
-            </div>
-        </section>
+      {/* CONTENIDO PRINCIPAL */}
+      <div className="flex-1 max-w-[1000px] mx-auto">
+        {/* Header */}
+        <header className="mb-6">
+          <h1 className="essay-title">{frontmatter.title || "Untitled"}</h1>
+          {(frontmatter.date || frontmatter.description) && (
+            <p className="essay-meta mt-1">
+              {frontmatter.date && <span>{frontmatter.date}</span>}
+              {frontmatter.description && <> &middot; <span>{frontmatter.description}</span></>}
+            </p>
+          )}
+        </header>
 
-        {/* Col 3 vacía */}
-        <div className="hidden lg:block" />
+        {/* Artículo */}
+        <article ref={articleRef} className="essay-prose">
+          {Mod ? <Mod /> : <div className="text-neutral-500 dark:text-neutral-400">Cargando…</div>}
+        </article>
+
+        {/* Prev / Next */}
+        <div className="mt-10">
+          <PrevNext
+            prev={prevItem ? { title: prevItem.title, href: prevItem.href } : null}
+            next={nextItem ? { title: nextItem.title, href: nextItem.href } : null}
+          />
+        </div>
       </div>
 
+      {/* Espacio derecho para balance visual */}
+      <div className="hidden lg:block lg:w-[240px] lg:flex-shrink-0" />
     </div>
-  </main>
+  </div>
+</main>
 );
 
 

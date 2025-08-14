@@ -77,7 +77,7 @@
 
 /* Sección “bleed” (full width dentro del artículo) */
 .bleed {
-  width: 100vw; max-width: 960px;
+  width: 100vw; max-width: 700px;
   position: relative; left: 50%; right: 50%; transform: translateX(-50%);
 }
 @media (max-width: 960px) {
@@ -107,4 +107,13 @@
 }
 .essay-prose code {
   background: rgba(107,114,128,.15); padding: 2px 4px; border-radius: 4px;
+}
+
+/* Asegura un stacking context "base" para el contenido */
+.essay-wrap { position: relative; }
+
+/* La imagen en modo bleed debe ir por encima del TOC */
+.essay-prose .bleed {
+  position: relative; /* ya lo tenías, lo reafirmamos */
+  z-index: 30;
 }
