@@ -1,5 +1,5 @@
 // src/pages/PrototypePage.jsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PROTOTYPES } from "../prototypes";
 import PrevNext from "../components/PrevNext";

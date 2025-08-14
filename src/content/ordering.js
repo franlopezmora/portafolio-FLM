@@ -5,11 +5,13 @@ const ES_MONTHS = {
   "julio": 7, "agosto": 8, "septiembre": 9, "setiembre": 9, "octubre": 10,
   "noviembre": 11, "diciembre": 12,
 };
+
 const pad2 = (n) => String(n).padStart(2, "0");
 
 function parseDateLoose(d) {
   if (!d) return -Infinity;
   if (d instanceof Date) return +d;
+  
   const s = String(d).trim();
   const t = Date.parse(s);
   if (!Number.isNaN(t)) return t;
@@ -19,11 +21,13 @@ function parseDateLoose(d) {
     const mm = ES_MONTHS[m1[1]];
     if (mm) return Date.parse(`${m1[2]}-${pad2(mm)}-01`);
   }
+  
   const m2 = s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
   if (m2) {
     const [, dd, mm, yyyy] = m2;
     return Date.parse(`${yyyy}-${pad2(mm)}-${pad2(dd)}`);
   }
+  
   return -Infinity;
 }
 
@@ -33,25 +37,25 @@ function normalizeRoute(r) {
   return r;
 }
 
-// Deriva título si falta
 function prettifyRouteTitle(route) {
   if (!route) return null;
+  
   if (route.startsWith("/essays/")) {
     const slug = route.split("/").pop();
     return slug
       .replace(/[-_]+/g, " ")
       .replace(/\b\w/g, (m) => m.toUpperCase());
   }
+  
   if (route.startsWith("/prototypes/")) {
     const id = route.split("/").pop();
     return `Prototipo ${id}`;
   }
-  // Fallback genérico
+  
   return route.replace(/^\//, "").replace(/[-_]+/g, " ").replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
 function toRoute(it) {
-  // soporta varias keys
   return normalizeRoute(it.route || it.href || it.essay || it.prototype || null);
 }
 
@@ -66,7 +70,6 @@ function toTitle(it, route) {
   );
 }
 
-// === API ===
 export function getOrderedRoutables() {
   return homeItems
     .map((it, i) => {
@@ -83,7 +86,7 @@ export function getOrderedRoutables() {
     .filter(Boolean)
     .sort((a, b) => {
       if (b.__ts !== a.__ts) return b.__ts - a.__ts;
-      return a.__i - b.__i; // desempate estable
+      return a.__i - b.__i;
     });
 }
 
@@ -91,7 +94,9 @@ export function getSiblingsFor(pathname) {
   const path = normalizeRoute(pathname);
   const ordered = getOrderedRoutables();
   const idx = ordered.findIndex((it) => it.route === path);
+  
   if (idx === -1) return { prev: null, next: null };
+  
   return {
     prev: idx > 0 ? ordered[idx - 1] : null,
     next: idx < ordered.length - 1 ? ordered[idx + 1] : null,

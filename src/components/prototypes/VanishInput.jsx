@@ -1,8 +1,8 @@
 'use client';
 import { useState, useRef, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import lupaPng from "./lupa sin fondo.png";
-import lupaPngBlanca from "./output-onlinepngtools.png"
+import lupaPng from "/lupa sin fondo.png";
+import lupaPngBlanca from "/output-onlinepngtools.png"
 
 export default function VanishInput({
   placeholder = 'What do you need?',

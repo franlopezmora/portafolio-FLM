@@ -13,7 +13,6 @@ function getInitialDark() {
 }
 
 export default function DarkModeToggle() {
-
   const [dark, setDark] = useState(getInitialDark)
   
   useEffect(() => {
@@ -27,10 +26,10 @@ export default function DarkModeToggle() {
       aria-label="Toggle dark mode"
       className="
         relative inline-flex items-center
-        w-14 h-8                 /* tamaño deseado */
-        min-w-[56px] min-h-[32px] /* límite mínimo para que no se achique */
-        shrink-0                 /* no permitir flex-shrink */
-        overflow-hidden          /* por si algo se sale */
+        w-14 h-8
+        min-w-[56px] min-h-[32px]
+        shrink-0
+        overflow-hidden
         rounded-full p-1
         bg-gray-300 dark:bg-gray-600
         transition-colors duration-300

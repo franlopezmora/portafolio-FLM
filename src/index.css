@@ -2,13 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .masonry-column {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* vertical gap entre tarjetas (~20px) */
-}
-
-html, body, #root {
-  /* overflow-x: hidden; */ /* Comentado para no interferir con el sticky del TOC */
+  gap: 0.5rem;
 }

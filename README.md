@@ -4,9 +4,11 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
 
 ## 🛠️ Tecnologías utilizadas
 
-- **React** – para el frontend dinámico
+- **React 19** – para el frontend dinámico
 - **TailwindCSS** – para el estilo moderno y responsivo
-- **react-masonry-css** – para el layout en grilla estilo Pinterest
+- **Framer Motion** – para animaciones fluidas
+- **React Router** – para navegación SPA
+- **MDX** – para contenido dinámico
 - **Vite** – para el entorno de desarrollo ultrarrápido
 
 ## 📂 Estructura del proyecto
@@ -14,9 +16,17 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
 ```
 /src
   ├─ /components
-  │   └─ ProyectoCard.jsx
-  ├─ App.jsx
-  └─ main.jsx
+  │   ├─ /prototypes          # Componentes de prototipos interactivos
+  │   ├─ PrototypeLayout.jsx  # Layout común para prototipos
+  │   ├─ DarkModeToggle.jsx   # Toggle de modo oscuro
+  │   └─ PrevNext.jsx         # Navegación entre páginas
+  ├─ /pages
+  │   ├─ Home.jsx             # Página principal
+  │   ├─ PrototypePage.jsx    # Página de prototipos
+  │   └─ EssayPage.jsx        # Página de ensayos
+  ├─ /essays                  # Contenido MDX
+  ├─ /styles                  # Estilos CSS personalizados
+  └─ /content                 # Datos de proyectos
 ```
 
 ## 🚀 Cómo correr el proyecto
@@ -37,11 +47,18 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
    npm run dev
    ```
 
+## 🎯 Características principales
+
+- **Prototipos interactivos** – Demos en vivo de componentes
+- **Sistema de ensayos** – Contenido técnico en MDX
+- **Modo oscuro** – Toggle automático con persistencia
+- **Diseño responsivo** – Adaptable a todos los dispositivos
+- **Navegación fluida** – Transiciones suaves entre páginas
+
 ## 🧠 Inspiración
 
 Este diseño está inspirado en la estética limpia y funcional de [rauno.me](https://rauno.me), adaptado para mostrar mis propios proyectos y experiencia como desarrollador.
 
 ---
 
-📬 Contacto: [franciscolopezmora3@gmail.com]  
-🔗 Sitio: []
+📬 Contacto: franciscolopezmora3@gmail.com

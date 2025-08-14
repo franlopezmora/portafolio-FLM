@@ -4,6 +4,7 @@
   max-width: 1050px;
   padding: 40px 24px 96px;
   color: inherit;
+  position: relative;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,40 +25,91 @@
 }
 
 .essay-back {
-  display: inline-flex; gap: 6px; font-size: 14px; color: #6b7280;
-  text-decoration: none; border-radius: 4px; padding: 2px 4px;
+  display: inline-flex; 
+  gap: 6px; 
+  font-size: 14px; 
+  color: #6b7280;
+  text-decoration: none; 
+  border-radius: 4px; 
+  padding: 2px 4px;
 }
-.essay-back:hover { color: inherit; }
+
+.essay-back:hover { 
+  color: inherit; 
+}
 
 /* Header */
-.essay-header { margin: 18px 0 14px; }
-.essay-title {
-  font-size: 20px; line-height: 24px; font-weight: 600; letter-spacing: -.01em;
+.essay-header { 
+  margin: 18px 0 14px; 
 }
+
+.essay-title {
+  font-size: 20px; 
+  line-height: 24px; 
+  font-weight: 600; 
+  letter-spacing: -.01em;
+}
+
 .essay-meta {
-  margin-top: 4px; font-size: 13px; line-height: 20px; color: #6b7280;
+  margin-top: 4px; 
+  font-size: 13px; 
+  line-height: 20px; 
+  color: #6b7280;
 }
 
 /* Prosa */
 .essay-prose {
-  font-size: 16px; line-height: 28px;
+  font-size: 16px; 
+  line-height: 28px;
 }
-.essay-prose p { margin: 12px 0; }
-.essay-prose h2 { font-size: 18px; line-height: 24px; font-weight: 600; margin: 24px 0 8px; }
-.essay-prose h3 { font-size: 16px; line-height: 20px; font-weight: 600; margin: 20px 0 6px; }
-.essay-prose strong { font-weight: 600; }
-.essay-prose em { font-style: italic; }
+
+.essay-prose p { 
+  margin: 12px 0; 
+}
+
+.essay-prose h2 { 
+  font-size: 18px; 
+  line-height: 24px; 
+  font-weight: 600; 
+  margin: 24px 0 8px; 
+}
+
+.essay-prose h3 { 
+  font-size: 16px; 
+  line-height: 20px; 
+  font-weight: 600; 
+  margin: 20px 0 6px; 
+}
+
+.essay-prose strong { 
+  font-weight: 600; 
+}
+
+.essay-prose em { 
+  font-style: italic; 
+}
 
 .essay-prose a {
-  color: inherit; text-decoration: underline; text-underline-offset: 3px;
+  color: inherit; 
+  text-decoration: underline; 
+  text-underline-offset: 3px;
   text-decoration-color: rgba(107,114,128,.9);
 }
-.essay-prose a:hover { text-decoration-color: currentColor; }
 
-.essay-prose ul, .essay-prose ol { padding-left: 24px; margin: 12px 0; }
-.essay-prose li { margin: 6px 0; }
+.essay-prose a:hover { 
+  text-decoration-color: currentColor; 
+}
 
-/* “Frame” para imágenes / videos con borde suave */
+.essay-prose ul, .essay-prose ol { 
+  padding-left: 24px; 
+  margin: 12px 0; 
+}
+
+.essay-prose li { 
+  margin: 6px 0; 
+}
+
+/* Frame para imágenes / videos con borde suave */
 .essay-frame {
   border-radius: 12px;
   background: #f3f4f6;
@@ -65,83 +117,86 @@
   overflow: hidden;
   margin: 12px 0;
 }
+
 @media (prefers-color-scheme: dark) {
-  .essay-frame { background: #111418; border-color: rgba(255,255,255,.12); }
+  .essay-frame { 
+    background: #111418; 
+    border-color: rgba(255,255,255,.12); 
+  }
 }
+
 .essay-frame > img,
 .essay-frame > video,
 .essay-frame > picture,
 .essay-frame > iframe {
-  display: block; width: 100%; height: auto; border-radius: inherit;
+  display: block; 
+  width: 100%; 
+  height: auto; 
+  border-radius: inherit;
 }
 
-/* Sección “bleed” (full width dentro del artículo) */
+/* Sección bleed (full width dentro del artículo) */
 .bleed {
-  width: 100vw; max-width: 700px;
-  position: relative; left: 50%; right: 50%; transform: translateX(-50%);
-}
-@media (max-width: 960px) {
-  .bleed { max-width: none; padding-left: 16px; padding-right: 16px; }
+  width: 100vw; 
+  max-width: 700px;
+  position: relative; 
+  left: 50%; 
+  right: 50%; 
+  transform: translateX(-50%);
 }
 
-/* Badges numerados tipo “1 2 3” */
+@media (max-width: 960px) {
+  .bleed { 
+    max-width: none; 
+    padding-left: 16px; 
+    padding-right: 16px; 
+  }
+}
+
+/* Badges numerados tipo "1 2 3" */
 .step-badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 20px; height: 20px; border-radius: 9999px; font-size: 12px;
-  line-height: 20px; font-weight: 600; color: #fff; margin: 0 2px;
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center;
+  width: 20px; 
+  height: 20px; 
+  border-radius: 9999px; 
+  font-size: 12px;
+  line-height: 20px; 
+  font-weight: 600; 
+  color: #fff; 
+  margin: 0 2px;
   box-shadow: 0 1px 2px rgba(0,0,0,.06);
 }
+
 .step-blue   { background: #369EFF; }
 .step-orange { background: #FF9447; }
 .step-teal   { background: #25D0AB; }
 .step-pink   { background: #FF6369; }
 
-/* Bloques de código, por si los usás */
+/* Bloques de código */
 .essay-prose pre, .essay-prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+
 .essay-prose pre {
-  padding: 12px; border-radius: 10px; background: #0e1116;
-  color: #e6e6e6; overflow: auto; border: 1px solid rgba(255,255,255,.08);
+  padding: 12px; 
+  border-radius: 10px; 
+  background: #0e1116;
+  color: #e6e6e6; 
+  overflow: auto; 
+  border: 1px solid rgba(255,255,255,.08);
   margin: 12px 0;
 }
-.essay-prose code {
-  background: rgba(107,114,128,.15); padding: 2px 4px; border-radius: 4px;
-}
 
-/* Asegura un stacking context "base" para el contenido */
-.essay-wrap { position: relative; }
+.essay-prose code {
+  background: rgba(107,114,128,.15); 
+  padding: 2px 4px; 
+  border-radius: 4px;
+}
 
 /* La imagen en modo bleed debe ir por encima del TOC */
 .essay-prose .bleed {
-  position: relative; /* ya lo tenías, lo reafirmamos */
+  position: relative;
   z-index: 30;
-}
-
-/* Estilos específicos para el TOC sticky */
-.toc-sticky {
-  position: sticky !important;
-  top: 32px !important;
-  z-index: 9999 !important;
-  will-change: transform !important;
-}
-
-/* Asegurar que el contenedor del TOC tenga el comportamiento correcto */
-.toc-container {
-  position: relative !important;
-  height: fit-content !important;
-}
-
-/* Forzar el comportamiento sticky en todos los navegadores */
-.toc-sticky,
-.toc-sticky * {
-  position: sticky !important;
-  top: 32px !important;
-  z-index: 9999 !important;
-}
-
-/* Asegurar que el aside del TOC no tenga transformaciones */
-aside.toc-container {
-  transform: none !important;
-  will-change: auto !important;
 }
