@@ -10,5 +10,5 @@
 }
 
 html, body, #root {
-  overflow-x: hidden;
+  /* overflow-x: hidden; */ /* Comentado para no interferir con el sticky del TOC */
 }

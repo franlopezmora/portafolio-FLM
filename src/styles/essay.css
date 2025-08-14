@@ -117,3 +117,31 @@
   position: relative; /* ya lo tenías, lo reafirmamos */
   z-index: 30;
 }
+
+/* Estilos específicos para el TOC sticky */
+.toc-sticky {
+  position: sticky !important;
+  top: 32px !important;
+  z-index: 9999 !important;
+  will-change: transform !important;
+}
+
+/* Asegurar que el contenedor del TOC tenga el comportamiento correcto */
+.toc-container {
+  position: relative !important;
+  height: fit-content !important;
+}
+
+/* Forzar el comportamiento sticky en todos los navegadores */
+.toc-sticky,
+.toc-sticky * {
+  position: sticky !important;
+  top: 32px !important;
+  z-index: 9999 !important;
+}
+
+/* Asegurar que el aside del TOC no tenga transformaciones */
+aside.toc-container {
+  transform: none !important;
+  will-change: auto !important;
+}

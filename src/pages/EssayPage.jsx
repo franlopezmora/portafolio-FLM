@@ -63,7 +63,7 @@ export default function EssayPage() {
       const nodes = Array.from(articleRef.current.querySelectorAll("h2, h3"));
       const items = nodes.map((el) => {
         if (!el.id) el.id = slugify(el.textContent || "");
-        el.style.scrollMarginTop = "96px";
+        el.style.scrollMarginTop = "200px"; // Para que quede arriba de toda la pantalla
         return { id: el.id, text: el.textContent || "", level: el.tagName.toLowerCase() };
       });
       setToc(items);
@@ -71,7 +71,7 @@ export default function EssayPage() {
     return () => clearTimeout(t);
   }, [Mod]);
 
-  const HEADER_OFFSET = 96;
+  const HEADER_OFFSET = 0;
   const goTo = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -82,11 +82,11 @@ export default function EssayPage() {
 
   if (notFound) {
     return (
-      <main className="essay-wrap bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+      <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen">
         <div className="mx-auto max-w-[1000px] px-4 md:px-6 lg:px-8 py-10">
           <Link className="essay-back block mb-6" to="/essays">← Volver</Link>
           <h1 className="essay-title">No encontrado</h1>
-          <p className="essay-meta">El ensayo “{slug}” no existe.</p>
+          <p className="essay-meta">El ensayo "{slug}" no existe.</p>
         </div>
       </main>
     );
@@ -113,19 +113,29 @@ return (
       
       {/* RAIL IZQUIERDO: Volver + TOC (sticky) */}
       <aside className="hidden lg:block lg:w-[240px] lg:flex-shrink-0">
-        <div className="sticky top-8">
+        <div 
+          style={{
+            position: 'fixed',
+            top: '32px',
+            left: 'calc(50% - 800px + 40px)',
+            width: '240px',
+            zIndex: 9999,
+            maxHeight: 'calc(100vh - 64px)',
+            overflowY: 'auto'
+          }}
+        >
           {/* Volver */}
           <Link className="essay-back block mb-4" to="/">← Volver</Link>
 
           {/* TOC */}
-          <nav className="space-y-2 text-sm text-neutral-500 dark:text-neutral-400 pr-2 max-h-[calc(100vh-120px)] overflow-y-auto">
+          <nav className="space-y-2 text-sm text-neutral-500 dark:text-neutral-400">
             {toc.map((item) => (
               <button
                 key={item.id}
                 onClick={() => goTo(item.id)}
-                className={`block w-full text-left transition
-                  ${item.level === "h3" ? "pl-4 text-[13px]" : ""}
-                  hover:text-neutral-900 dark:hover:text-neutral-100
+                className={`block w-full text-left transition-colors duration-200 py-1 px-2 rounded
+                  ${item.level === "h3" ? "pl-6 text-[13px]" : "pl-2"}
+                  hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800
                 `}
               >
                 {item.text}
