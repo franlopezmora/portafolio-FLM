@@ -2,230 +2,156 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PROTOTYPES } from "../prototypes";
+import PrevNext from "../components/PrevNext";
 
 // 👇 importa tus componentes
 import CustomCursor from "../components/prototypes/CustomCursor";
 import PlaygroundCard from "../components/prototypes/PlaygroundCard";
 import VanishInput from "../components/prototypes/VanishInput";
-import DarkModeDemo from "../components/prototypes/DarkModeDemo";
+import DarkModeToggle from "../components/DarkModeToggle";
 import GooeyTooltip from "../components/prototypes/GooeyTooltip";
 import PillNavBarDarkDock from "../components/prototypes/PillNavBarDarkDock";
 import TodoBasic from "../components/prototypes/TodoBasic";
 import Sidebar from "../components/prototypes/Sidebar";
+import PrototypeLayout from "../components/PrototypeLayout";
 
 export default function PrototypePage() {
   const { id } = useParams();
   const data = PROTOTYPES[id];
   const [enabled, setEnabled] = useState(false);
-  const [seed, setSeed] = useState(null); // {x,y} para iniciar el cursor custom sin saltos
+  const [seed, setSeed] = useState(null);
 
-// Caso especial: prototipo 1 con interacción
-if (id === "1") {
-  return (
-    <div className="relative min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-      {/* Cursor custom SOLO cuando estás dentro del contenedor grande */}
-      {enabled && <CustomCursor seed={seed} />}
+  // Preparar navegación anterior/posterior
+  const prototypeIds = Object.keys(PROTOTYPES).map(Number).sort((a, b) => a - b);
+  const currentIndex = prototypeIds.indexOf(Number(id));
+  const prevId = currentIndex > 0 ? prototypeIds[currentIndex - 1] : null;
+  const nextId = currentIndex >= 0 && currentIndex < prototypeIds.length - 1 ? prototypeIds[currentIndex + 1] : null;
 
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Custom Cursor + Hover Card</h1>
-
-          <div className="flex items-center gap-4">
-            {/* Toggle Dark Mode */}
-            <DarkModeDemo />
-            <Link to="/" className="text-sm underline">← Back</Link>
-          </div>
-        </div>
-
-        {/* ⬇️ Este es el contenedor grande */}
-        <div
-          onMouseEnter={(e) => {
-            setSeed({ x: e.clientX, y: e.clientY });
-            setEnabled(true);
-          }}
-          onMouseLeave={() => setEnabled(false)}
-          className={`rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8 transition-colors
-            ${enabled ? "cursor-none" : ""}`}
+  // Función para renderizar el contenido del prototipo
+  const renderPrototypeContent = () => {
+    // Caso especial: prototipo 1 con interacción
+    if (id === "1") {
+      return (
+        <PrototypeLayout
+          title="Custom Cursor + Hover Card"
+          date="January 2025"
+          description="Probá pasar el mouse por la card y el botón. El cursor reacciona a elementos interactivos."
+          relative={true}
+          customCursor={enabled && <CustomCursor seed={seed} />}
         >
-          <p className="text-neutral-500 mb-6">
-            Probá pasar el mouse por la card y el botón. El cursor reacciona a elementos interactivos.
-          </p>
+          <div
+            onMouseEnter={(e) => {
+              setSeed({ x: e.clientX, y: e.clientY });
+              setEnabled(true);
+            }}
+            onMouseLeave={() => setEnabled(false)}
+            className={`transition-colors ${enabled ? "cursor-none" : ""}`}
+          >
+            <div className="grid place-items-center py-6">
+              <PlaygroundCard />
+            </div>
+          </div>
+        </PrototypeLayout>
+      );
+    }
 
+    // ===== Prototype 2: Vanish Input =====
+    if (id === "2") {
+      return (
+        <PrototypeLayout
+          title="Vanish Input"
+          date="February 2025"
+          description="Escribí y presioná Enter: las letras se borran y el caret regresa a su lugar."
+        >
           <div className="grid place-items-center py-8">
-            <PlaygroundCard />
+            <div className="w-full max-w-md">
+              <VanishInput
+                placeholder="¿Qué necesitas?"
+                icon="🔍"
+                minWidth={172}
+                maxWidth={400}
+                onSubmit={(text) => console.log("submit:", text)}
+              />
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+        </PrototypeLayout>
+      );
+    }
 
-
-// ===== Prototype 2: Vanish Input =====
-if (id === "2") {
-  return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Vanish Input</h1>
-
-          <div className="flex items-center gap-4">
-            {/* Toggle Dark Mode */}
-            <DarkModeDemo />
-            <Link to="/" className="text-sm underline">← Back</Link>
+    // ===== Prototype 3: Dark Mode Toggle (interactivo) =====
+    if (id === "3") {
+      return (
+        <PrototypeLayout
+          title="Dark Mode Toggle"
+          date="March 2025"
+          description="Alterná entre modo claro y oscuro para ver cómo cambian los componentes en tiempo real."
+        >
+          <div className="grid place-items-center py-6">
+            <div className="scale-150">
+              <DarkModeToggle />
+            </div>
           </div>
-        </div>
+        </PrototypeLayout>
+      );
+    }
 
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
-          <p className="text-neutral-500 mb-6">
-            Escribí y presioná <kbd>Enter</kbd>: las letras se borran y el caret regresa a su lugar.
-          </p>
-
-          <div className="grid place-items-center py-12">
-            <VanishInput
-              placeholder="¿Qué necesitas?"
-              icon="🔍"
-              minWidth={172}
-              onSubmit={(text) => console.log("submit:", text)}
-            />
-
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-// ===== Prototype 3: Dark Mode Toggle (interactivo)
-if (id === "3") {
-  return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Dark Mode Toggle</h1>
-          <Link to="/" className="text-sm underline">← Back</Link>
-        </div>
-
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
-          <p className="text-neutral-500 mb-6">
-            Alterná entre modo claro y oscuro para ver cómo cambian los componentes en tiempo real.
-          </p>
-
+    // ===== Prototype 4: Gooey Tooltip (interactivo) =====
+    if (id === "4") {
+      return (
+        <PrototypeLayout
+          title="Gooey Tooltip"
+          date="March 2024"
+          description="Pasá el mouse por el botón para ver el tooltip con efecto 'gooey'."
+        >
           <div className="grid place-items-center py-8">
-              <div className="scale-150">
-                
-                <DarkModeDemo />
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ===== Prototype 4: Gooey Tooltip (interactivo)
-if (id === "4") {
-  return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Gooey Tooltip</h1>
-          <div className="flex items-center gap-4">
-            {/* Toggle Dark Mode */}
-            <DarkModeDemo />
-            <Link to="/" className="text-sm underline">← Back</Link>
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
-          <p className="text-neutral-500 mb-6">
-            Pasá el mouse por el botón para ver el tooltip con efecto “gooey”.
-          </p>
-
-          <div className="grid place-items-center py-12">
             {/* En card, no hace falta fullScreen */}
             <GooeyTooltip />
           </div>
-        </div>
+        </PrototypeLayout>
+      );
+    }
 
-      </div>
-    </div>
-  );
-}
-
-// ===== Prototype 5: Pill Nav Dock (embedded en card)
-if (id === "5") {
-  return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Pill Nav Dock</h1>
-          <div className="flex items-center gap-4">
-            <DarkModeDemo />
-            <Link to="/" className="text-sm underline">← Back</Link>
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
-          <p className="text-neutral-500 mb-6">
-            Navbar dock embebida dentro de la caja.
-          </p>
-
+    // ===== Prototype 5: Pill Nav Dock (embedded en card) =====
+    if (id === "5") {
+      return (
+        <PrototypeLayout
+          title="Pill Nav Dock"
+          date="April 2025"
+          description="Navbar dock embebida dentro de la caja."
+        >
           {/* Área de demostración: la navbar se alinea al fondo de la caja */}
-          <div className="relative h-56 flex items-end justify-center">
+          <div className="relative h-48 flex items-end justify-center">
             <PillNavBarDarkDock embedded />
           </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+        </PrototypeLayout>
+      );
+    }
 
-// ===== Prototype 6: Todo list + Animated Checkbox
-if (id === "6") {
-  return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Todo List (Animated Checkbox)</h1>
-          <div className="flex items-center gap-4">
-            <DarkModeDemo />
-            <Link to="/" className="text-sm underline">← Back</Link>
-          </div>
-        </div>
-
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white/5 dark:bg-neutral-800/50 p-8">
-          <p className="text-neutral-500 mb-6">
-            Checkbox con tick animado (stroke), glow y ripple al marcar.
-          </p>
-
-          <div className="grid place-items-center py-8">
+    // ===== Prototype 6: Todo list + Animated Checkbox =====
+    if (id === "6") {
+      return (
+        <PrototypeLayout
+          title="Todo List + Animated Checkbox"
+          date="May 2025"
+          description="Checkbox con tick animado (stroke), glow y ripple al marcar."
+        >
+          <div className="grid place-items-center py-6">
             <TodoBasic />
           </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+        </PrototypeLayout>
+      );
+    }
 
-// ===== Prototype 7: Sidebar demo (embebida)
-if (id === "7") {
-  return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4 overflow-x-hidden">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-xl font-semibold">Prototype: Sidebar</h1>
-          <div className="flex items-center gap-4">
-            <DarkModeDemo />
-            <Link to="/" className="text-sm underline">← Back</Link>
-          </div>
-        </div>
-
-        {/* Caja sin padding y SIN overflow-x */}
-        <div className="rounded-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
-          {/* Área de preview (tema dual) */}
-          <div className="h-[480px] bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white flex overflow-x-hidden">
+    // ===== Prototype 7: Sidebar demo (embebida) =====
+    if (id === "7") {
+      return (
+        <PrototypeLayout
+          title="Sidebar Demo"
+          date="June 2025"
+          className="overflow-x-hidden"
+        >
+          {/* Área de preview (tema dual) sin caja gris */}
+          <div className="h-96 bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white flex overflow-x-hidden">
             {/* Sidebar embebida */}
             <Sidebar
               embedded
@@ -242,45 +168,107 @@ if (id === "7") {
               </div>
             </main>
           </div>
+        </PrototypeLayout>
+      );
+    }
+
+    // Resto de prototipos (lo que ya tenías)
+    if (!data) {
+      return (
+        <div className="bg-white text-black dark:bg-neutral-900 dark:text-white p-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-end mb-4">
+              <div className="flex items-center gap-4">
+                {/* Toggle Dark Mode */}
+                <DarkModeToggle />
+              </div>
+            </div>
+
+            <div className="text-center">
+              <div className="p-6 text-sm text-neutral-400">No prototype found for "{id}".</div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="bg-white text-black dark:bg-neutral-900 dark:text-white p-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-end mb-4">
+            <div className="flex items-center gap-4">
+              {/* Toggle Dark Mode */}
+              <DarkModeToggle />
+            </div>
+          </div>
+
+          <div className="text-center">
+            {data.type === "video" ? (
+              <video
+                src={data.src}
+                autoPlay loop controls muted playsInline
+                className="w-full h-auto"
+                style={{ maxHeight: "70vh" }}
+              />
+            ) : data.type === "image" ? (
+              <img src={data.src} alt={data.title} className="w-full h-auto" />
+            ) : data.type === "iframe" ? (
+              <iframe
+                src={data.src}
+                className="w-full"
+                style={{ height: "70vh" }}
+                allow="fullscreen"
+              />
+            ) : null}
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  };
 
-
-
-  // Resto de prototipos (lo que ya tenías)
   return (
-    <div className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white p-4">
-      <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-semibold">Prototype: {data?.title ?? id}</h1>
-          <Link to="/" className="text-sm underline">← Back</Link>
-        </div>
+    <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8 pt-4">
 
-        <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden bg-white dark:bg-neutral-800">
-          {!data ? (
-            <div className="p-8 text-sm text-neutral-400">No prototype found for “{id}”.</div>
-          ) : data.type === "video" ? (
-            <video
-              src={data.src}
-              autoPlay loop controls muted playsInline
-              className="w-full h-auto"
-              style={{ maxHeight: "80vh" }}
-            />
-          ) : data.type === "image" ? (
-            <img src={data.src} alt={data.title} className="w-full h-auto" />
-          ) : data.type === "iframe" ? (
-            <iframe
-              src={data.src}
-              className="w-full"
-              style={{ height: "80vh" }}
-              allow="fullscreen"
-            />
-          ) : null}
+        {/* Layout más compacto */}
+        <div className="flex flex-col lg:flex-row lg:gap-x-[80px]">
+          
+          {/* RAIL IZQUIERDO: Volver + Título (sticky) */}
+          <aside className="hidden lg:block lg:w-[200px] lg:flex-shrink-0">
+            <div 
+              style={{
+                position: 'fixed',
+                top: '31px',
+                left: 'calc(50% - 600px + 32px)',
+                width: '200px',
+                zIndex: 9999,
+                maxHeight: 'calc(100vh - 40px)',
+                overflowY: 'auto'
+              }}
+            >
+              {/* Volver */}
+              <Link className="essay-back block mb-3" to="/">← Volver</Link>
+            </div>
+          </aside>
+
+          {/* CONTENIDO PRINCIPAL */}
+          <div className="flex-1 max-w-[800px] mx-auto">
+            {/* Renderizar el contenido del prototipo */}
+            {renderPrototypeContent()}
+
+            {/* Prev / Next */}
+            <div className="mt-8">
+              <PrevNext
+                prev={prevId ? { title: PROTOTYPES[prevId]?.title || `Prototype ${prevId}`, href: `/prototype/${prevId}` } : null}
+                next={nextId ? { title: PROTOTYPES[nextId]?.title || `Prototype ${nextId}`, href: `/prototype/${nextId}` } : null}
+              />
+            </div>
+          </div>
+
+          {/* Espacio derecho más pequeño */}
+          <div className="hidden lg:block lg:w-[200px] lg:flex-shrink-0" />
         </div>
       </div>
-    </div>
+    </main>
   );
 }

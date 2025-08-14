@@ -8,6 +8,7 @@ export default function VanishInput({
   placeholder = 'What do you need?',
   icon = '🔍',
   minWidth = 100,
+  maxWidth = 400,
   onSubmit = () => {},
 }) {
   const [value, setValue] = useState('');
@@ -53,8 +54,9 @@ export default function VanishInput({
     const iconWidth = 24;
     const paddingX = 16 + 16;
     const buffer = 4;
-    setInputWidth(Math.max(minWidth, measured + iconWidth + paddingX + buffer));
-  }, [value, placeholder, minWidth]);
+    const calculatedWidth = measured + iconWidth + paddingX + buffer;
+    setInputWidth(Math.min(maxWidth, Math.max(minWidth, calculatedWidth)));
+  }, [value, placeholder, minWidth, maxWidth]);
 
   const handleKeyDown = (e) => {
     // Enter -> disparar efecto
@@ -139,6 +141,26 @@ export default function VanishInput({
           });
         });
       }, totalMs - 2);
+    }
+
+    // Verificar si agregar un carácter excedería el maxWidth
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
+      const currentText = value;
+      const newText = currentText + e.key;
+      const testSpan = document.createElement('span');
+      testSpan.style.visibility = 'hidden';
+      testSpan.style.position = 'absolute';
+      testSpan.style.whiteSpace = 'pre';
+      testSpan.textContent = newText;
+      document.body.appendChild(testSpan);
+      
+      const newWidth = testSpan.offsetWidth + 24 + 32 + 4; // icon + padding + buffer
+      document.body.removeChild(testSpan);
+      
+      if (newWidth > maxWidth) {
+        e.preventDefault();
+        return;
+      }
     }
 
     // Atajos opcionales
@@ -296,7 +318,21 @@ export default function VanishInput({
               onPaste={(e) => {
                 e.preventDefault();
                 const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\n/g, '');
-                document.execCommand('insertText', false, text);
+                
+                // Verificar si el texto pegado excedería el maxWidth
+                const testSpan = document.createElement('span');
+                testSpan.style.visibility = 'hidden';
+                testSpan.style.position = 'absolute';
+                testSpan.style.whiteSpace = 'pre';
+                testSpan.textContent = value + text;
+                document.body.appendChild(testSpan);
+                
+                const newWidth = testSpan.offsetWidth + 24 + 32 + 4; // icon + padding + buffer
+                document.body.removeChild(testSpan);
+                
+                if (newWidth <= maxWidth) {
+                  document.execCommand('insertText', false, text);
+                }
               }}
             />
           ) : (

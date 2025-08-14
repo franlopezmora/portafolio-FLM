@@ -5,7 +5,7 @@ export const PROTOTYPES = {
     type: "custom", // personalizado, no usa video/imagen/iframe
   },
   2: {
-    title: "Demo en video",
+    title: "Vanish Input",
     type: "video",
     src: "/videos/demo.mp4",
   },
@@ -14,7 +14,7 @@ export const PROTOTYPES = {
     type: 'react', // etiqueta informativa; no la usa el router, pero sirve en listados
   },
   4: {
-    title: "Iframe externo",
+    title: "Gooey Tooltip",
     type: "iframe",
     src: "https://example.com",
   },
