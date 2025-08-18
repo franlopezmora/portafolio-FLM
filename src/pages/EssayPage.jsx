@@ -105,21 +105,20 @@ const prevItem = idx > 0 ? proyectos[idx - 1] : null;
 const nextItem = idx >= 0 && idx < proyectos.length - 1 ? proyectos[idx + 1] : null;
 
 return (
-<main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen">
-  <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-8 pt-6">
+<main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen overflow-x-hidden">
+  <div className="mx-auto max-w-[1200px] px-0 pt-6">
 
     {/* Layout con flexbox para mejor control del sticky */}
-    <div className="flex flex-col lg:flex-row lg:gap-x-[160px]">
+    <div className="flex gap-x-10">
       
       {/* RAIL IZQUIERDO: Volver + TOC (sticky) */}
-      <aside className="hidden lg:block lg:w-[240px] lg:flex-shrink-0">
+      <aside className="toc-rail w-[200px] flex-shrink-0">
         <div 
           style={{
-            position: 'fixed',
+            position: 'sticky',
             top: '32px',
-            left: 'calc(50% - 800px + 40px)',
             width: '240px',
-            zIndex: 9999,
+            zIndex: 20,
             maxHeight: 'calc(100vh - 64px)',
             overflowY: 'auto'
           }}
@@ -146,7 +145,7 @@ return (
       </aside>
 
       {/* CONTENIDO PRINCIPAL */}
-      <div className="flex-1 max-w-[1000px] mx-auto">
+      <div className="w-full max-w-[720px] mx-auto">
         {/* Header */}
         <header className="mb-6">
           <h1 className="essay-title">{frontmatter.title || "Untitled"}</h1>
@@ -173,7 +172,7 @@ return (
       </div>
 
       {/* Espacio derecho para balance visual */}
-      <div className="hidden lg:block lg:w-[240px] lg:flex-shrink-0" />
+      <div className="toc-spacer w-[200px] flex-shrink-0" />
     </div>
   </div>
 </main>

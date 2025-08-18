@@ -227,7 +227,7 @@ export default function PrototypePage() {
   };
 
   return (
-    <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen">
+    <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen overflow-x-hidden">
       <div className="mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8 pt-4">
 
         {/* Layout más compacto */}
@@ -237,11 +237,10 @@ export default function PrototypePage() {
           <aside className="hidden lg:block lg:w-[200px] lg:flex-shrink-0">
             <div 
               style={{
-                position: 'fixed',
+                position: 'sticky',
                 top: '31px',
-                left: 'calc(50% - 600px + 32px)',
                 width: '200px',
-                zIndex: 9999,
+                zIndex: 20,
                 maxHeight: 'calc(100vh - 40px)',
                 overflowY: 'auto'
               }}

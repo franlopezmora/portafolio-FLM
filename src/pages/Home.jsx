@@ -19,20 +19,22 @@ export default function Home() {
   const breakpointColumnsObj = { default: 3, 1024: 3, 768: 2, 0: 1 };
 
   return (
-    <main className="min-h-screen px-2 sm:px-2 py-2 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors">
-      <div className="sticky top-2 z-50 flex justify-end pr-2 mb-1">
-        <DarkModeToggle />
-      </div>
+    <main className="min-h-screen px-2 sm:px-2 py-2 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden">
+      <div className="mx-auto max-w-[1100px] px-2">
+        <div className="sticky top-2 z-50 flex justify-end mb-1">
+          <DarkModeToggle />
+        </div>
 
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="flex gap-x-2"
-        columnClassName="masonry-column"
-      >
-        {proyectos.map((p, idx) => (
-          <ProyectoCard key={idx} {...p} />
-        ))}
-      </Masonry>
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="flex gap-x-2 justify-center"
+          columnClassName="masonry-column"
+        >
+          {proyectos.map((p, idx) => (
+            <ProyectoCard key={idx} {...p} />
+          ))}
+        </Masonry>
+      </div>
     </main>
   );
 }

@@ -7,3 +7,9 @@
   flex-direction: column;
   gap: 0.5rem;
 }
+
+/* Bloquea overflow horizontal global por elementos desbordados */
+html, body, #root {
+  max-width: 100%;
+  overflow-x: hidden;
+}

@@ -61,6 +61,15 @@
 .essay-prose {
   font-size: 16px; 
   line-height: 28px;
+  overflow-wrap: anywhere;
+}
+
+/* TOC visible solo a partir de 1200px */
+@media (max-width: 1199px) {
+  .toc-rail,
+  .toc-spacer {
+    display: none !important;
+  }
 }
 
 .essay-prose p { 
@@ -137,20 +146,10 @@
 
 /* Sección bleed (full width dentro del artículo) */
 .bleed {
-  width: 100vw; 
-  max-width: 700px;
-  position: relative; 
-  left: 50%; 
-  right: 50%; 
+  position: relative;
+  left: 50%;
   transform: translateX(-50%);
-}
-
-@media (max-width: 960px) {
-  .bleed { 
-    max-width: none; 
-    padding-left: 16px; 
-    padding-right: 16px; 
-  }
+  width: min(900px, 100vw);
 }
 
 /* Badges numerados tipo "1 2 3" */
