@@ -115,9 +115,10 @@ return (
       <aside className="toc-rail w-[200px] flex-shrink-0">
         <div 
           style={{
-            position: 'sticky',
+            position: 'fixed',
             top: '32px',
-            width: '240px',
+            left: 'calc(50% - 600px)',
+            width: '200px',
             zIndex: 20,
             maxHeight: 'calc(100vh - 64px)',
             overflowY: 'auto'
