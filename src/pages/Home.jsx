@@ -16,12 +16,12 @@ export default function Home() {
   // Ordená igual que querés que navegue Prev/Next (más nuevo primero)
   const proyectos = [...homeItems].sort((a,b) => parseDate(b.fecha) - parseDate(a.fecha));
 
-  const breakpointColumnsObj = { default: 3, 1024: 3, 768: 2, 0: 1 };
+  const breakpointColumnsObj = { default: 3, 768: 2, 0: 1 };
 
   return (
-    <main className="min-h-screen px-2 sm:px-2 py-2 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden">
-      <div className="mx-auto max-w-[1100px] px-2">
-        <div className="sticky top-2 z-50 flex justify-end mb-1">
+    <main className="min-h-screen px-1 sm:px-1 py-2 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden">
+      <div className="mx-auto w-full px-1">
+        <div className="sticky top-1 z-50 flex justify-end mb-3">
           <DarkModeToggle />
         </div>
 

@@ -31,7 +31,7 @@ export default function ProyectoCard({
   const fullBleedOnly = !showActions && !showDescription;
 
   const ctaClasses = `
-    block w-full text-center text-sm font-medium py-2 rounded-lg
+    block w-full text-center text-sm font-medium py-2 rounded-xl
     bg-neutral-200 text-gray-900 hover:bg-neutral-300
     dark:bg-neutral-600 dark:text-gray-100 dark:hover:bg-neutral-700
     transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 dark:focus-visible:ring-black/40
@@ -49,7 +49,7 @@ export default function ProyectoCard({
   return (
     <article
       className={`
-        break-inside-avoid rounded-lg border shadow-sm
+        break-inside-avoid rounded-xl border overflow-hidden
         bg-white text-neutral-900 border-neutral-200
         dark:bg-neutral-800 dark:text-neutral-100 dark:border-neutral-700
         transition-colors duration-200
@@ -63,7 +63,7 @@ export default function ProyectoCard({
       onKeyDown={(e) => hasDest && (e.key === "Enter" || e.key === " ") && handleCardClick()}
     >
       {/* Media */}
-      <div className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-700">
+      <div className="relative overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-700 min-h-[200px]">
         {hasVideo ? (
           <video
             playsInline
@@ -73,7 +73,7 @@ export default function ProyectoCard({
             loop
             preload="metadata"
             poster={poster}
-            className="w-full h-auto block rounded-lg"
+            className="w-full h-auto object-cover rounded-xl"
             onLoadedMetadata={(e) => { e.currentTarget.playbackRate = playbackRate; }}
             onPlay={(e) => { if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate; }}
           >
@@ -86,16 +86,16 @@ export default function ProyectoCard({
             alt={titulo}
             loading="lazy"
             decoding="async"
-            className="w-full h-auto block rounded-lg"
+            className="w-full h-auto object-cover rounded-xl"
           />
         ) : (
-          <div className="w-full min-h-[200px] animate-pulse rounded-lg" />
+          <div className="w-full min-h-[200px] animate-pulse rounded-xl" />
         )}
 
         {/* Overlay */}
         {(!titulo && !fecha) && (
           <div
-            className={`absolute inset-0 rounded-lg pointer-events-none
+            className={`absolute inset-0 rounded-xl pointer-events-none
               ${overlayPos === "top"
                 ? "bg-gradient-to-b from-black/55 via-black/10 to-transparent"
                 : "bg-gradient-to-t from-black/55 via-black/10 to-transparent"
