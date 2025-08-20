@@ -228,35 +228,35 @@ export default function PrototypePage() {
 
   return (
     <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen overflow-x-hidden">
-      <div className="mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8 pt-4">
+      <div className="mx-auto max-w-[1200px] px-0 pt-6">
 
-        {/* Layout más compacto */}
-        <div className="flex flex-col lg:flex-row lg:gap-x-[80px]">
+        {/* Layout con flexbox para mejor control del sticky */}
+        <div className="flex gap-x-10">
           
-          {/* RAIL IZQUIERDO: Volver + Título (sticky) */}
-          <aside className="hidden lg:block lg:w-[200px] lg:flex-shrink-0">
+          {/* RAIL IZQUIERDO: Volver (sticky) */}
+          <aside className="toc-rail w-[200px] flex-shrink-0">
             <div 
               style={{
                 position: 'sticky',
-                top: '31px',
+                top: '32px',
                 width: '200px',
                 zIndex: 20,
-                maxHeight: 'calc(100vh - 40px)',
+                maxHeight: 'calc(100vh - 64px)',
                 overflowY: 'auto'
               }}
             >
               {/* Volver */}
-              <Link className="essay-back block mb-3" to="/">← Volver</Link>
+              <Link className="essay-back block mb-4 -ml-2" to="/">← Volver</Link>
             </div>
           </aside>
 
           {/* CONTENIDO PRINCIPAL */}
-          <div className="flex-1 max-w-[800px] mx-auto">
+          <div className="w-full max-w-[720px] mx-auto">
             {/* Renderizar el contenido del prototipo */}
             {renderPrototypeContent()}
 
             {/* Prev / Next */}
-            <div className="mt-8">
+            <div className="mt-10">
               <PrevNext
                 prev={prevId ? { title: PROTOTYPES[prevId]?.title || `Prototype ${prevId}`, href: `/prototype/${prevId}` } : null}
                 next={nextId ? { title: PROTOTYPES[nextId]?.title || `Prototype ${nextId}`, href: `/prototype/${nextId}` } : null}
@@ -264,8 +264,8 @@ export default function PrototypePage() {
             </div>
           </div>
 
-          {/* Espacio derecho más pequeño */}
-          <div className="hidden lg:block lg:w-[200px] lg:flex-shrink-0" />
+          {/* Espacio derecho para balance visual */}
+          <div className="toc-spacer w-[200px] flex-shrink-0" />
         </div>
       </div>
     </main>
