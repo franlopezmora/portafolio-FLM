@@ -12,7 +12,7 @@ export default function GooeyTooltip({ fullScreen = false }) {
       className={
         fullScreen
           ? "fixed inset-0 flex items-center justify-center bg-black"
-          : "relative h-64 w-full flex items-center justify-center"
+          : "relative h-64 w-full flex items-end justify-center pb-16"
       }
     >
       {/* Filtro Gooey SVG */}

@@ -63,33 +63,33 @@ export default function ProyectoCard({
       onKeyDown={(e) => hasDest && (e.key === "Enter" || e.key === " ") && handleCardClick()}
     >
       {/* Media */}
-      <div className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-700 min-h-[200px]">
+             <div className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-700">
         {hasVideo ? (
-          <video
-            playsInline
-            autoPlay
-            muted
-            key={`${webm}|${gif}|${poster}`} 
-            loop
-            preload="metadata"
-            poster={poster}
-            className="w-full h-auto object-cover rounded-lg"
-            onLoadedMetadata={(e) => { e.currentTarget.playbackRate = playbackRate; }}
-            onPlay={(e) => { if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate; }}
-          >
+                     <video
+             playsInline
+             autoPlay
+             muted
+             key={`${webm}|${gif}|${poster}`} 
+             loop
+             preload="metadata"
+             poster={poster}
+             className="w-full h-auto object-contain rounded-lg"
+             onLoadedMetadata={(e) => { e.currentTarget.playbackRate = playbackRate; }}
+             onPlay={(e) => { if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate; }}
+           >
             {webm && <source src={`${webm}#t=0.01`} type="video/webm" />}
             {gif && <source src={`${gif}#t=0.01`} type="video/mp4" />}
           </video>
         ) : gif ? (
-          <img
-            src={gif}
-            alt={titulo}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-auto object-cover rounded-lg"
-          />
+                     <img
+             src={gif}
+             alt={titulo}
+             loading="lazy"
+             decoding="async"
+             className="w-full h-auto object-contain rounded-lg"
+           />
         ) : (
-          <div className="w-full min-h-[200px] animate-pulse rounded-lg" />
+          <div className="w-full h-full animate-pulse rounded-lg" />
         )}
 
         {/* Overlay */}
