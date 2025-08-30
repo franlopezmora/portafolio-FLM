@@ -50,6 +50,12 @@
   line-height: 24px; 
   font-weight: 600; 
   letter-spacing: -.01em;
+  color: #1c1c1c; /* Gris oscuro para modo claro */
+}
+
+/* Modo oscuro */
+.dark .essay-title {
+  color: #e6e6e6; /* Blanco suave para modo oscuro */
 }
 
 .essay-meta {
@@ -63,7 +69,14 @@
 .essay-prose {
   font-size: 16px; 
   line-height: 28px;
+  font-weight: 250;
   overflow-wrap: anywhere;
+  color: #1c1c1c; /* Gris oscuro para modo claro */
+}
+
+/* Modo oscuro */
+.dark .essay-prose {
+  color: #e6e6e6; /* Blanco suave para modo oscuro */
 }
 
 /* TOC visible solo a partir de 1200px */
@@ -182,7 +195,7 @@
 }
 
 .essay-prose code {
-  background: rgba(107,114,128,.15); 
+  background: rgba(42, 80, 156, 0.15); 
   padding: 2px 4px; 
   border-radius: 4px;
 }

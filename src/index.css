@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variables CSS para colores de fondo */
+:root {
+  --bg-color: #fafafa; /* bg-neutral-50 */
+}
+
+.dark {
+  --bg-color: #171717; /* bg-neutral-900 */
+}
+
 .masonry-column {
   display: flex;
   flex-direction: column;
@@ -20,17 +29,32 @@ html, body, #root {
 
 /* Fondo que se extiende más allá del contenido para evitar fondo blanco al hacer scroll */
 html {
-  background-color: #fafafa; /* bg-neutral-50 - mismo color que el home en modo claro */
+  background-color: #fafafa !important; /* bg-neutral-50 - mismo color que el home en modo claro */
+  min-height: 100vh;
 }
 
 body {
-  background-color: #fafafa; /* bg-neutral-50 - mismo color que el home en modo claro */
+  background-color: #fafafa !important; /* bg-neutral-50 - mismo color que el home en modo claro */
+  min-height: 100vh;
 }
 
-/* Fondo para modo oscuro */
+#root {
+  background-color: #fafafa !important; /* bg-neutral-50 - mismo color que el home en modo claro */
+  min-height: 100vh;
+}
+
+/* Fondo para modo oscuro - con mayor especificidad */
+.dark {
+  background-color: #171717 !important; /* bg-neutral-900 - mismo color que el home en modo oscuro */
+}
+
 .dark html,
-.dark body {
-  background-color: #171717; /* bg-neutral-900 - mismo color que el home en modo oscuro */
+.dark body,
+.dark #root,
+html.dark,
+body.dark,
+#root.dark {
+  background-color: #171717 !important; /* bg-neutral-900 - mismo color que el home en modo oscuro */
 }
 
 /* Estilos del scrollbar que se camuflan con el fondo */

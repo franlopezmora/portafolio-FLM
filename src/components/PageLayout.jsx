@@ -7,11 +7,16 @@ export default function PageLayout({
   backText = "← Volver",
   showToc = false,
   toc = [],
-  onTocItemClick = () => {},
-  className = ""
+  onTocItemClick = () => {}
 }) {
   return (
-    <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen overflow-x-hidden">
+    <main 
+      className="bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 min-h-screen overflow-x-hidden"
+      style={{
+        backgroundColor: 'var(--bg-color, #fafafa)',
+        minHeight: '100vh'
+      }}
+    >
       <div className="mx-auto max-w-[1200px] px-0 pt-6">
 
         {/* Layout con flexbox para mejor control del sticky */}
@@ -38,13 +43,13 @@ export default function PageLayout({
 
               {/* TOC (solo si se solicita) */}
               {showToc && toc.length > 0 && (
-                <nav className="space-y-2 text-sm text-neutral-500 dark:text-neutral-400">
+                <nav className="space-y-0 text-[14px] text-neutral-500 dark:text-neutral-400">
                   {toc.map((item) => (
                     <button
                       key={item.id}
                       onClick={() => onTocItemClick(item.id)}
-                      className={`block w-full text-left transition-colors duration-200 py-1 px-2 rounded
-                        ${item.level === "h3" ? "pl-6 text-[13px]" : "pl-2"}
+                      className={`block w-full text-left transition-colors duration-200 py-0.5 px-2 rounded tracking-tight
+                        ${item.level === "h3" ? "pl-6 text-[14px]" : "pl-2"}
                         hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800
                       `}
                     >
@@ -57,7 +62,7 @@ export default function PageLayout({
           </aside>
 
           {/* CONTENIDO PRINCIPAL */}
-          <div className="w-full max-w-[720px] mx-auto">
+          <div className="w-full max-w-[720px] mx-auto pb-32">
             {children}
           </div>
 
