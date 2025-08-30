@@ -17,7 +17,7 @@ export default function PageLayout({
         minHeight: '100vh'
       }}
     >
-      <div className="mx-auto max-w-[1200px] px-0 pt-6">
+      <div className="mx-auto max-w-[1200px] px-6 pt-6">
 
         {/* Layout con flexbox para mejor control del sticky */}
         <div className="flex gap-x-10">
