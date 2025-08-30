@@ -120,20 +120,11 @@
   margin: 6px 0; 
 }
 
-/* Frame para imágenes / videos con borde suave */
+/* Frame para imágenes / videos sin borde */
 .essay-frame {
   border-radius: 12px;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
   overflow: hidden;
   margin: 12px 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  .essay-frame { 
-    background: #111418; 
-    border-color: rgba(255,255,255,.12); 
-  }
 }
 
 .essay-frame > img,

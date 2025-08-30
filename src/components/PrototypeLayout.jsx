@@ -1,8 +1,6 @@
-import DarkModeToggle from "./DarkModeToggle";
+import "../styles/essay.css";
 
 export default function PrototypeLayout({ 
-  title, 
-  date, 
   description, 
   children, 
   className = "",
@@ -10,34 +8,20 @@ export default function PrototypeLayout({
   customCursor = null
 }) {
   return (
-    <div className={`${relative ? 'relative' : ''} bg-white text-black dark:bg-neutral-900 dark:text-white ${className}`}>
+    <div className={`${relative ? 'relative' : ''} bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white rounded-xl border border-neutral-200 dark:border-neutral-700 ${className}`}>
       {/* Cursor custom si se proporciona */}
       {customCursor}
       
-      {/* Header con título, fecha y toggle */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="text-left">
-          <h1 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">
-            {title}
-          </h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-            {date}
+      <div className="p-6">
+        {description && (
+          <p className="text-neutral-500 mb-4 text-sm">
+            {description}
           </p>
-        </div>
-        <div className="flex items-center gap-4" style={{ marginTop: '-7px' }}>
-          {/* Toggle Dark Mode */}
-          <DarkModeToggle />
-        </div>
+        )}
+
+        {/* Contenido del prototipo */}
+        {children}
       </div>
-
-      {description && (
-        <p className="text-neutral-500 mb-4 text-sm">
-          {description}
-        </p>
-      )}
-
-      {/* Contenido del prototipo */}
-      {children}
     </div>
   );
 }

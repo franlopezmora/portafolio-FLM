@@ -18,6 +18,21 @@ html, body, #root {
   transition: background-color 200ms ease-in-out;
 }
 
+/* Fondo que se extiende más allá del contenido para evitar fondo blanco al hacer scroll */
+html {
+  background-color: #fafafa; /* bg-neutral-50 - mismo color que el home en modo claro */
+}
+
+body {
+  background-color: #fafafa; /* bg-neutral-50 - mismo color que el home en modo claro */
+}
+
+/* Fondo para modo oscuro */
+.dark html,
+.dark body {
+  background-color: #171717; /* bg-neutral-900 - mismo color que el home en modo oscuro */
+}
+
 /* Estilos del scrollbar que se camuflan con el fondo */
 ::-webkit-scrollbar {
   width: 12px !important; /* Ancho fijo que no cambia con el zoom */

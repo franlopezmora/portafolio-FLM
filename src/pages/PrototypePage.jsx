@@ -1,8 +1,9 @@
 // src/pages/PrototypePage.jsx
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PROTOTYPES } from "../prototypes";
 import PrevNext from "../components/PrevNext";
+import PageLayout from "../components/PageLayout";
 
 // 👇 importa tus componentes
 import CustomCursor from "../components/prototypes/CustomCursor";
@@ -33,8 +34,6 @@ export default function PrototypePage() {
     if (id === "1") {
       return (
         <PrototypeLayout
-          title="Custom Cursor + Hover Card"
-          date="January 2025"
           description="Probá pasar el mouse por la card y el botón. El cursor reacciona a elementos interactivos."
           relative={true}
           customCursor={enabled && <CustomCursor seed={seed} />}
@@ -59,8 +58,6 @@ export default function PrototypePage() {
     if (id === "2") {
       return (
         <PrototypeLayout
-          title="Vanish Input"
-          date="February 2025"
           description="Escribí y presioná Enter: las letras se borran y el caret regresa a su lugar."
         >
           <div className="grid place-items-center py-8">
@@ -227,50 +224,29 @@ export default function PrototypePage() {
   };
 
   return (
-    <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen overflow-x-hidden">
-      <div className="mx-auto max-w-[1200px] px-0 pt-6">
+    <PageLayout 
+      backTo="/"
+      backText="← Volver"
+      showToc={false}
+    >
+      {/* Header con título y fecha */}
+      <header className="mb-6">
+        <h1 className="essay-title">{PROTOTYPES[id]?.title || `Prototype ${id}`}</h1>
+        <p className="essay-meta mt-1">
+          {PROTOTYPES[id]?.date || "January 2025"}
+        </p>
+      </header>
 
-        {/* Layout con flexbox para mejor control del sticky */}
-        <div className="flex gap-x-10">
-          
-          {/* RAIL IZQUIERDO: Volver (sticky) */}
-          <aside className="toc-rail w-[220px] flex-shrink-0">
-            <div 
-              style={{
-                position: 'sticky',
-                top: '32px',
-                width: '220px',
-                zIndex: 20,
-                maxHeight: 'calc(100vh - 64px)',
-                overflowY: 'auto',
-                overflowX: 'visible'
-              }}
-            >
-              {/* Volver */}
-              <div className="pl-2">
-                <Link className="essay-back block mb-4 -ml-2" to="/">← Volver</Link>
-              </div>
-            </div>
-          </aside>
+      {/* Renderizar el contenido del prototipo */}
+      {renderPrototypeContent()}
 
-          {/* CONTENIDO PRINCIPAL */}
-          <div className="w-full max-w-[720px] mx-auto">
-            {/* Renderizar el contenido del prototipo */}
-            {renderPrototypeContent()}
-
-            {/* Prev / Next */}
-            <div className="mt-10">
-              <PrevNext
-                prev={prevId ? { title: PROTOTYPES[prevId]?.title || `Prototype ${prevId}`, href: `/prototype/${prevId}` } : null}
-                next={nextId ? { title: PROTOTYPES[nextId]?.title || `Prototype ${nextId}`, href: `/prototype/${nextId}` } : null}
-              />
-            </div>
-          </div>
-
-          {/* Espacio derecho para balance visual */}
-          <div className="toc-spacer w-[220px] flex-shrink-0" />
-        </div>
+      {/* Prev / Next */}
+      <div className="mt-10">
+        <PrevNext
+          prev={prevId ? { title: PROTOTYPES[prevId]?.title || `Prototype ${prevId}`, href: `/prototype/${prevId}` } : null}
+          next={nextId ? { title: PROTOTYPES[nextId]?.title || `Prototype ${nextId}`, href: `/prototype/${nextId}` } : null}
+        />
       </div>
-    </main>
+    </PageLayout>
   );
 }
