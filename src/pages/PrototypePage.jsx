@@ -234,19 +234,22 @@ export default function PrototypePage() {
         <div className="flex gap-x-10">
           
           {/* RAIL IZQUIERDO: Volver (sticky) */}
-          <aside className="toc-rail w-[200px] flex-shrink-0">
+          <aside className="toc-rail w-[220px] flex-shrink-0">
             <div 
               style={{
                 position: 'sticky',
                 top: '32px',
-                width: '200px',
+                width: '220px',
                 zIndex: 20,
                 maxHeight: 'calc(100vh - 64px)',
-                overflowY: 'auto'
+                overflowY: 'auto',
+                overflowX: 'visible'
               }}
             >
               {/* Volver */}
-              <Link className="essay-back block mb-4 -ml-2" to="/">← Volver</Link>
+              <div className="pl-2">
+                <Link className="essay-back block mb-4 -ml-2" to="/">← Volver</Link>
+              </div>
             </div>
           </aside>
 
@@ -265,7 +268,7 @@ export default function PrototypePage() {
           </div>
 
           {/* Espacio derecho para balance visual */}
-          <div className="toc-spacer w-[200px] flex-shrink-0" />
+          <div className="toc-spacer w-[220px] flex-shrink-0" />
         </div>
       </div>
     </main>
