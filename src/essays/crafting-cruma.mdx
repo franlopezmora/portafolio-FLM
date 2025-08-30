@@ -18,13 +18,13 @@ import EssayImage from "../components/EssayImage.jsx";
   className="relative z-30"
 />
 
-## La grilla: el corazón de todo
+## La grilla
 
 Trabajamos con pasos de 5 minutos y origen común en las 08:00. Así, cualquier horario lo podés traducir a píxeles sin sorpresas.
 
 **Siempre** ordenamos por día y hora de entrada, para que nada “salte” en la vista. Y mapeamos los días a mano: lunes = 1, martes = 2… nada de magia rara.
 
-## Preview vs. fijo: quién va arriba
+## Preview vs. fijo
 
 Cuando estás probando comisiones, lo que ves como **preview** siempre queda arriba de lo que ya elegiste.  
 ¿Por qué? Porque si estás evaluando algo, es lo que más te importa en ese momento. Un simple `z-index` bien pensado hace toda la diferencia.
@@ -36,7 +36,7 @@ Si hay tres o más, se sigue subdividiendo y listo.
 
 En esos casos apretados, mostramos solo lo básico: código, sección y hora. Menos ruido = más claridad.
 
-## El flujo y los “resets”
+## El flujo
 
 Cruma no te hace pensar en la app, facilita el armado de tu cronograma:
 
@@ -45,14 +45,14 @@ Cruma no te hace pensar en la app, facilita el armado de tu cronograma:
 3. Ahí recién habilitamos búsqueda y filtros.  
 4. Si cambiás carrera o cuatri, reseteamos todo.
 
-## Búsqueda que no molesta
+## Búsqueda de materias
 
 Filtro de año a la izquierda, búsqueda a la derecha.  
 El listado aparece solo si escribís algo.  
 Tildás una materia y se limpia el input para seguir sumando rápido.  
 Y siempre tenés el panel de “Seleccionadas” a mano para sacar lo que quieras.
 
-## El lado B: de PDF a datos útiles
+## De PDF a datos útiles
 
 Esta parte fue lo más complicado. Los horarios venían en formato PDF:  
 Y surgió la duda, ¿Cómo los traducimos a datos crudos?
@@ -65,7 +65,7 @@ Por ahora Cruma anda con los horarios de Sistemas, porque eran nuestra prioridad
 Pero el sistema ya está listo para cualquier carrera de la facu: solo falta cargar los datos en el formato correcto y listo.  
 Todo el backend y la lógica del front están pensados para escalar sin dramas.
 
-## Repo abierto, mate y código
+## Repo abierto
 
 El código está en un repo público: [github.com/franlopezmora/cruma](https://github.com/franlopezmora/cruma).  
 Si querés sumarte, ya sea corrigiendo un bug, cargando horarios de otra carrera o metiendo una mejora visual, adelante..

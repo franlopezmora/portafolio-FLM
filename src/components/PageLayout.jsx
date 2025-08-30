@@ -48,7 +48,7 @@ export default function PageLayout({
                     <button
                       key={item.id}
                       onClick={() => onTocItemClick(item.id)}
-                      className={`block w-full text-left transition-colors duration-200 py-0.5 px-2 rounded tracking-tight
+                      className={`block w-[170px] text-left transition-colors duration-200 py-0.5 px-2 rounded tracking-tight
                         ${item.level === "h3" ? "pl-6 text-[14px]" : "pl-2"}
                         hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800
                       `}
