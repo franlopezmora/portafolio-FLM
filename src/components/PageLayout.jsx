@@ -20,10 +20,10 @@ export default function PageLayout({
       <div className="mx-auto max-w-[1200px] px-6 pt-6">
 
         {/* Layout con flexbox para mejor control del sticky */}
-        <div className="flex gap-x-10">
+        <div className="flex gap-x-10 lg:gap-x-10">
           
-          {/* RAIL IZQUIERDO: Volver + TOC (sticky) */}
-          <aside className="toc-rail w-[200px] flex-shrink-0">
+          {/* RAIL IZQUIERDO: Volver + TOC (sticky) - Desktop */}
+          <aside className="toc-rail w-[200px] flex-shrink-0 hidden lg:block">
             <div 
               style={{
                 position: 'fixed',
@@ -63,11 +63,17 @@ export default function PageLayout({
 
           {/* CONTENIDO PRINCIPAL */}
           <div className="w-full max-w-[720px] mx-auto pb-32">
+            {/* Header responsive para móvil/tablet */}
+            <div className="lg:hidden flex items-center justify-between mb-6">
+              <Link className="essay-back -ml-2" to={backTo}>{backText}</Link>
+              <DarkModeToggle />
+            </div>
+            
             {children}
           </div>
 
-          {/* Espacio derecho para balance visual */}
-          <div className="toc-spacer w-[200px] flex-shrink-0">
+          {/* Espacio derecho para balance visual - Desktop */}
+          <div className="toc-spacer w-[200px] flex-shrink-0 hidden lg:block">
             <div 
               style={{
                 position: 'fixed',
