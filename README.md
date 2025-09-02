@@ -103,7 +103,7 @@ Este diseño está inspirado en la estética limpia y funcional de [rauno.me](ht
 
 - **Email**: franciscolopezmora3@gmail.com
 - **GitHub**: [franlopezmora](https://github.com/franlopezmora)
-- **LinkedIn**: [Francisco López Mora](https://linkedin.com/in/francisco-lopez-mora)
+- **LinkedIn**: [Francisco López Mora](https://www.linkedin.com/in/franciscolopezmora/)
 
 ---
 
