@@ -32,14 +32,9 @@ html, body, #root {
   transition: background-color 200ms ease-in-out;
 }
 
-/* Prevenir layout shift cuando aparece la barra de desplazamiento */
+/* Prevenir layout shift reservando espacio para la barra de desplazamiento */
 html {
-  overflow-y: scroll; /* Siempre mostrar la barra de desplazamiento vertical */
-}
-
-/* Alternativa: reservar espacio para la barra de desplazamiento */
-html {
-  scrollbar-gutter: stable; /* Reserva espacio para la barra de desplazamiento */
+  scrollbar-gutter: stable; /* Reserva espacio para la barra de desplazamiento sin mostrarla */
 }
 
 /* Fondo que se extiende más allá del contenido para evitar fondo blanco al hacer scroll */
@@ -72,122 +67,44 @@ body.dark,
   background-color: #171717 !important; /* bg-neutral-900 - mismo color que el home en modo oscuro */
 }
 
-/* Estilos del scrollbar que se camuflan con el fondo */
+/* Estilos del scrollbar cuando aparece naturalmente */
 ::-webkit-scrollbar {
-  width: 12px !important; /* Ancho fijo que no cambia con el zoom */
-  min-width: 12px !important; /* Ancho mínimo fijo */
-  max-width: 12px !important; /* Ancho máximo fijo */
-}
-
-/* Transiciones del scrollbar con delay para que cambie después del fondo */
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-thumb,
-::-webkit-scrollbar-button {
-  transition: background-color 500ms ease-in-out 200ms !important; /* Delay más largo para probar */
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--scrollbar-track-color, #fafafa); /* Usa variable CSS o fallback */
+  background: #fafafa;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb-color, #d4d4d4); /* Usa variable CSS o fallback */
+  background: #d4d4d4;
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3; /* Gris medio en hover */
+  background: #a3a3a3;
 }
 
-/* Estilos para los botones de flecha arriba y abajo */
-::-webkit-scrollbar-button {
-  background: #fafafa; /* Mismo color que el track */
-  border: none;
-  height: 16px; /* Altura fija para los botones */
-  display: block; /* Asegura que se muestren */
+/* Scrollbar para tema oscuro */
+.dark ::-webkit-scrollbar-track {
+  background: #171717;
 }
 
-::-webkit-scrollbar-button:hover {
-  background: #e5e5e5;
+.dark ::-webkit-scrollbar-thumb {
+  background: #525252;
 }
 
-::-webkit-scrollbar-button:active {
-  background: #d4d4d4;
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #737373;
 }
 
-/* Scrollbar para tema oscuro - con mayor especificidad */
-.dark ::-webkit-scrollbar-track,
-html.dark ::-webkit-scrollbar-track,
-body.dark ::-webkit-scrollbar-track,
-#root.dark ::-webkit-scrollbar-track {
-  background: #171717 !important; /* bg-neutral-900 - mismo color que el home en modo oscuro */
+/* Estilos para Firefox */
+html {
+  scrollbar-width: 12px;
+  scrollbar-color: #a3a3a3 #fafafa;
 }
 
-.dark ::-webkit-scrollbar-thumb,
-html.dark ::-webkit-scrollbar-thumb,
-body.dark ::-webkit-scrollbar-thumb,
-#root.dark ::-webkit-scrollbar-thumb {
-  background: #525252 !important; /* Gris oscuro sutil */
-}
-
-.dark ::-webkit-scrollbar-thumb:hover,
-html.dark ::-webkit-scrollbar-thumb:hover,
-body.dark ::-webkit-scrollbar-thumb:hover,
-#root.dark ::-webkit-scrollbar-thumb:hover {
-  background: #737373 !important; /* Gris medio en hover para tema oscuro */
-}
-
-.dark ::-webkit-scrollbar-button,
-html.dark ::-webkit-scrollbar-button,
-body.dark ::-webkit-scrollbar-button,
-#root.dark ::-webkit-scrollbar-button {
-  background: #171717 !important; /* Mismo color que el track oscuro */
-  border: none;
-  height: 16px; /* Altura fija para los botones */
-  display: block; /* Asegura que se muestren */
-}
-
-.dark ::-webkit-scrollbar-button:hover,
-html.dark ::-webkit-scrollbar-button:hover,
-body.dark ::-webkit-scrollbar-button:hover,
-#root.dark ::-webkit-scrollbar-button:hover {
-  background: #262626 !important;
-}
-
-.dark ::-webkit-scrollbar-button:active,
-html.dark ::-webkit-scrollbar-button:active,
-body.dark ::-webkit-scrollbar-button:active,
-#root.dark ::-webkit-scrollbar-button:active {
-  background: #525252 !important;
-}
-
-/* Estilos para Firefox - más específicos para evitar que se sobrescriban */
-html, body, #root, * {
-  scrollbar-width: 12px !important;
-  scrollbar-color: #a3a3a3 #fafafa !important; /* bg-neutral-50 - mismo color que el home */
-}
-
-/* Scrollbar Firefox para tema oscuro - con mayor especificidad */
-.dark html, .dark body, .dark #root, .dark *,
-html.dark, body.dark, #root.dark {
-  scrollbar-width: 12px !important;
-  scrollbar-color: #525252 #171717 !important; /* bg-neutral-900 - mismo color que el home en modo oscuro */
-}
-
-/* Forzar colores específicos para Firefox en modo oscuro */
+/* Scrollbar Firefox para tema oscuro */
 .dark {
-  scrollbar-width: 12px !important;
-  scrollbar-color: #525252 #171717 !important;
-}
-
-/* Asegurar que los colores se mantengan incluso con configuraciones de accesibilidad */
-@media (prefers-contrast: high) {
-  .dark {
-    scrollbar-color: #525252 #171717 !important;
-  }
-}
-
-/* Asegurar que el scrollbar mantenga su tamaño en diferentes contextos */
-html, body, #root {
-  scrollbar-width: 12px !important;
+  scrollbar-color: #525252 #171717;
 }
