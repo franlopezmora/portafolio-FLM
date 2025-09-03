@@ -66,6 +66,15 @@ export const homeItems = [
     essay: "/essay/crafting-cruma",
   },
   {
+    titulo: "Sistema de Pruebas de Manejo",
+    descripcion: "Backend con microservicios para gestionar pruebas de manejo",
+    gif: "",
+    overlayPos: "top",
+    titleColor: "dark",
+    fecha: "Febrero 2025",
+    essay: "/essay/crafting-tpi-backend",
+  },
+  {
     titulo: "Dashboard de pruebas",
     descripcion: "",
     gif: "",
