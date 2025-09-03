@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Configuración global para prevenir layout shift */
+* {
+  box-sizing: border-box;
+}
+
 /* Variables CSS para colores de fondo */
 :root {
   --bg-color: #fafafa; /* bg-neutral-50 */
@@ -25,6 +30,16 @@ html, body, #root {
 /* Aplicar transición global para sincronizar todos los cambios de color */
 html, body, #root {
   transition: background-color 200ms ease-in-out;
+}
+
+/* Prevenir layout shift cuando aparece la barra de desplazamiento */
+html {
+  overflow-y: scroll; /* Siempre mostrar la barra de desplazamiento vertical */
+}
+
+/* Alternativa: reservar espacio para la barra de desplazamiento */
+html {
+  scrollbar-gutter: stable; /* Reserva espacio para la barra de desplazamiento */
 }
 
 /* Fondo que se extiende más allá del contenido para evitar fondo blanco al hacer scroll */

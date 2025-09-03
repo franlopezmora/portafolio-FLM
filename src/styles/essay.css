@@ -5,6 +5,9 @@
   padding: 40px 24px 96px;
   color: inherit;
   position: relative;
+  /* Prevenir layout shift */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
