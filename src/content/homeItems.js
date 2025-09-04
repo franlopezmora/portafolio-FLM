@@ -68,7 +68,7 @@ export const homeItems = [
   {
     titulo: "Sistema de Pruebas de Manejo",
     descripcion: "Backend con microservicios para gestionar pruebas de manejo",
-    gif: "",
+    gif: "/src/images/Captura de pantalla 2025-09-02 224640.png",
     overlayPos: "top",
     titleColor: "dark",
     fecha: "Febrero 2025",
