@@ -19,6 +19,14 @@ Desde el principio optamos por una **arquitectura de microservicios**, porque no
 
 Esta división nos obligó a pensar en los contratos entre servicios y a utilizar **Spring Cloud Gateway** para centralizar la autenticación y el enrutamiento. Cada microservicio tiene su propia base de datos, lo que simplifica la consistencia interna y reduce acoplamientos.
 
+import EssayImage from "../components/EssayImage.jsx";
+
+<EssayImage
+  src="Captura de pantalla 2025-09-07 185845.png"
+  alt="Arquitectura del sistema de microservicios"
+  bleed
+/>
+
 ## Tecnologías y herramientas
 
 Elegimos **Java 21** como lenguaje base y **Spring Boot 3.3.5** como framework, aprovechando su soporte para microservicios y la madurez de su ecosistema. Para la persistencia usamos **Spring Data JPA** y **PostgreSQL** como base de datos principal, mientras que **H2** nos sirvió para testear en memoria. Para el cliente HTTP declarativo utilizamos **OpenFeign** y documentamos cada API con **SpringDoc OpenAPI**. La construcción y gestión de dependencias se resolvieron con **Maven**.
@@ -43,9 +51,28 @@ Queríamos que el entorno de desarrollo fuera lo más simple posible. Por eso es
 
 Pensamos en el despliegue productivo y dejamos pautas claras: configurar variables de entorno específicas, usar una base de datos externa, montar un reverse proxy con SSL y habilitar monitoreo y logging. Todo esto quedó documentado para que cualquiera pueda replicar o mejorar el proyecto.
 
+<EssayImage
+  src="Captura de pantalla 2025-09-07 192111.png"
+  alt="Proceso de desarrollo y despliegue del sistema TPI"
+  bleed
+/>
+
 ## Testing y calidad
 
 Cada microservicio incluye tests unitarios y de integración. Establecimos un estándar: ninguna feature se mergea sin sus tests correspondientes. Con `mvn test` se ejecutan todos los tests de un servicio o del proyecto completo, lo que nos dio confianza para refactorizar sin miedo.
+
+<div className="flex gap-4 mb-6">
+  <EssayImage
+    src="Captura de pantalla 2025-09-07 194705.png"
+    alt="Tests unitarios del sistema TPI"
+    className="flex-1"
+  />
+  <EssayImage
+    src="Captura de pantalla 2025-09-07 194731.png"
+    alt="Reportes y estadísticas del sistema TPI"
+    className="flex-1"
+  />
+</div>
 
 ## Equipo y aprendizajes
 
