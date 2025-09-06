@@ -12,8 +12,8 @@ Más que contarte *qué* hicimos, en este ensayo te cuento **cómo lo construimo
 import EssayImage from "../components/EssayImage.jsx";
 
 <EssayImage
-  src="cruma.png"
-  alt="Interfaz de CRUMA mostrando la grilla de horarios"
+  src="Captura de pantalla 2025-09-05 210152.png"
+  alt="Pantalla de bienvenida de CRUMA"
   bleed
   className="relative z-30"
 />
@@ -36,6 +36,12 @@ Si hay tres o más, se sigue subdividiendo y listo.
 
 En esos casos apretados, mostramos solo lo básico: código, sección y hora. Menos ruido = más claridad.
 
+<EssayImage
+  src="Captura de pantalla 2025-09-05 210939.png"
+  alt="Manejo de choques entre previews en CRUMA"
+  bleed
+/>
+
 ## El flujo
 
 Cruma no te hace pensar en la app, facilita el armado de tu cronograma:
@@ -50,7 +56,13 @@ Cruma no te hace pensar en la app, facilita el armado de tu cronograma:
 Filtro de año a la izquierda, búsqueda a la derecha.  
 El listado aparece solo si escribís algo.  
 Tildás una materia y se limpia el input para seguir sumando rápido.  
-Y siempre tenés el panel de “Seleccionadas” a mano para sacar lo que quieras.
+Y siempre tenés el panel de "Seleccionadas" a mano para sacar lo que quieras.
+
+<EssayImage
+  src="Captura de pantalla 2025-09-05 205928.png"
+  alt="Interfaz de búsqueda de materias en CRUMA"
+  bleed
+/>
 
 ## De PDF a datos útiles
 
@@ -58,6 +70,12 @@ Esta parte fue lo más complicado. Los horarios venían en formato PDF:
 Y surgió la duda, ¿Cómo los traducimos a datos crudos?
 
 Terminamos armando todos las tablas a mano, para poder pasarlos a CSV, un formato fácil de importar a cualquier Base de Datos.
+
+<EssayImage
+  src="Captura de pantalla 2025-09-05 210905.png"
+  alt="Proceso de conversión de datos PDF a CSV en CRUMA"
+  bleed
+/>
 
 ## Más allá de Sistemas
 
@@ -78,6 +96,12 @@ Si querés sumarte, ya sea corrigiendo un bug, cargando horarios de otra carrera
 * **Sumar más carreras** de la facu.  
 * **Automatizar** el proceso de carga de horarios.  
 * **Optimizar mobile** para que usarlo desde el celu sea tan cómodo como en la compu.
+
+<EssayImage
+  src="Captura de pantalla 2025-09-05 211043.png"
+  alt="Reporte de horarios en CRUMA"
+  bleed
+/>
 
 ## Cierre
 
