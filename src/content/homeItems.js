@@ -2,7 +2,7 @@ export const homeItems = [
   {
     titulo: "Custom Cursor",
     descripcion: "",
-    gif: "public/gifs/gestor-turnos.mp4",
+    gif: "/gifs/gestor-turnos.mp4",
     prototype: "/prototype/1",
   },
   {
