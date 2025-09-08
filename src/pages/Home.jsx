@@ -3,13 +3,31 @@ import ProyectoCard from "../components/ProyectoCard";
 import DarkModeToggle from "../components/DarkModeToggle";
 import { homeItems } from "../content/homeItems";
 
-// (opcional) parse robusto por si alguna fecha viene como "Junio 2025"
+// Mapeo directo de meses en español a inglés
+const ES_MONTHS = {
+  "enero": "January", "febrero": "February", "marzo": "March", "abril": "April", 
+  "mayo": "May", "junio": "June", "julio": "July", "agosto": "August", 
+  "septiembre": "September", "octubre": "October", 
+  "noviembre": "November", "diciembre": "December",
+  "Enero": "January", "Febrero": "February", "Marzo": "March", "Abril": "April", 
+  "Mayo": "May", "Junio": "June", "Julio": "July", "Agosto": "August", 
+  "Septiembre": "September", "Octubre": "October", 
+  "Noviembre": "November", "Diciembre": "December"
+};
+
 const parseDate = (d) => {
   if (!d) return 0;
-  const t = Date.parse(d);
-  if (!Number.isNaN(t)) return t;
-  // ej: "Junio 2025" -> 01 Junio 2025
-  try { return Date.parse(d.replace(/(\w+)\s+(\d{4})/, "01 $1 $2")); } catch { return 0; }
+  
+  // ej: "Agosto 2025" -> "01 August 2025"
+  const match = d.match(/^([a-zA-ZáéíóúñÁÉÍÓÚÑ]+)\s+(\d{4})$/);
+  if (match) {
+    const [, month, year] = match;
+    const englishMonth = ES_MONTHS[month];
+    if (englishMonth) {
+      return Date.parse(`01 ${englishMonth} ${year}`);
+    }
+  }
+  return 0;
 };
 
 export default function Home() {

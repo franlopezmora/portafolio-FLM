@@ -13,6 +13,7 @@ export const homeItems = [
     poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input-poster.jpg",
     prototype: "/prototype/2",
     playbackRate: 1.9,
+    fecha: "Febrero 2025",
   },
   {
     titulo: "Dark Mode Toggle",
@@ -50,7 +51,7 @@ export const homeItems = [
   {
     titulo: "Side Bar",
     descripcion: "",
-    fecha: "Junio 2025",
+    fecha: "Diciembre 2024",
     prototype: "/prototype/7",
     gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar.mp4",
     webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar2.webm",
@@ -69,7 +70,7 @@ export const homeItems = [
     descripcion: "Backend con microservicios para gestionar pruebas de manejo",
     gif: "/images/Captura de pantalla 2025-09-04 143046.png",
     overlayPos: "top",
-    fecha: "Febrero 2025",
+    fecha: "Julio 2025",
     essay: "/essay/crafting-tpi-backend",
   },
 ];
