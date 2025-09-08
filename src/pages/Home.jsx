@@ -1,58 +1,45 @@
-import Masonry from "react-masonry-css";
-import ProyectoCard from "../components/ProyectoCard";
+import { Link } from "react-router-dom";
 import DarkModeToggle from "../components/DarkModeToggle";
-import { homeItems } from "../content/homeItems";
-
-// Mapeo directo de meses en español a inglés
-const ES_MONTHS = {
-  "enero": "January", "febrero": "February", "marzo": "March", "abril": "April", 
-  "mayo": "May", "junio": "June", "julio": "July", "agosto": "August", 
-  "septiembre": "September", "octubre": "October", 
-  "noviembre": "November", "diciembre": "December",
-  "Enero": "January", "Febrero": "February", "Marzo": "March", "Abril": "April", 
-  "Mayo": "May", "Junio": "June", "Julio": "July", "Agosto": "August", 
-  "Septiembre": "September", "Octubre": "October", 
-  "Noviembre": "November", "Diciembre": "December"
-};
-
-const parseDate = (d) => {
-  if (!d) return 0;
-  
-  // ej: "Agosto 2025" -> "01 August 2025"
-  const match = d.match(/^([a-zA-ZáéíóúñÁÉÍÓÚÑ]+)\s+(\d{4})$/);
-  if (match) {
-    const [, month, year] = match;
-    const englishMonth = ES_MONTHS[month];
-    if (englishMonth) {
-      return Date.parse(`01 ${englishMonth} ${year}`);
-    }
-  }
-  return 0;
-};
+import BottomNav from "../components/BottomNav";
 
 export default function Home() {
-  // Ordená igual que querés que navegue Prev/Next (más nuevo primero)
-  const proyectos = [...homeItems].sort((a,b) => parseDate(b.fecha) - parseDate(a.fecha));
-
-  const breakpointColumnsObj = { default: 3, 960: 2, 480: 1 };
-
   return (
-    <main className="min-h-screen px-1 sm:px-1 py-2 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden">
-      <div className="mx-auto w-full px-1">
-        <div className="sticky top-1 z-50 flex justify-end mb-3">
+    <main className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden">
+      <div className="mx-auto max-w-[980px] px-5 py-6">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">Hola, soy Francisco.</h1>
+            <p className="text-neutral-600 dark:text-neutral-300 mt-2 max-w-[60ch]">
+              Desarrollador full‑stack orientado a producto. Me gustan las interfaces simples,
+              la performance web y construir cosas útiles. Actualmente explorando ideas y escribiendo.
+            </p>
+          </div>
           <DarkModeToggle />
         </div>
 
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="flex gap-x-2 justify-center"
-          columnClassName="masonry-column"
-        >
-          {proyectos.map((p, idx) => (
-            <ProyectoCard key={idx} {...p} />
-          ))}
-        </Masonry>
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800">
+            <h2 className="text-lg font-medium mb-2">Ahora</h2>
+            <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+              <li>• Construyendo pequeños prototipos y utilidades.</li>
+              <li>• Escribiendo notas y ensayos breves.</li>
+              <li>• Trabajando con React, Node y diseño de producto.</li>
+            </ul>
+          </div>
+          <div className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800">
+            <h2 className="text-lg font-medium mb-2">Rápidos</h2>
+            <ul className="space-y-1 text-neutral-700 dark:text-neutral-300 text-sm">
+              <li>
+                <Link className="underline underline-offset-4" to="/craft">Mi trabajo y prototipos →</Link>
+              </li>
+              <li>
+                <Link className="underline underline-offset-4" to="/essay/crafting-cruma">Ensayo destacado →</Link>
+              </li>
+            </ul>
+          </div>
+        </section>
       </div>
+      <BottomNav />
     </main>
   );
 }

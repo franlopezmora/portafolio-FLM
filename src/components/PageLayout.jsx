@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import BottomNav from "./BottomNav";
 import DarkModeToggle from "./DarkModeToggle";
 
 export default function PageLayout({ 
@@ -9,6 +10,15 @@ export default function PageLayout({
   toc = [],
   onTocItemClick = () => {}
 }) {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (window.history && window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate(backTo);
+    }
+  };
   return (
     <main 
       className="bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 min-h-screen overflow-x-hidden"
@@ -38,7 +48,7 @@ export default function PageLayout({
             >
               {/* Volver */}
               <div className="pl-2">
-                <Link className="essay-back block mb-4 -ml-2" to={backTo}>{backText}</Link>
+                <button type="button" onClick={handleBack} className="essay-back block mb-4 -ml-2">{backText}</button>
               </div>
 
               {/* TOC (solo si se solicita) */}
@@ -65,7 +75,7 @@ export default function PageLayout({
           <div className="w-full max-w-[720px] mx-auto pb-32">
             {/* Header responsive para móvil/tablet */}
             <div className="lg:hidden flex items-center justify-between mb-6">
-              <Link className="essay-back -ml-2" to={backTo}>{backText}</Link>
+              <button type="button" onClick={handleBack} className="essay-back -ml-2">{backText}</button>
               <DarkModeToggle />
             </div>
             
@@ -90,6 +100,7 @@ export default function PageLayout({
           </div>
         </div>
       </div>
+      <BottomNav />
     </main>
   );
 }
