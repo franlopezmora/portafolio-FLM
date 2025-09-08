@@ -59,7 +59,7 @@ export const homeItems = [
   {
     titulo: "Cruma",
     descripcion: "Planificador de horarios hecho por y para estudiantes",
-    gif: "/src/images/Captura de pantalla 2025-09-04 155449.png",
+    gif: "/images/Captura de pantalla 2025-09-04 155449.png",
     overlayPos: "top",
     fecha: "Agosto 2025",
     essay: "/essay/crafting-cruma",
@@ -67,16 +67,9 @@ export const homeItems = [
   {
     titulo: "Sistema de Pruebas de Manejo",
     descripcion: "Backend con microservicios para gestionar pruebas de manejo",
-    gif: "/src/images/Captura de pantalla 2025-09-04 143046.png",
+    gif: "/images/Captura de pantalla 2025-09-04 143046.png",
     overlayPos: "top",
     fecha: "Febrero 2025",
     essay: "/essay/crafting-tpi-backend",
   },
-  {
-    titulo: "Dashboard de pruebas",
-    descripcion: "",
-    gif: "",
-    prototype: "View Prototype →",
-    fecha: "Marzo 2025",
-  }
 ];
