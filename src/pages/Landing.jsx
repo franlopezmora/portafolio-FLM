@@ -125,8 +125,8 @@ export default function Landing() {
          {/* Sección de Proyectos */}
          <section className="mb-16">
            <h2 className="text-xl font-medium mb-6">proyectos destacados</h2>
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-             <Link to="/essay/crafting-cruma" className="block p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors">
+           <div className="flex flex-wrap gap-4">
+             <div className="w-full md:w-[calc(50%-0.5rem)] p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-col">
                <div className="flex items-center space-x-3 mb-2">
                  <div className="w-8 h-8 rounded bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white text-xs font-bold">
                    C
@@ -136,7 +136,7 @@ export default function Landing() {
                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
                  Planificador de horarios hecho por y para estudiantes
                </p>
-               <div className="flex flex-wrap gap-1 mb-2">
+               <div className="flex flex-wrap gap-1 mb-3">
                  <span className="inline-block px-2 py-1 text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full">
                    Java
                  </span>
@@ -147,10 +147,17 @@ export default function Landing() {
                    PostgreSQL
                  </span>
                </div>
-               <span className="text-xs text-neutral-500 dark:text-neutral-400">Ver ensayo →</span>
-             </Link>
+               <div className="space-y-2 mt-auto">
+                 <Link to="/essay/crafting-cruma" className="block text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors">
+                   Ver ensayo →
+                 </Link>
+                 <a href="https://github.com/franlopezmora/cruma" target="_blank" rel="noopener noreferrer" className="block text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors">
+                   Ver código →
+                 </a>
+               </div>
+             </div>
 
-             <Link to="/essay/crafting-tpi-backend" className="block p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors">
+             <div className="w-full md:w-[calc(50%-0.5rem)] p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-col">
                <div className="flex items-center space-x-3 mb-2">
                  <div className="w-8 h-8 rounded bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white text-xs font-bold">
                    TPI
@@ -160,7 +167,7 @@ export default function Landing() {
                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
                  Sistema completo con microservicios para gestionar pruebas de manejo
                </p>
-               <div className="flex flex-wrap gap-1 mb-2">
+               <div className="flex flex-wrap gap-1 mb-3">
                  <span className="inline-block px-2 py-1 text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full">
                    Java
                  </span>
@@ -177,10 +184,17 @@ export default function Landing() {
                    PostgreSQL
                  </span>
                </div>
-               <span className="text-xs text-neutral-500 dark:text-neutral-400">Ver ensayo →</span>
-             </Link>
+               <div className="space-y-2 mt-auto">
+                 <Link to="/essay/crafting-tpi-backend" className="block text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors">
+                   Ver ensayo →
+                 </Link>
+                 <a href="https://github.com/franlopezmora/TPI-BDA" target="_blank" rel="noopener noreferrer" className="block text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors">
+                   Ver código →
+                 </a>
+               </div>
+             </div>
 
-             <div className="block p-4 rounded-lg border border-neutral-200 dark:border-neutral-800">
+             <div className="w-full md:w-[calc(50%-0.5rem)] p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 flex flex-col">
                <div className="flex items-center space-x-3 mb-2">
                  <div className="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white text-xs font-bold">
                    DSI
@@ -190,7 +204,7 @@ export default function Landing() {
                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
                  Sistema de gestión de red sísmica con análisis UML y patrones de diseño
                </p>
-               <div className="flex flex-wrap gap-1 mb-2">
+               <div className="flex flex-wrap gap-1 mb-3">
                  <span className="inline-block px-2 py-1 text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full">
                    C#
                  </span>
@@ -203,6 +217,11 @@ export default function Landing() {
                  <span className="inline-block px-2 py-1 text-xs bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full">
                    UML
                  </span>
+               </div>
+               <div className="mt-auto">
+                 <a href="https://github.com/franlopezmora/PPAI-CU37-DSI" target="_blank" rel="noopener noreferrer" className="text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors">
+                   Ver código →
+                 </a>
                </div>
              </div>
            </div>
