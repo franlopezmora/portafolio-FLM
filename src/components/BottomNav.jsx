@@ -26,11 +26,8 @@ export default function BottomNav() {
     <nav className="fixed bottom-4 left-0 right-0 z-40 flex justify-center pointer-events-none">
       <div className="pointer-events-auto flex items-center gap-2 px-2 py-2 rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-neutral-900/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-neutral-900/60">
         <Item to="/" label="Home" />
-        <Item to="/craft" label="Craft" />
         <Item to="/proyectos" label="Proyectos" />
-        <Item to="https://github.com/franlopezmora" label="GitHub" external />
-        <Item to="https://www.linkedin.com/in/franciscolopezmora/" label="LinkedIn" external />
-        <Item to="mailto:franciscolopezmora3@gmail.com" label="Email" external />
+        <Item to="/craft" label="Craft" />
       </div>
     </nav>
   );

@@ -2,6 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Glow suave que sigue al cursor dentro de una card */
+.card-glow {
+  position: relative;
+  overflow: hidden; /* evita bleed del glow en esquinas redondeadas */
+}
+.card-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  background: radial-gradient(
+    500px 500px at var(--x, 50%) var(--y, 50%),
+    rgba(0, 0, 0, 0.06),
+    rgba(0, 0, 0, 0) 70%
+  );
+}
+.dark .card-glow::after {
+  background: radial-gradient(
+    500px 500px at var(--x, 50%) var(--y, 50%),
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+.card-glow:hover::after { opacity: 1; }
+
+/* Borde iluminado cercano al cursor */
+.card-glow-border { position: relative; }
+.card-glow-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* grosor del halo en el borde */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  background: radial-gradient(
+    90px 90px at var(--x, 50%) var(--y, 50%),
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0) 60%
+  );
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude; /* sólo la zona del borde */
+}
+.card-glow-border:hover::before { opacity: 1; }
+
+/* Borde iluminado para modo oscuro */
+.dark .card-glow-border::before {
+  background: radial-gradient(
+    90px 90px at var(--x, 50%) var(--y, 50%),
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 60%
+  );
+}
+
 /* Configuración global para prevenir layout shift */
 * {
   box-sizing: border-box;

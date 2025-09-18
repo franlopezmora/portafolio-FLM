@@ -1,6 +1,6 @@
 import Masonry from "react-masonry-css";
 import ProyectoCard from "../components/ProyectoCard";
-import DarkModeToggle from "../components/DarkModeToggle";
+import Header from "../components/Header";
 import BottomNav from "../components/BottomNav";
 import { homeItems } from "../content/homeItems";
 
@@ -38,11 +38,10 @@ export default function Craft() {
   const breakpointColumnsObj = { default: 3, 960: 2, 480: 1 };
 
   return (
-    <main className="min-h-screen px-1 sm:px-1 py-2 pb-16 bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden">
-      <div className="mx-auto w-full px-1">
-        <div className="sticky top-1 z-50 flex justify-end mb-3">
-          <DarkModeToggle />
-        </div>
+    <>
+      <Header />
+      <main className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden pt-28 md:pt-28 pb-24">
+        <div className="mx-auto px-5">
 
         <Masonry
           breakpointCols={breakpointColumnsObj}
@@ -53,9 +52,10 @@ export default function Craft() {
             <ProyectoCard key={idx} {...p} />
           ))}
         </Masonry>
-      </div>
-      <BottomNav />
-    </main>
+        </div>
+        <BottomNav />
+      </main>
+    </>
   );
 }
 
