@@ -41,7 +41,7 @@ export default function Craft() {
   
   // Hook para animación del masonry
   const [masonryRef, masonryVisible] = useScrollAnimation(0);
-  const [videosReady, setVideosReady] = useState(false);
+  const [videosReady, setVideosReady] = useState(true); // Cambiar a true para mostrar cards inmediatamente
 
   // Activar videos después de que la animación termine
   useEffect(() => {

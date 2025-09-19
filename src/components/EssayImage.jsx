@@ -22,6 +22,7 @@ export default function EssayImage({ src, alt = "", caption, className = "", ble
   const [imageError, setImageError] = useState(false);
   const [imageDimensions, setImageDimensions] = useState(null);
   const imgRef = useRef(null);
+  const [showBlur, setShowBlur] = useState(true);
 
   if (!resolved) {
     console.warn(`[EssayImage] No se encontró "${src}" en src/images`);
@@ -41,11 +42,14 @@ export default function EssayImage({ src, alt = "", caption, className = "", ble
           aspectRatio: img.naturalWidth / img.naturalHeight
         });
         setImageLoaded(true);
+        // Ocultar blur después de un breve delay para transición suave
+        setTimeout(() => setShowBlur(false), 100);
       };
       
       const handleError = () => {
         setImageError(true);
         setImageLoaded(true); // Para ocultar el placeholder
+        setShowBlur(false);
       };
       
       img.addEventListener('load', handleLoad);
@@ -59,6 +63,7 @@ export default function EssayImage({ src, alt = "", caption, className = "", ble
           aspectRatio: img.naturalWidth / img.naturalHeight
         });
         setImageLoaded(true);
+        setShowBlur(false);
       }
       
       return () => {
@@ -83,7 +88,7 @@ export default function EssayImage({ src, alt = "", caption, className = "", ble
         />
         
         {/* Blur placeholder mientras carga */}
-        {!imageLoaded && !imageError && (
+        {showBlur && !imageError && (
           <img
             src={resolved}
             alt={alt}
