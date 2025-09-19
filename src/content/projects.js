@@ -2,6 +2,17 @@
 export const projects = [
   // Proyectos reales del portfolio
   {
+    id: "colorcheck",
+    title: "ColorCheck",
+    description: "Analizador de Accesibilidad de Paletas de Colores",
+    year: 2025,
+    tags: ["TypeScript", "Next.js", "Tailwind CSS"],
+    href: "https://colorcheck.vercel.app",
+    github: "https://github.com/franlopezmora/colorcheck",
+    githubOwner: "franlopezmora",
+    githubRepo: "colorcheck",
+  },
+  {
     id: "cruma",
     title: "CRUMA",
     description: "Planificador de horarios hecho por y para estudiantes",
@@ -9,6 +20,8 @@ export const projects = [
     tags: ["React", "Java", "Spring Boot", "PostgreSQL", "Docker"],
     href: "/essay/crafting-cruma",
     github: "https://github.com/franlopezmora/cruma",
+    githubOwner: "franlopezmora",
+    githubRepo: "cruma",
   },
   {
     id: "tpi-backend",
@@ -18,6 +31,8 @@ export const projects = [
     tags: ["Next.js", "Java", "Spring Boot", "PostgreSQL", "Docker", "JWT"],
     href: "/essay/crafting-tpi-backend",
     github: "https://github.com/franlopezmora/TPI-BDA",
+    githubOwner: "franlopezmora",
+    githubRepo: "TPI-BDA",
   },
 ];
 

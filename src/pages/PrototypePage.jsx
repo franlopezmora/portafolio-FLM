@@ -44,7 +44,7 @@ export default function PrototypePage() {
               setEnabled(true);
             }}
             onMouseLeave={() => setEnabled(false)}
-            className={`transition-colors ${enabled ? "cursor-none" : ""}`}
+            className={`${enabled ? "cursor-none" : ""}`}
           >
             <div className="grid place-items-center py-6">
               <PlaygroundCard />

@@ -40,7 +40,7 @@ export default function Craft() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white transition-colors overflow-x-hidden pt-28 md:pt-28 pb-24">
+      <main className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white overflow-x-hidden pt-28 md:pt-28 pb-24">
         <div className="mx-auto px-5">
 
         <Masonry

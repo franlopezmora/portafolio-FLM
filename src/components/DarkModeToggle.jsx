@@ -14,28 +14,48 @@ function getInitialDark() {
 
 export default function DarkModeToggle() {
   const [dark, setDark] = useState(getInitialDark)
+  const [showTooltip, setShowTooltip] = useState(false)
+  const [hoverTimeout, setHoverTimeout] = useState(null)
   
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
     localStorage.setItem('dark', String(dark))
   }, [dark])
 
+  const handleMouseEnter = () => {
+    const timeout = setTimeout(() => {
+      setShowTooltip(true)
+    }, 500) // 500ms delay
+    setHoverTimeout(timeout)
+  }
+
+  const handleMouseLeave = () => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout)
+      setHoverTimeout(null)
+    }
+    setShowTooltip(false)
+  }
+
   return (
-    <button
-      onClick={() => setDark(d => !d)}
-      aria-label="Toggle dark mode"
-      className="
-        relative inline-flex items-center
-        w-14 h-8
-        min-w-[56px] min-h-[32px]
-        shrink-0
-        overflow-hidden
-        rounded-full p-1
-        bg-gray-300 dark:bg-gray-600
-        transition-colors duration-300
-        focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 dark:focus-visible:ring-white/30
-      "
-    >
+    <div className="group relative">
+      <button
+        onClick={() => setDark(d => !d)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        aria-label="Toggle dark mode"
+        className="
+          relative inline-flex items-center
+          w-14 h-8
+          min-w-[56px] min-h-[32px]
+          shrink-0
+          overflow-hidden
+          rounded-full p-1
+          bg-gray-300 dark:bg-gray-600
+          transition-colors duration-300
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20 dark:focus-visible:ring-white/30
+        "
+      >
       <Sun
         className={`
           absolute left-1 w-4 h-4 text-yellow-500
@@ -58,6 +78,12 @@ export default function DarkModeToggle() {
           ${dark ? 'translate-x-6' : 'translate-x-0'}
         `}
       />
-    </button>
+      </button>
+      {showTooltip && (
+        <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-0.45 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+          Change theme
+        </span>
+      )}
+    </div>
   )
 }
