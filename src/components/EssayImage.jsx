@@ -3,7 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 
 const files = import.meta.glob("../images/*.{png,jpg,jpeg,webp,avif,gif,svg}", {
   eager: true,
-  as: "url",
+  query: "?url",
+  import: "default",
 });
 
 const byName = Object.fromEntries(
