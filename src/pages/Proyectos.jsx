@@ -4,11 +4,17 @@ import Header from "../components/Header";
 import BottomNav from "../components/BottomNav";
 import { projects } from "../content/projects";
 import GitHubStars from "../components/GitHubStars";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 export default function Proyectos() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef(null);
+  
+  // Hooks para animaciones
+  const [searchRef, searchVisible] = useScrollAnimation(0);
+  const [statsRef, statsVisible] = useScrollAnimation(100);
+  const [projectsRef, projectsVisible] = useScrollAnimation(200);
   return (
     <>
       <Header />
@@ -16,7 +22,14 @@ export default function Proyectos() {
         <div className="mx-auto max-w-[850px] px-5 py-6">
           
           {/* Search bar */}
-          <div className="relative mb-5">
+          <div 
+            ref={searchRef}
+            className={`relative mb-5 transition-all duration-500 ${
+              searchVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-4'
+            }`}
+          >
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg className="h-4 w-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -49,7 +62,14 @@ export default function Proyectos() {
           </div>
           
           {/* Stats and GitHub link */}
-          <div className="flex items-center justify-between mb-5">
+          <div 
+            ref={statsRef}
+            className={`flex items-center justify-between mb-5 transition-all duration-500 ${
+              statsVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-4'
+            }`}
+          >
              <div className="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
                <img src="/icons/Group 1.svg" alt="Repositories" className="w-4 h-4 dark:hidden" />
                <img src="/icons/Group 2.svg" alt="Repositories" className="w-4 h-4 hidden dark:block" />
@@ -74,7 +94,14 @@ export default function Proyectos() {
             </a>
           </div>
           
-          <div className="space-y-3">
+          <div 
+            ref={projectsRef}
+            className={`space-y-3 transition-all duration-500 ${
+              projectsVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-4'
+            }`}
+          >
             {projects
               .filter(p => 
                 searchTerm === "" || 

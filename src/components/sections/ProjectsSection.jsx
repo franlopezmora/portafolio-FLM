@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { projects } from "../../content/projects";
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 export default function ProjectsSection() {
+  const [ref, isVisible] = useScrollAnimation(200);
   const getTechIcon = (tech) => {
     switch (tech) {
       case 'React':
@@ -65,7 +67,14 @@ export default function ProjectsSection() {
   const featuredProjects = projects.filter(p => ["colorcheck","cruma","tpi-backend"].includes(p.id));
 
   return (
-    <section className="mb-14">
+    <section 
+      ref={ref}
+      className={`flex flex-col space-y-4 mb-14 transition-all duration-500 ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-4'
+      }`}
+    >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-medium">Projects</h2>
         <Link to="/proyectos" className="group inline-flex items-center gap-1 px-1 py-0.5 -mx-1 -my-0.5 rounded text-sm text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-white transition-colors">

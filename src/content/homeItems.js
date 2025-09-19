@@ -2,7 +2,9 @@ export const homeItems = [
   {
     titulo: "Custom Cursor",
     descripcion: "",
-    gif: "/gifs/gestor-turnos.mp4",
+    gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/custom-cursor/custom-cursor.mp4",
+    webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/custom-cursor/custom-cursor.webm",
+    poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/custom-cursor/custom-cursor-poster.jpg",
     prototype: "/prototype/1",
   },
   {

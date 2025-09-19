@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
 
 export default function ProyectoCard({
   titulo, descripcion, gif, webm, poster, essay, fecha,
@@ -7,8 +8,11 @@ export default function ProyectoCard({
   titleColor = "light",
   essayLabel = "Read Essay",
   playbackRate = 1,
+  videosReady = true,
 }) {
   const navigate = useNavigate();
+  const [firstFrameBlur, setFirstFrameBlur] = useState(null);
+  const videoRef = useRef(null);
 
   const isExternalPrototype = typeof prototype === "string" && /^https?:\/\//i.test(prototype);
   const essayIsRoute = typeof essay === "string" && essay.startsWith("/");
@@ -29,6 +33,77 @@ export default function ProyectoCard({
 
   const hasVideo = (gif && /\.mp4$/i.test(gif)) || (webm && /\.webm$/i.test(webm));
   const fullBleedOnly = !showActions && !showDescription;
+  const hasValidPoster = poster && !poster.includes('.mp4') && !poster.includes('.webm');
+
+  // Función para capturar el primer frame y generar blur
+  const captureFirstFrame = (videoElement) => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Usar las dimensiones reales del video
+      canvas.width = videoElement.videoWidth || 400;
+      canvas.height = videoElement.videoHeight || 300;
+      
+      // Dibujar el primer frame
+      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+      
+      // Convertir a data URL (el blur se aplicará con CSS)
+      const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+      resolve(dataURL);
+    });
+  };
+
+  // Efecto para capturar el primer frame cuando el video se carga
+  useEffect(() => {
+    if (hasVideo && videoRef.current) {
+      const video = videoRef.current;
+      
+      const handleLoadedData = () => {
+        // Ir al primer frame
+        video.currentTime = 0.1;
+        
+        const handleSeeked = () => {
+          captureFirstFrame(video).then(setFirstFrameBlur);
+          video.removeEventListener('seeked', handleSeeked);
+        };
+        
+        video.addEventListener('seeked', handleSeeked);
+      };
+      
+      video.addEventListener('loadeddata', handleLoadedData);
+      
+      return () => {
+        video.removeEventListener('loadeddata', handleLoadedData);
+      };
+    }
+  }, [hasVideo, titulo]);
+
+  // Efecto para forzar la reproducción cuando videosReady cambie
+  useEffect(() => {
+    if (hasVideo && videosReady && videoRef.current) {
+      const video = videoRef.current;
+      
+      // Forzar reproducción cuando el video esté listo
+      const playVideo = () => {
+        video.play().catch(console.log);
+      };
+      
+      // Intentar reproducir inmediatamente
+      playVideo();
+      
+      // También intentar cuando el video esté completamente listo
+      if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+        playVideo();
+      } else {
+        video.addEventListener('canplay', playVideo, { once: true });
+      }
+      
+      return () => {
+        video.removeEventListener('canplay', playVideo);
+      };
+    }
+  }, [hasVideo, videosReady]);
 
   const ctaClasses = `
     block w-full text-center text-sm font-medium py-2 rounded-lg
@@ -65,21 +140,76 @@ export default function ProyectoCard({
       {/* Media */}
              <div className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-700">
         {hasVideo ? (
-                     <video
-             playsInline
-             autoPlay
-             muted
-             key={`${webm}|${gif}|${poster}`} 
-             loop
-             preload="metadata"
-             poster={poster}
-             className="w-full h-auto object-contain rounded-lg"
-             onLoadedMetadata={(e) => { e.currentTarget.playbackRate = playbackRate; }}
-             onPlay={(e) => { if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate; }}
-           >
-            {webm && <source src={`${webm}#t=0.01`} type="video/webm" />}
-            {gif && <source src={`${gif}#t=0.01`} type="video/mp4" />}
-          </video>
+          <>
+            {/* Video único que se muestra/oculta */}
+            <video
+              ref={videoRef}
+              playsInline
+              autoPlay={videosReady}
+              muted
+              key={`${webm}|${gif}|${poster}`}
+              loop
+              preload="auto"
+              poster={poster || gif}
+              className={`w-full h-auto object-contain rounded-lg transition-all duration-500 ease-out ${
+                videosReady ? 'opacity-100 blur-0' : 'opacity-0 blur-sm absolute'
+              }`}
+              onLoadedMetadata={(e) => { e.currentTarget.playbackRate = playbackRate; }}
+              onPlay={(e) => { if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate; }}
+              onCanPlay={() => {
+                // Asegurar que el video se reproduzca cuando esté listo
+                if (videosReady && videoRef.current) {
+                  videoRef.current.play().catch(console.log);
+                }
+              }}
+            >
+              {webm && <source src={`${webm}#t=0.01`} type="video/webm" />}
+              {gif && <source src={`${gif}#t=0.01`} type="video/mp4" />}
+            </video>
+            
+            {/* Blur placeholder del primer frame */}
+            {firstFrameBlur ? (
+              <img
+                src={firstFrameBlur}
+                alt={titulo}
+                className={`w-full h-auto object-contain rounded-lg transition-all duration-500 ease-out ${
+                  videosReady ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
+                }`}
+                style={{
+                  filter: 'blur(8px)'
+                }}
+              />
+            ) : hasValidPoster ? (
+              /* Usar poster válido como fallback */
+              <img
+                src={poster}
+                alt={titulo}
+                className={`w-full h-auto object-contain rounded-lg transition-all duration-500 ease-out ${
+                  videosReady ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
+                }`}
+                style={{
+                  filter: 'blur(8px)'
+                }}
+              />
+            ) : (
+              /* Fallback mientras se genera el blur del primer frame */
+              <div
+                className={`w-full h-auto rounded-lg transition-all duration-500 ease-out ${
+                  videosReady ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
+                }`}
+                style={{
+                  background: 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
+                  filter: 'blur(8px)',
+                  minHeight: '200px'
+                }}
+              >
+                {/* Placeholder mientras carga el primer frame */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-gray-300 rounded-full animate-pulse" />
+                </div>
+              </div>
+            )}
+          </>
         ) : gif ? (
                      <img
              src={gif}

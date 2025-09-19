@@ -1,4 +1,8 @@
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+
 export default function ExperienceSection() {
+  const [ref, isVisible] = useScrollAnimation(100);
+  
   const experiences = [
     {
       period: "Abril 2025 - Present",
@@ -17,7 +21,14 @@ export default function ExperienceSection() {
   ];
 
   return (
-    <section className="mb-14">
+    <section 
+      ref={ref}
+      className={`flex flex-col space-y-4 mb-14 transition-all duration-500 ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-4'
+      }`}
+    >
       <h2 className="text-xl font-medium mb-8">Experience</h2>
       <div className="relative">
         {/* Timeline vertical */}

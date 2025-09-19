@@ -1,6 +1,17 @@
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+
 export default function HeroSection() {
+  const [ref, isVisible] = useScrollAnimation(0);
+
   return (
-    <section className="mb-16">
+    <section 
+      ref={ref}
+      className={`mb-16 transition-all duration-500 ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-4'
+      }`}
+    >
       {/* Bio */}
       <div className="text-left mb-8">
         <h1 className="text-2xl sm:text-3xl font-normal mb-4">

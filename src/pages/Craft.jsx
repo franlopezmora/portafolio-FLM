@@ -3,6 +3,8 @@ import ProyectoCard from "../components/ProyectoCard";
 import Header from "../components/Header";
 import BottomNav from "../components/BottomNav";
 import { homeItems } from "../content/homeItems";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { useState, useEffect } from "react";
 
 // Mapeo directo de meses en español a inglés
 const ES_MONTHS = {
@@ -36,6 +38,20 @@ export default function Craft() {
   const proyectos = [...homeItems].sort((a,b) => parseDate(b.fecha) - parseDate(a.fecha));
 
   const breakpointColumnsObj = { default: 3, 960: 2, 480: 1 };
+  
+  // Hook para animación del masonry
+  const [masonryRef, masonryVisible] = useScrollAnimation(0);
+  const [videosReady, setVideosReady] = useState(false);
+
+  // Activar videos después de que la animación termine
+  useEffect(() => {
+    if (masonryVisible) {
+      const timer = setTimeout(() => {
+        setVideosReady(true);
+      }, 200); // Reducido a 200ms para carga más rápida
+      return () => clearTimeout(timer);
+    }
+  }, [masonryVisible]);
 
   return (
     <>
@@ -43,15 +59,28 @@ export default function Craft() {
       <main className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white overflow-x-hidden pt-28 md:pt-28 pb-24">
         <div className="mx-auto px-5">
 
-        <Masonry
-          breakpointCols={breakpointColumnsObj}
-          className="flex gap-x-2 justify-center"
-          columnClassName="masonry-column"
+        <div 
+          ref={masonryRef}
+          className={`transition-transform duration-300 ease-out will-change-transform ${
+            masonryVisible 
+              ? 'translate-y-0' 
+              : 'translate-y-2'
+          }`}
+          style={{
+            transform: masonryVisible ? 'translate3d(0, 0, 0)' : 'translate3d(0, 8px, 0)',
+            opacity: masonryVisible ? 1 : 0
+          }}
         >
-          {proyectos.map((p, idx) => (
-            <ProyectoCard key={idx} {...p} />
-          ))}
-        </Masonry>
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="flex gap-x-2 justify-center"
+            columnClassName="masonry-column"
+          >
+            {proyectos.map((p, idx) => (
+              <ProyectoCard key={idx} {...p} videosReady={videosReady} />
+            ))}
+          </Masonry>
+        </div>
         </div>
         <BottomNav />
       </main>
