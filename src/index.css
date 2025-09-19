@@ -98,6 +98,16 @@ html {
   scrollbar-gutter: stable; /* Reserva espacio para la barra de desplazamiento sin mostrarla */
 }
 
+/* Prevenir cambios de scroll durante las animaciones iniciales */
+html {
+  scroll-behavior: auto; /* Desactivar smooth scroll durante carga inicial */
+}
+
+/* Restaurar smooth scroll después de la carga */
+html.loaded {
+  scroll-behavior: smooth;
+}
+
 /* Fondo que se extiende más allá del contenido para evitar fondo blanco al hacer scroll */
 html {
   background-color: #fafafa !important; /* bg-neutral-50 - mismo color que el home en modo claro */
