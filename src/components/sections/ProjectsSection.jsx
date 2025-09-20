@@ -121,12 +121,12 @@ export default function ProjectsSection() {
                 {p.github && (
                   <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group">
                     <img 
-                      src="/icons/GitHub_light.svg" 
+                      src="/icons/GitHub_light.svg?v=2" 
                       alt="GitHub" 
                       className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity dark:hidden" 
                     />
                     <img 
-                      src="/icons/GitHub_dark.svg" 
+                      src="/icons/GitHub_dark.svg?v=2" 
                       alt="GitHub" 
                       className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity hidden dark:block" 
                     />

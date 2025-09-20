@@ -76,12 +76,12 @@ export default function Header() {
             >
               <div className="w-9 h-9 rounded-md bg-neutral-50 dark:bg-neutral-900 group-hover:bg-neutral-100 dark:group-hover:bg-neutral-800 flex items-center justify-center">
                 <img 
-                  src="/icons/GitHub_light.svg" 
+                  src="/icons/GitHub_light.svg?v=2" 
                   alt="GitHub" 
                   className="w-5 h-5 opacity-70 group-hover:opacity-100 dark:hidden" 
                 />
                 <img 
-                  src="/icons/GitHub_dark.svg" 
+                  src="/icons/GitHub_dark.svg?v=2" 
                   alt="GitHub" 
                   className="w-5 h-5 opacity-70 group-hover:opacity-100 hidden dark:block" 
                 />
