@@ -58,17 +58,19 @@ export default function DarkModeToggle() {
       >
       <Sun
         className={`
-          absolute left-1 w-4 h-4 text-yellow-500
+          absolute left-1 w-4 h-4
           transition-opacity duration-300
           ${dark ? 'opacity-100' : 'opacity-20'}
         `}
+        style={{ color: '#FFD700' }}
       />
       <Moon
         className={`
-          absolute right-1 w-4 h-4 text-gray-900
+          absolute right-1 w-4 h-4
           transition-opacity duration-300
           ${dark ? 'opacity-20' : 'opacity-100'}
         `}
+        style={{ color: '#525252' }}
       />
       <span
         className={`
@@ -80,7 +82,7 @@ export default function DarkModeToggle() {
       />
       </button>
       {showTooltip && (
-        <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-0.45 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+        <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2.5 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
           Change theme
         </span>
       )}
