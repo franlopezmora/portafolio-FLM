@@ -234,7 +234,7 @@ export default function ProyectoCard({
               alt={titulo}
               loading="lazy"
               decoding="async"
-              className={`w-full h-auto object-contain rounded-lg transition-opacity duration-300 ${
+              className={`w-full h-auto object-contain rounded-lg ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               onLoad={(e) => {
@@ -247,7 +247,7 @@ export default function ProyectoCard({
               <img
                 src={gif}
                 alt={titulo}
-                className="absolute inset-0 w-full h-auto object-contain rounded-lg transition-opacity duration-300"
+                className="absolute inset-0 w-full h-auto object-contain rounded-lg"
                 style={{
                   filter: 'blur(8px)'
                 }}
