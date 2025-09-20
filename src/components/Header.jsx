@@ -78,7 +78,12 @@ export default function Header() {
                 <img 
                   src="/icons/GitHub_light.svg" 
                   alt="GitHub" 
-                  className="w-5 h-5 opacity-70 group-hover:opacity-100 filter dark:invert" 
+                  className="w-5 h-5 opacity-70 group-hover:opacity-100 dark:hidden" 
+                />
+                <img 
+                  src="/icons/GitHub_dark.svg" 
+                  alt="GitHub" 
+                  className="w-5 h-5 opacity-70 group-hover:opacity-100 hidden dark:block" 
                 />
               </div>
               {showTooltips.github && (
