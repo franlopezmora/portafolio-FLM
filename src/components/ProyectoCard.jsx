@@ -235,13 +235,13 @@ export default function ProyectoCard({
               loading="lazy"
               decoding="async"
               className={`w-full h-auto object-contain rounded-lg transition-opacity duration-300 ${
-                videosReady && imageLoaded ? 'opacity-100' : 'opacity-0'
+                imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               onLoad={() => setImageLoaded(true)}
             />
             
             {/* Placeholder con imagen blureada mientras carga */}
-            {!(videosReady && imageLoaded) && (
+            {!imageLoaded && (
               <img
                 src={gif}
                 alt={titulo}
