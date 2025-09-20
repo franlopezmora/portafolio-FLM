@@ -242,13 +242,12 @@ export default function ProyectoCard({
             
             {/* Placeholder con imagen blureada mientras carga */}
             {!imageLoaded && (
-              <img
-                src={gif}
-                alt={titulo}
-                className="absolute inset-0 w-full h-auto object-contain rounded-lg transition-opacity duration-300"
+              <div
+                className="absolute inset-0 w-full rounded-lg transition-opacity duration-300"
                 style={{
+                  background: `url(${gif}) center/cover`,
                   filter: 'blur(8px)',
-                  minHeight: '200px'
+                  height: '300px'
                 }}
               />
             )}
