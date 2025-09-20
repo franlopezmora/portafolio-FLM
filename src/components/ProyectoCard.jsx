@@ -12,6 +12,8 @@ export default function ProyectoCard({
 }) {
   const navigate = useNavigate();
   const [firstFrameBlur, setFirstFrameBlur] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const videoRef = useRef(null);
 
   const isExternalPrototype = typeof prototype === "string" && /^https?:\/\//i.test(prototype);
@@ -105,6 +107,16 @@ export default function ProyectoCard({
     }
   }, [hasVideo, videosReady]);
 
+  // Resetear el estado de carga de imagen cuando cambie el gif
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [gif]);
+
+  // Resetear el estado de reproducción cuando cambie el video
+  useEffect(() => {
+    setVideoPlaying(false);
+  }, [webm, gif]);
+
   const ctaClasses = `
     block w-full text-center text-sm font-medium py-2 rounded-lg
     bg-neutral-200 text-gray-900 hover:bg-neutral-300
@@ -152,10 +164,14 @@ export default function ProyectoCard({
               preload="auto"
               poster={poster || gif}
               className={`w-full h-auto object-contain rounded-lg transition-all duration-500 ease-out ${
-                videosReady ? 'opacity-100 blur-0' : 'opacity-0 blur-sm absolute'
+                videosReady && videoPlaying ? 'opacity-100 blur-0' : 'opacity-0 blur-sm absolute'
               }`}
               onLoadedMetadata={(e) => { e.currentTarget.playbackRate = playbackRate; }}
-              onPlay={(e) => { if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate; }}
+              onPlay={(e) => { 
+                if (e.currentTarget.playbackRate !== playbackRate) e.currentTarget.playbackRate = playbackRate;
+                setVideoPlaying(true);
+              }}
+              onPause={() => setVideoPlaying(false)}
               onCanPlay={() => {
                 // Asegurar que el video se reproduzca cuando esté listo
                 if (videosReady && videoRef.current) {
@@ -173,7 +189,7 @@ export default function ProyectoCard({
                 src={firstFrameBlur}
                 alt={titulo}
                 className={`w-full h-auto object-contain rounded-lg transition-all duration-500 ease-out ${
-                  videosReady ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
+                  videosReady && videoPlaying ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
                 }`}
                 style={{
                   filter: 'blur(8px)'
@@ -185,7 +201,7 @@ export default function ProyectoCard({
                 src={poster}
                 alt={titulo}
                 className={`w-full h-auto object-contain rounded-lg transition-all duration-500 ease-out ${
-                  videosReady ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
+                  videosReady && videoPlaying ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
                 }`}
                 style={{
                   filter: 'blur(8px)'
@@ -195,7 +211,7 @@ export default function ProyectoCard({
               /* Fallback mientras se genera el blur del primer frame */
               <div
                 className={`w-full h-auto rounded-lg transition-all duration-500 ease-out ${
-                  videosReady ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
+                  videosReady && videoPlaying ? 'opacity-0 blur-sm absolute' : 'opacity-100 blur-sm'
                 }`}
                 style={{
                   background: 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
@@ -211,13 +227,32 @@ export default function ProyectoCard({
             )}
           </>
         ) : gif ? (
-                     <img
-             src={gif}
-             alt={titulo}
-             loading="lazy"
-             decoding="async"
-             className="w-full h-auto object-contain rounded-lg"
-           />
+          <>
+            {/* Imagen principal */}
+            <img
+              src={gif}
+              alt={titulo}
+              loading="lazy"
+              decoding="async"
+              className={`w-full h-auto object-contain rounded-lg transition-opacity duration-300 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoad={() => setImageLoaded(true)}
+            />
+            
+            {/* Placeholder con imagen blureada mientras carga */}
+            {!imageLoaded && (
+              <img
+                src={gif}
+                alt={titulo}
+                className="absolute inset-0 w-full h-auto object-contain rounded-lg transition-opacity duration-300"
+                style={{
+                  filter: 'blur(8px)',
+                  minHeight: '200px'
+                }}
+              />
+            )}
+          </>
         ) : (
           <div className="w-full h-full animate-pulse rounded-lg" />
         )}
