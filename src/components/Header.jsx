@@ -64,34 +64,34 @@ export default function Header() {
               )}
             </a>
 
-            {/* GitHub */}
-            <a 
-              href="https://github.com/franlopezmora" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="group relative"
-              aria-label="GitHub"
-              onMouseEnter={() => handleMouseEnter('github')}
-              onMouseLeave={() => handleMouseLeave('github')}
-            >
-              <div className="w-9 h-9 rounded-md bg-neutral-50 dark:bg-neutral-900 group-hover:bg-neutral-100 dark:group-hover:bg-neutral-800 flex items-center justify-center">
-                <img 
-                  src="/icons/GitHub_light.svg?v=3" 
-                  alt="GitHub" 
-                  className="w-5 h-5 opacity-70 group-hover:opacity-100 dark:hidden" 
-                />
-                <img 
-                  src="/icons/GitHub_dark.svg?v=3" 
-                  alt="GitHub" 
-                  className="w-5 h-5 opacity-70 group-hover:opacity-100 hidden dark:block" 
-                />
-              </div>
-              {showTooltips.github && (
-                <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                  GitHub
-                </span>
-              )}
-            </a>
+{/* GitHub */}
+<a
+  href="https://github.com/franlopezmora"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="group relative"
+  aria-label="GitHub"
+  onMouseEnter={() => handleMouseEnter('github')}
+  onMouseLeave={() => handleMouseLeave('github')}
+>
+  <div className="w-9 h-9 rounded-md bg-neutral-50 dark:bg-neutral-900 group-hover:bg-neutral-100 dark:group-hover:bg-neutral-800 flex items-center justify-center">
+    {/* usa el mismo esquema de color que los otros: */}
+    <svg
+      viewBox="0 0 24 24"
+      className="w-5 h-5 text-neutral-600 dark:text-neutral-300 group-hover:text-neutral-700 dark:group-hover:text-neutral-200"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M12 .5a12 12 0 00-3.794 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.34-1.77-1.34-1.77-1.1-.76.08-.75.08-.75 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.83 1.32 3.52 1.01.11-.78.42-1.32.76-1.62-2.66-.3-5.46-1.34-5.46-5.95 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.4 11.4 0 016 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.62-2.8 5.64-5.47 5.94.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.82.58A12 12 0 0012 .5z" />
+    </svg>
+  </div>
+  {showTooltips.github && (
+    <span className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded pointer-events-none whitespace-nowrap">
+      GitHub
+    </span>
+  )}
+</a>
+
 
             {/* Email */}
             <a 
