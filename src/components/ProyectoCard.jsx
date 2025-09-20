@@ -237,17 +237,19 @@ export default function ProyectoCard({
               className={`w-full h-auto object-contain rounded-lg transition-opacity duration-300 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
-              onLoad={() => setImageLoaded(true)}
+              onLoad={(e) => {
+                setImageLoaded(true);
+              }}
             />
             
             {/* Placeholder con imagen blureada mientras carga */}
             {!imageLoaded && (
-              <div
-                className="absolute inset-0 w-full rounded-lg transition-opacity duration-300"
+              <img
+                src={gif}
+                alt={titulo}
+                className="absolute inset-0 w-full h-auto object-contain rounded-lg transition-opacity duration-300"
                 style={{
-                  background: `url(${gif}) center/cover`,
-                  filter: 'blur(8px)',
-                  height: '300px'
+                  filter: 'blur(8px)'
                 }}
               />
             )}
