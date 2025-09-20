@@ -27,7 +27,21 @@ export default function EssayImage({ src, alt = "", caption, className = "", ble
 
   if (!resolved) {
     console.warn(`[EssayImage] No se encontró "${src}" en src/images`);
-    return null;
+    // En lugar de retornar null, mostrar un placeholder
+    return (
+      <figure className={`essay-frame ${className}`}>
+        <div className="relative">
+          <div className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+            <span className="text-gray-500 dark:text-gray-400 text-sm">Imagen no encontrada</span>
+          </div>
+          {caption && (
+            <figcaption className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+              {caption}
+            </figcaption>
+          )}
+        </div>
+      </figure>
+    );
   }
 
   // Efecto para manejar la carga de la imagen
@@ -96,6 +110,16 @@ export default function EssayImage({ src, alt = "", caption, className = "", ble
             className="w-full h-auto object-contain transition-all duration-500 ease-out opacity-100 blur-sm"
             style={{
               filter: 'blur(8px)'
+            }}
+            onLoad={() => {
+              // Si el blur placeholder se carga, mantenerlo visible hasta que la imagen principal esté lista
+              if (!imageLoaded) {
+                setTimeout(() => setShowBlur(false), 200);
+              }
+            }}
+            onError={() => {
+              // Si el blur placeholder falla, ocultarlo inmediatamente
+              setShowBlur(false);
             }}
           />
         )}
