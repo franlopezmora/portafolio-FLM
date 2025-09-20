@@ -14,7 +14,32 @@ export default function ProyectoCard({
   const [firstFrameBlur, setFirstFrameBlur] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [imgRatio, setImgRatio] = useState(null);
+  const [reservedCardMinH, setReservedCardMinH] = useState(null);
   const videoRef = useRef(null);
+  const articleRef = useRef(null);
+  const extrasRef = useRef(null);
+
+  const RATIO_CACHE_KEY = "proyectoCard_img_ratios_v1";
+
+  const getCachedRatio = (src) => {
+    try {
+      const raw = localStorage.getItem(RATIO_CACHE_KEY);
+      if (!raw) return null;
+      const map = JSON.parse(raw);
+      const r = map?.[src];
+      return typeof r === "number" && r > 0 ? r : null;
+    } catch { return null; }
+  };
+
+  const setCachedRatio = (src, ratio) => {
+    try {
+      const raw = localStorage.getItem(RATIO_CACHE_KEY);
+      const map = raw ? JSON.parse(raw) : {};
+      map[src] = ratio;
+      localStorage.setItem(RATIO_CACHE_KEY, JSON.stringify(map));
+    } catch {}
+  };
 
   const isExternalPrototype = typeof prototype === "string" && /^https?:\/\//i.test(prototype);
   const essayIsRoute = typeof essay === "string" && essay.startsWith("/");
@@ -117,6 +142,55 @@ export default function ProyectoCard({
     setVideoPlaying(false);
   }, [webm, gif]);
 
+  // Precargar ratio desde cache cuando cambie gif
+  useEffect(() => {
+    if (!gif || /\.mp4$/i.test(gif)) return; // sólo imágenes
+    const cached = getCachedRatio(gif);
+    if (cached) setImgRatio(cached);
+    else setImgRatio(null); // se medirá onLoad
+  }, [gif]);
+
+  // Calcular altura reservada para evitar CLS
+  useEffect(() => {
+    if (!articleRef.current) return;
+
+    const calc = () => {
+      // Solo calcular altura reservada para imágenes, no para videos
+      if (hasVideo) {
+        setReservedCardMinH(null);
+        return;
+      }
+
+      const el = articleRef.current;
+      const cardWidth = el.clientWidth;
+
+      // alto del media según el ancho real y el ratio
+      const mediaHeight = imgRatio ? (cardWidth / imgRatio) : 320; // fallback sin ratio
+
+      const extrasHeight = extrasRef.current ? extrasRef.current.offsetHeight : 0;
+
+      // Tenés "p-1" cuando no es fullBleedOnly → 8px de padding total aprox
+      const paddingY = fullBleedOnly ? 0 : 8;
+      const safety = 1;
+
+      setReservedCardMinH(Math.ceil(mediaHeight + extrasHeight + paddingY + safety));
+    };
+
+    const ro = new ResizeObserver(calc);
+    ro.observe(articleRef.current);
+
+    // recalcular si cambian acciones/descripción
+    const mo = new MutationObserver(calc);
+    if (extrasRef.current) mo.observe(extrasRef.current, { childList: true, subtree: true });
+
+    calc();
+
+    return () => {
+      ro.disconnect();
+      mo.disconnect();
+    };
+  }, [imgRatio, fullBleedOnly, showActions, showDescription, hasVideo]);
+
   const ctaClasses = `
     block w-full text-center text-sm font-medium py-2 rounded-lg
     bg-neutral-200 text-gray-900 hover:bg-neutral-300
@@ -135,6 +209,8 @@ export default function ProyectoCard({
 
   return (
     <article
+      ref={articleRef}
+      style={reservedCardMinH ? { minHeight: reservedCardMinH } : undefined}
       className={`
         break-inside-avoid rounded-xl border overflow-hidden
         bg-white text-neutral-900 border-neutral-200
@@ -227,33 +303,45 @@ export default function ProyectoCard({
             )}
           </>
         ) : gif ? (
-          <>
-            {/* Imagen principal */}
+          <div className="relative w-full rounded-lg bg-neutral-100 dark:bg-neutral-700"
+               style={{
+                 // si ya conocemos el ratio, reservamos exactamente el alto del media
+                 aspectRatio: imgRatio ? `1 / ${1 / imgRatio}` : undefined,
+                 // para navegadores sin soporte, un fallback visual
+                 contentVisibility: 'auto',
+                 containIntrinsicSize: imgRatio ? undefined : '320px 320px'
+               }}>
+            {/* Placeholder mientras no está cargada o no tenemos ratio */}
+            <div
+              className={`absolute inset-0 rounded-lg transition-opacity duration-500 ease-out
+                          ${imageLoaded && imgRatio ? 'opacity-0' : 'opacity-100'}`}
+              style={{
+                background: 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
+                filter: 'blur(8px)'
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Imagen real, posicionada para no cambiar el layout */}
             <img
               src={gif}
               alt={titulo}
               loading="lazy"
               decoding="async"
-              className={`w-full h-auto object-contain rounded-lg ${
-                imageLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-500 ease-out
+                          ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
               onLoad={(e) => {
+                const nw = e.currentTarget.naturalWidth || 0;
+                const nh = e.currentTarget.naturalHeight || 0;
+                if (nw > 0 && nh > 0) {
+                  const ratio = nw / nh;       // w/h
+                  setImgRatio(ratio);
+                  setCachedRatio(gif, ratio);  // cache para próximas veces (0 CLS)
+                }
                 setImageLoaded(true);
               }}
             />
-            
-            {/* Placeholder con imagen blureada mientras carga */}
-            {!imageLoaded && (
-              <img
-                src={gif}
-                alt={titulo}
-                className="absolute inset-0 w-full h-auto object-contain rounded-lg"
-                style={{
-                  filter: 'blur(8px)'
-                }}
-              />
-            )}
-          </>
+          </div>
         ) : (
           <div className="w-full h-full animate-pulse rounded-lg" />
         )}
@@ -292,7 +380,7 @@ export default function ProyectoCard({
 
       {/* Acciones */}
       {!fullBleedOnly && (essay || prototype) && (
-        <div className="mt-1 space-y-2">
+        <div ref={extrasRef} className="mt-1 space-y-2">
           {essay ? (
             essayIsExternal ? (
               <a
