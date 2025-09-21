@@ -8,14 +8,14 @@ export default function ExperienceSection() {
       period: "Abril 2025 - Present",
       title: "Desarrollador Full Stack",
       company: "CIDS",
-      companyUrl: "https://cids.com.ar",
-      description: "Desarrollo de soluciones para administración pública utilizando tecnologías avanzadas. En mi rol, he mejorado la agilidad del desarrollo implementando técnicas modernas, creando librerías TypeScript para compartir utilidades entre proyectos, escribiendo documentación y actualizando proyectos obsoletos a nuevas tecnologías."
+      companyUrl: "http://www.cids.frc.utn.edu.ar/",
+      description: "Desarrollador de software con foco en backend Java y frontend AngularJS, participando en el Sistema de Gestión Electoral a nivel nacional. Diseño e implementación de APIs, consultas SQL optimizadas y reportes con JasperReports. Trabajo ágil (Scrum/Kanban), automatización de despliegues y mejoras de seguridad end-to-end."
     },
     {
       period: "Junio 2024 - Mayo 2025",
       title: "Operador de Redes",
       company: "LABSIS",
-      companyUrl: "https://labsis.unlp.edu.ar",
+      companyUrl: "https://labsys.frc.utn.edu.ar/",
       description: "Operación y mantenimiento de infraestructura de red sísmica. Administración de servidores Linux, gestión de contenedores Docker y despliegue de servicios en AWS. Monitoreo continuo de sistemas críticos y resolución de incidencias técnicas."
     }
   ];
