@@ -34,6 +34,8 @@ export default function ProjectsSection() {
         return <img src="/icons/typescript.svg" alt="TypeScript" className="w-4 h-4" />;
       case 'Tailwind CSS':
         return <img src="/icons/tailwindcss.svg" alt="Tailwind CSS" className="w-4 h-4" />;
+      case 'Node.js':
+        return <img src="/icons/nodejs.svg" alt="Node.js" className="w-4 h-4" />;
       default:
         return null;
     }
