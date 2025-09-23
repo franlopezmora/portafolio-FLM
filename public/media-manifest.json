@@ -1,0 +1,81 @@
+[
+  {
+    "id": "custom-cursor",
+    "kind": "video",
+    "src": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/custom-cursor/custom-cursor.webm",
+    "w": 1392,
+    "h": 662,
+    "lqip": "/lqip/custom-cursor.png",
+    "poster": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/custom-cursor/custom-cursor-poster.jpg"
+  },
+  {
+    "id": "vanish-input",
+    "kind": "video",
+    "src": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input.webm",
+    "w": 1398,
+    "h": 468,
+    "lqip": "/lqip/vanish-input.png",
+    "poster": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input-poster.jpg"
+  },
+  {
+    "id": "dark-mode-toggle",
+    "kind": "video",
+    "src": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3.webm",
+    "w": 1030,
+    "h": 344,
+    "lqip": "/lqip/dark-mode-toggle.png",
+    "poster": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3-poster.jpg"
+  },
+  {
+    "id": "gooey-tooltip",
+    "kind": "video",
+    "src": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2.webm",
+    "w": 914,
+    "h": 568,
+    "lqip": "/lqip/gooey-tooltip.png",
+    "poster": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2-poster.jpg"
+  },
+  {
+    "id": "pill-nav-dock",
+    "kind": "video",
+    "src": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/nav-bar/nav-dock.webm",
+    "w": 1300,
+    "h": 490,
+    "lqip": "/lqip/pill-nav-dock.png",
+    "poster": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/nav-bar/nav-dock-poster.jpg"
+  },
+  {
+    "id": "animated-checkbox",
+    "kind": "video",
+    "src": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox.webm",
+    "w": 1260,
+    "h": 512,
+    "lqip": "/lqip/animated-checkbox.png",
+    "poster": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/animated-checkbox/animated-checkbox-poster.jpg"
+  },
+  {
+    "id": "side-bar",
+    "kind": "video",
+    "src": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar2.webm",
+    "w": 920,
+    "h": 732,
+    "lqip": "/lqip/side-bar.png",
+    "poster": "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar-poster.jpg"
+  },
+  {
+    "id": "cruma",
+    "kind": "image",
+    "src": "/images/Captura de pantalla 2025-09-04 155449.png",
+    "w": 1716,
+    "h": 650,
+    "lqip": "/lqip/cruma.png"
+  },
+  {
+    "id": "sistema-de-pruebas-de-manejo",
+    "kind": "image",
+    "src": "/images/Captura de pantalla 2025-09-04 143046.png",
+    "w": 1905,
+    "h": 500,
+    "lqip": "/lqip/sistema-de-pruebas-de-manejo.png"
+  }
+]

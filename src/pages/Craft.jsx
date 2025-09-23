@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import BottomNav from "../components/BottomNav";
 import { homeItems } from "../content/homeItems";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 // Mapeo directo de meses en español a inglés
 const ES_MONTHS = {
@@ -43,6 +43,23 @@ export default function Craft() {
   const [masonryRef, masonryVisible] = useScrollAnimation(0);
   const [videosReady, setVideosReady] = useState(true); // Cambiar a true para mostrar cards inmediatamente
 
+  // Manifest desde public (no se puede importar desde /public)
+  const [manifestData, setManifestData] = useState([]);
+  useEffect(() => {
+    fetch('/media-manifest.json')
+      .then(r => r.ok ? r.json() : [])
+      .then(setManifestData)
+      .catch(() => setManifestData([]));
+  }, []);
+
+  const bySrc = useMemo(() => new Map((manifestData || []).map(e => [e.src, e])), [manifestData]);
+  const keyForItem = (it) => {
+    if (it.webm) return it.webm;
+    if (it.gif && /\.mp4$/i.test(it.gif)) return it.gif;
+    if (it.gif && it.gif.startsWith("/")) return it.gif;
+    return null;
+  };
+
   // Activar videos después de que la animación termine
   useEffect(() => {
     if (masonryVisible) {
@@ -76,9 +93,24 @@ export default function Craft() {
             className="flex gap-x-2 justify-center"
             columnClassName="masonry-column"
           >
-            {proyectos.map((p, idx) => (
-              <ProyectoCard key={idx} {...p} videosReady={videosReady} />
-            ))}
+            {proyectos.map((p, idx) => {
+              const key = keyForItem(p);
+              const meta = key ? bySrc.get(key) : undefined;
+              const initialRatio = meta ? meta.w / meta.h : 1;
+              const initialBlurSrc = meta?.lqip ?? null;
+              const poster = meta?.poster ?? p.poster;
+
+              return (
+                <ProyectoCard
+                  key={`${p.titulo}-${idx}`}
+                  {...p}
+                  poster={poster}
+                  initialRatio={initialRatio}
+                  initialBlurSrc={initialBlurSrc}
+                  videosReady={videosReady}
+                />
+              );
+            })}
           </Masonry>
         </div>
         </div>
