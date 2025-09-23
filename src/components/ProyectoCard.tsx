@@ -16,7 +16,7 @@ type ProyectoCardProps = {
   essayLabel?: string;
   playbackRate?: number;
   videosReady?: boolean;
-  initialRatio?: number;
+  initialRatio?: number | null;
   initialBlurSrc?: string | null;
 };
 
@@ -222,6 +222,9 @@ export default function ProyectoCard({
   const handlePlaying = () => { setHasStarted(true); setShowBlur(false); setVideoPlaying(true); };
   const handlePauseLike = () => { setHasStarted(false); setShowBlur(true); setVideoPlaying(false); };
 
+  // Fuente de blur reutilizable (video e imagen)
+  const blurSrc = firstFrameBlur ?? initialBlurSrc ?? poster ?? null;
+
   const ctaClasses =
     "block w-full text-center text-sm font-medium py-2 rounded-lg " +
     "bg-neutral-200 text-gray-900 hover:bg-neutral-300 " +
@@ -257,7 +260,10 @@ export default function ProyectoCard({
       {/* Media (altura reservada por ratio) */}
       <div
         className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-700"
-        style={{ aspectRatio: (mediaRatio ?? HEURISTIC_RATIO) as CSSProperties["aspectRatio"] }}
+        style={{
+          aspectRatio: `${mediaRatio ?? HEURISTIC_RATIO} / 1`,
+          maxHeight: "clamp(200px, 45vw, 600px)",
+        }}
       >
         {hasVideo ? (
           <>
@@ -267,8 +273,8 @@ export default function ProyectoCard({
               autoPlay={isInView && videosReady}
               muted
               loop
-              preload={isInView ? "auto" : "metadata"}
-              poster={poster || gif || undefined}
+              preload={isInView ? "auto" : "none"}
+              poster={isInView ? (poster || gif || undefined) : undefined}
               className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-300 ${hasStarted ? "opacity-100" : "opacity-0"}`}
               onLoadedMetadata={(e) => {
                 const v = e.currentTarget;
@@ -295,14 +301,13 @@ export default function ProyectoCard({
             </video>
 
             {/* PLACEHOLDER BLUR: visible hasta que el video esté realmente 'playing' */}
-            {(firstFrameBlur || poster) ? (
+            {blurSrc ? (
               <img
-                src={(firstFrameBlur ?? poster)!}
-                alt={titulo}
+                src={blurSrc}
+                alt=""
+                aria-hidden="true"
                 className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-300 ${showBlur ? "opacity-100" : "opacity-0"}`}
                 style={{ filter: "blur(10px)" }}
-                loading="lazy"
-                decoding="async"
               />
             ) : (
               <div
@@ -332,12 +337,22 @@ export default function ProyectoCard({
                 setImageLoaded(true);
               }}
             />
-            {/* Placeholder */}
-            <div
-              className={`absolute inset-0 rounded-lg transition-opacity duration-300 ${imageLoaded ? "opacity-0" : "opacity-100"}`}
-              style={{ background: "linear-gradient(135deg,#f3f4f6 0%,#e5e7eb 100%)", filter: "blur(8px)" }}
-              aria-hidden="true"
-            />
+            {/* Placeholder -> usar LQIP si existe */}
+            {blurSrc ? (
+              <img
+                src={blurSrc}
+                alt=""
+                aria-hidden="true"
+                className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-300 ${imageLoaded ? "opacity-0" : "opacity-100"}`}
+                style={{ filter: "blur(10px)" }}
+              />
+            ) : (
+              <div
+                className={`absolute inset-0 rounded-lg transition-opacity duration-300 ${imageLoaded ? "opacity-0" : "opacity-100"}`}
+                style={{ background: "linear-gradient(135deg,#f3f4f6 0%,#e5e7eb 100%)", filter: "blur(8px)" }}
+                aria-hidden="true"
+              />
+            )}
           </div>
         ) : (
           <div className="absolute inset-0 w-full h-full rounded-lg animate-pulse" />

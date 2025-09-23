@@ -84,7 +84,7 @@ export default function Craft() {
           >
             {proyectos.map((p, idx) => {
               const meta = pickMeta(bySrc, p);
-              const initialRatio = meta ? meta.w / meta.h : 1;
+              const initialRatio = meta ? (meta.w / meta.h) : null;
               const initialBlurSrc = meta?.lqip ?? null;
               const poster = meta?.poster ?? p.poster;
 
