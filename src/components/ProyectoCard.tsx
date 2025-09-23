@@ -107,7 +107,6 @@ export default function ProyectoCard({
 
   const hasVideo = (!!gif && /\.mp4$/i.test(gif)) || (!!webm && /\.webm$/i.test(webm ?? ""));
   const fullBleedOnly = !showActions && !showDescription;
-  const hasValidPoster = !!poster && !poster.includes(".mp4") && !poster.includes(".webm");
 
   // ---- Capturar primer frame para blur (video) ----
   const captureFirstFrame = (videoElement: HTMLVideoElement) => {
@@ -262,13 +261,14 @@ export default function ProyectoCard({
         className="relative overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-700"
         style={{
           aspectRatio: `${mediaRatio ?? HEURISTIC_RATIO} / 1`,
-          maxHeight: "clamp(200px, 45vw, 600px)",
+          maxHeight: reservedCardMinH ? undefined : "clamp(200px, 45vw, 600px)",
         }}
       >
         {hasVideo ? (
           <>
             <video
               ref={videoRef}
+              crossOrigin="anonymous"
               playsInline
               autoPlay={isInView && videosReady}
               muted
@@ -306,6 +306,7 @@ export default function ProyectoCard({
                 src={blurSrc}
                 alt=""
                 aria-hidden="true"
+                fetchPriority="high"
                 className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-300 ${showBlur ? "opacity-100" : "opacity-0"}`}
                 style={{ filter: "blur(10px)" }}
               />
@@ -325,6 +326,7 @@ export default function ProyectoCard({
               alt={titulo}
               loading="lazy"
               decoding="async"
+              fetchPriority="low"
               className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
               onLoad={(e) => {
                 const nw = e.currentTarget.naturalWidth || 0;
@@ -343,6 +345,7 @@ export default function ProyectoCard({
                 src={blurSrc}
                 alt=""
                 aria-hidden="true"
+                fetchPriority="high"
                 className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-300 ${imageLoaded ? "opacity-0" : "opacity-100"}`}
                 style={{ filter: "blur(10px)" }}
               />
