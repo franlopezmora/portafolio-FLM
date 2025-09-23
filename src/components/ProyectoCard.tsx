@@ -313,8 +313,8 @@ export default function ProyectoCard({
                 />
                 {/* Tinte SIEMPRE disponible (no depende de estado) */}
                 <div
-                  className="absolute inset-0 rounded-lg pointer-events-none opacity-0 dark:opacity-100"
-                  style={{ background: "rgba(0,0,0,.22)" }}
+                  className={`absolute inset-0 rounded-lg pointer-events-none transition-opacity duration-300 opacity-0 ${showBlur ? "dark:opacity-100" : ""}`}
+                  style={{ background: "rgba(0,0,0,.25)" }}
                   aria-hidden="true"
                 />
               </>
@@ -360,8 +360,8 @@ export default function ProyectoCard({
                 />
                 {/* Tinte SIEMPRE disponible (no depende de estado) */}
                 <div
-                  className="absolute inset-0 rounded-lg pointer-events-none opacity-0 dark:opacity-100"
-                  style={{ background: "rgba(0,0,0,.22)" }}
+                  className={`absolute inset-0 rounded-lg pointer-events-none transition-opacity duration-300 opacity-0 ${imageLoaded ? "" : "dark:opacity-100"}`}
+                  style={{ background: "rgba(0,0,0,.25)" }}
                   aria-hidden="true"
                 />
               </>
