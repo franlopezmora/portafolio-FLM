@@ -5,6 +5,7 @@ import BottomNav from "../components/BottomNav";
 import { homeItems } from "../content/homeItems";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useState, useEffect, useMemo } from "react";
+import { fetchManifest, buildBySrcMap, pickMeta } from "../utils/mediaManifest";
 
 // Mapeo directo de meses en español a inglés
 const ES_MONTHS = {
@@ -45,20 +46,8 @@ export default function Craft() {
 
   // Manifest desde public (no se puede importar desde /public)
   const [manifestData, setManifestData] = useState([]);
-  useEffect(() => {
-    fetch('/media-manifest.json')
-      .then(r => r.ok ? r.json() : [])
-      .then(setManifestData)
-      .catch(() => setManifestData([]));
-  }, []);
-
-  const bySrc = useMemo(() => new Map((manifestData || []).map(e => [e.src, e])), [manifestData]);
-  const keyForItem = (it) => {
-    if (it.webm) return it.webm;
-    if (it.gif && /\.mp4$/i.test(it.gif)) return it.gif;
-    if (it.gif && it.gif.startsWith("/")) return it.gif;
-    return null;
-  };
+  useEffect(() => { fetchManifest().then(setManifestData); }, []);
+  const bySrc = useMemo(() => buildBySrcMap(manifestData), [manifestData]);
 
   // Activar videos después de que la animación termine
   useEffect(() => {
@@ -94,8 +83,7 @@ export default function Craft() {
             columnClassName="masonry-column"
           >
             {proyectos.map((p, idx) => {
-              const key = keyForItem(p);
-              const meta = key ? bySrc.get(key) : undefined;
+              const meta = pickMeta(bySrc, p);
               const initialRatio = meta ? meta.w / meta.h : 1;
               const initialBlurSrc = meta?.lqip ?? null;
               const poster = meta?.poster ?? p.poster;

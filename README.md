@@ -89,6 +89,36 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
 - **Animaciones sutiles** – Transiciones suaves sin ser intrusivas
 - **Accesibilidad** – Navegación por teclado y ARIA labels
 
+## 🖼️ LQIP (Low‑Quality Image Placeholder)
+
+Generación automática de placeholders (~30px) para imágenes y primer frame de videos.
+
+- Manifest: `/public/media-manifest.json`
+- Thumbnails: `/public/lqip/*.png`
+
+Scripts:
+```bash
+npm run lqip    # genera manifest + lqip
+npm run build   # corre lqip y luego vite build
+```
+
+Requisitos:
+- Node 18+
+- Dev deps: `sharp`, `undici`
+- ffmpeg (opcional): solo si un video no trae `poster`
+
+Notas:
+- Si cambiás `homeItems`, corré `npm run lqip` antes del deploy.
+- Para inline (sin requests a `/lqip/*.png`), activá `INLINE_LQIP` en `scripts/build-lqip-from-homeitems.mjs`.
+
+## 🧪 TypeScript
+
+Soporte para `.tsx`. `ProyectoCard.tsx` usa `ProyectoCardProps` para tipado estricto.
+
+## ☁️ Despliegue (Vercel)
+
+Recomendado commitear `public/media-manifest.json` y `public/lqip/*` generados localmente para evitar ffmpeg en build de Vercel.
+
 ## 📱 Responsividad
 
 - **Desktop (>1200px)**: Layout completo con TOC fijo y contenido centrado
