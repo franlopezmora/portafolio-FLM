@@ -7,7 +7,7 @@ export const projects = [
     description: "Analizador de Accesibilidad de Paletas de Colores",
     year: 2025,
     tags: ["React", "Next.js", "Node.js", "TypeScript", "Tailwind CSS"],
-    href: "https://colorcheck.vercel.app",
+    href: "https://color-check-six.vercel.app",
     github: "https://github.com/franlopezmora/colorcheck",
     githubOwner: "franlopezmora",
     githubRepo: "colorcheck",
