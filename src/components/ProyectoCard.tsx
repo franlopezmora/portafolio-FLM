@@ -9,6 +9,7 @@ type ProyectoCardProps = {
   poster?: string;
   essay?: string;
   fecha?: string;
+  dateColor?: "light" | "dark"; // color del texto de la fecha
   prototype?: string;
   protoLabel?: string;
   overlayPos?: "top" | "bottom";
@@ -21,7 +22,7 @@ type ProyectoCardProps = {
 };
 
 export default function ProyectoCard({
-  titulo, descripcion, gif, webm, poster, essay, fecha,
+  titulo, descripcion, gif, webm, poster, essay, fecha, dateColor = "dark",
   prototype, protoLabel = "View Prototype",
   overlayPos = "bottom",
   titleColor = "light",
@@ -397,7 +398,7 @@ export default function ProyectoCard({
               {titulo}
             </h3>
             {fecha && (
-              <p className="truncate max-w-[70%] font-sans text-[13px] leading-[28px] font-normal text-gray-500">
+              <p className={`truncate max-w-[70%] font-sans text-[13px] leading-[28px] font-normal ${dateColor === "light" ? "text-[hsl(0,0%,93%)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]" : "text-gray-500"}`}>
                 {fecha}
               </p>
             )}

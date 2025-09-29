@@ -6,6 +6,8 @@ export const homeItems = [
     webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/custom-cursor/custom-cursor.webm",
     poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/custom-cursor/custom-cursor-poster.jpg",
     prototype: "/prototype/1",
+    dateColor: "light",
+    fecha: "Noviembre 2024",
   },
   {
     titulo: "Vanish Input",
@@ -15,6 +17,7 @@ export const homeItems = [
     poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/vanish-input/vanish-input-poster.jpg",
     prototype: "/prototype/2",
     playbackRate: 1.9,
+    dateColor: "light",
     fecha: "Febrero 2025",
   },
   {
@@ -23,6 +26,8 @@ export const homeItems = [
     gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3.mp4",
     webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3.webm",
     poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/dark-mode3/dark-mode3-poster.jpg",
+    dateColor: "light",
+    fecha: "Octubre 2024",
   },
   {
     titulo: "Gooey Tooltip",
@@ -31,6 +36,8 @@ export const homeItems = [
     webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2.webm",
     poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/gooey-tooltip/gooey-tooltip2-poster.jpg",
     prototype: "/prototype/4",
+    dateColor: "light",
+    fecha: "Septiembre 2024",
   },
   {
     titulo: "Pill Nav Dock",
@@ -39,6 +46,8 @@ export const homeItems = [
     webm: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/nav-bar/nav-dock.webm",
     poster: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/nav-bar/nav-dock-poster.jpg",
     prototype: "/prototype/5",
+    dateColor: "light",
+    fecha: "Agosto 2024",
   },
   {
     titulo: "Animated Checkbox",
@@ -53,6 +62,7 @@ export const homeItems = [
   {
     titulo: "Side Bar",
     descripcion: "",
+    dateColor: "light",
     fecha: "Diciembre 2024",
     prototype: "/prototype/7",
     gif: "https://cdn.jsdelivr.net/gh/franlopezmora/portfolio-assets@main/videos/side-bar/side-bar.mp4",
@@ -64,6 +74,7 @@ export const homeItems = [
     descripcion: "Planificador de horarios hecho por y para estudiantes",
     gif: "/images/Captura de pantalla 2025-09-04 155449.png",
     overlayPos: "top",
+    dateColor: "light",
     fecha: "Agosto 2025",
     essay: "/essay/crafting-cruma",
   },
@@ -72,6 +83,7 @@ export const homeItems = [
     descripcion: "Backend con microservicios para gestionar pruebas de manejo",
     gif: "/images/Captura de pantalla 2025-09-04 143046.png",
     overlayPos: "top",
+    dateColor: "light",
     fecha: "Julio 2025",
     essay: "/essay/crafting-tpi-backend",
   },
