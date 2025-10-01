@@ -30,7 +30,9 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
   │   ├─ DarkModeToggle.jsx   # Toggle de modo oscuro
   │   ├─ ProyectoCard.jsx     # Tarjetas de proyectos
   │   ├─ PrevNext.jsx         # Navegación entre páginas
-  │   └─ EssayImage.jsx       # Componente para imágenes en ensayos
+  │   ├─ EssayImage.jsx       # Componente para imágenes en ensayos
+  │   ├─ WebPreview.jsx       # Preview de sitios web en ensayos
+  │   └─ EssayCollage.jsx     # Collage de múltiples imágenes
   ├─ /pages
   │   ├─ Home.jsx             # Página principal con masonry
   │   ├─ PrototypePage.jsx    # Página de prototipos
@@ -76,6 +78,7 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
 - **Imágenes adaptativas** – Fijas a 900px, se adaptan fluidamente por debajo
 - **Texto centrado** – Contenido limitado a 720px para mejor legibilidad
 - **Responsive inteligente** – TOC se oculta <1200px, contenido se centra
+- **WebPreview** – Componente para mostrar demos en vivo de proyectos web
 
 ### 🎨 Prototipos Interactivos
 - **7 prototipos** – Demos en vivo de componentes UI
@@ -110,6 +113,72 @@ Requisitos:
 Notas:
 - Si cambiás `homeItems`, corré `npm run lqip` antes del deploy.
 - Para inline (sin requests a `/lqip/*.png`), activá `INLINE_LQIP` en `scripts/build-lqip-from-homeitems.mjs`.
+
+## 🌐 WebPreview Component
+
+Componente para mostrar demos en vivo de proyectos web dentro de ensayos MDX.
+
+### Uso en MDX:
+
+```jsx
+import WebPreview from "../components/WebPreview.jsx";
+
+<WebPreview
+  url="https://ejemplo.com"
+  image="/images/previews/ejemplo.png"
+  title="Mi Proyecto — Live Demo"
+/>
+```
+
+### Props:
+- `url` (string): URL del sitio web
+- `image` (string): Ruta de la imagen preview
+- `title` (string, opcional): Título debajo de la card
+
+### Características:
+- Aspect ratio 16:9 fijo
+- Hover con escala y overlay "Visitar"
+- Enlace externo con `target="_blank"`
+- Soporte para modo oscuro
+- Responsive y accesible
+
+## 🖼️ EssayCollage Component
+
+Componente para mostrar múltiples imágenes en diferentes layouts dentro de ensayos MDX.
+
+### Uso en MDX:
+
+```jsx
+import EssayCollage from "../components/EssayCollage.jsx";
+
+<EssayCollage
+  layout="grid"
+  images={[
+    { src: "imagen1.png", alt: "Descripción 1" },
+    { src: "imagen2.png", alt: "Descripción 2" },
+    { src: "imagen3.png", alt: "Descripción 3" },
+    { src: "imagen4.png", alt: "Descripción 4" }
+  ]}
+/>
+```
+
+### Props:
+- `images` (array): Array de objetos con `src` y `alt`, o strings simples
+- `layout` (string): "grid", "horizontal", "vertical", "masonry"
+- `gap` (string, opcional): Clase de Tailwind para espaciado (default: "gap-2")
+- `className` (string, opcional): Clases CSS adicionales
+
+### Layouts disponibles:
+- **grid**: Cuadrícula 2x2 (ideal para 4 imágenes)
+- **horizontal**: Imágenes en fila horizontal
+- **vertical**: Imágenes en columna vertical
+- **masonry**: Layout tipo Pinterest con columnas
+
+### Características:
+- Border radius 12px automático
+- Soporte para captions opcionales
+- Responsive y adaptable
+- Integración perfecta con el diseño de ensayos
 
 ## 🧪 TypeScript
 
