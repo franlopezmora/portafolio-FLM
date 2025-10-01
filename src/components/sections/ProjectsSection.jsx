@@ -78,9 +78,9 @@ export default function ProjectsSection() {
           : 'opacity-0 translate-y-4'
       }`}
     >
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between">
         <h2 className="text-xl font-medium">Projects</h2>
-        <Link to="/proyectos" className="group inline-flex items-center gap-1 px-1 py-0.5 -mx-1 -my-0.5 rounded text-sm text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-white transition-colors">
+         <Link to="/proyectos" className="group inline-flex items-center gap-1 px-1 py-0.5 -mx-1 -my-0.5 rounded text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
           More
           <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-all" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -103,9 +103,12 @@ export default function ProjectsSection() {
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <a href={p.href} className="group inline-flex items-center gap-2 px-1 py-0.5 -mx-1 -my-0.5 rounded hover:text-neutral-600 dark:hover:text-white transition-colors">
+                 <a href={p.href} className="group inline-flex items-center gap-2 px-1 py-0.5 -mx-1 -my-0.5 rounded hover:text-neutral-600 dark:hover:text-white transition-colors overflow-hidden">
                   {getProjectIcon(p.id)}
-                  <span className="font-medium text-neutral-700 dark:text-neutral-100 group-hover:text-neutral-900 dark:group-hover:text-white truncate">{p.title}</span>
+                   <span className="relative inline-block font-medium text-neutral-700 dark:text-neutral-100 group-hover:text-neutral-900 dark:group-hover:text-white">
+                     {p.title}
+                      <span className="absolute left-0 -bottom-0.5 h-[1.6px] w-0 bg-current transition-all duration-300 ease-out group-hover:w-full"></span>
+                   </span>
                   <svg
                     className="w-3 h-3 text-neutral-700 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white group-hover:translate-x-0.5 transition-all"
                     viewBox="0 0 24 24"

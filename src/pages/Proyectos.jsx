@@ -5,6 +5,7 @@ import BottomNav from "../components/BottomNav";
 import { projects } from "../content/projects";
 import GitHubStars from "../components/GitHubStars";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import UpdatedPill from "../components/UpdatedPill";
 
 export default function Proyectos() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -122,7 +123,10 @@ export default function Proyectos() {
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
                     <a href={p.href} className="group inline-flex items-center gap-2 px-1 py-0.5 -mx-1 -my-0.5 rounded hover:text-white dark:hover:text-white transition-colors">
-                      <span className="font-medium text-neutral-700 dark:text-neutral-100 group-hover:text-neutral-900 dark:group-hover:text-white truncate">{p.title}</span>
+                    <span className="relative inline-block font-medium text-neutral-700 dark:text-neutral-100 group-hover:text-neutral-900 dark:group-hover:text-white">
+                     {p.title}
+                      <span className="absolute left-0 -bottom-0.5 h-[1.6px] w-0 bg-current transition-all duration-300 ease-out group-hover:w-full"></span>
+                   </span>
                       <svg
                         className="w-3 h-3 text-neutral-700 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white group-hover:translate-x-0.5 transition-all"
                         viewBox="0 0 24 24"
@@ -133,11 +137,9 @@ export default function Proyectos() {
                         <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </a>
-                    {p.updated && (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">updated</span>
-                    )}
                   </div>
                   <div className="flex items-center gap-3 ml-4">
+                    <UpdatedPill on={!!p.updated} />
                     {p.github && (
                       <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group">
                         <img 
