@@ -32,7 +32,8 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
   │   ├─ PrevNext.jsx         # Navegación entre páginas
   │   ├─ EssayImage.jsx       # Componente para imágenes en ensayos
   │   ├─ WebPreview.jsx       # Preview de sitios web en ensayos
-  │   └─ EssayCollage.jsx     # Collage de múltiples imágenes
+  │   ├─ CodeBlock.jsx        # Bloque de código con botón copiar
+  │   └─ EditableCode.jsx     # Editor de código con preview en vivo
   ├─ /pages
   │   ├─ Home.jsx             # Página principal con masonry
   │   ├─ PrototypePage.jsx    # Página de prototipos
@@ -179,6 +180,82 @@ import EssayCollage from "../components/EssayCollage.jsx";
 - Soporte para captions opcionales
 - Responsive y adaptable
 - Integración perfecta con el diseño de ensayos
+
+## 💻 CodeBlock Component
+
+Componente para mostrar bloques de código con sintaxis highlighting y botón de copiar.
+
+### Uso en MDX:
+
+```jsx
+import CodeBlock from "../components/CodeBlock.jsx";
+
+<CodeBlock
+  language="tsx"
+  filename="Grid.tsx"
+  code={`interface CellProps {
+  row: number;
+  column: number;
+  children: React.ReactNode;
+}
+
+function Cell({ row, column, children }: CellProps) {
+  return (
+    <div className="grid-cell" style={{ gridRow: row, gridColumn: column }}>
+      {children}
+    </div>
+  );
+}`}
+/>
+```
+
+### Props:
+- `code` (string): El código a mostrar
+- `language` (string): Lenguaje para syntax highlighting (default: "tsx")
+- `filename` (string, opcional): Nombre del archivo a mostrar en el header
+- `className` (string, opcional): Clases CSS adicionales
+
+### Características:
+- Botón "Copiar" con feedback visual
+- Soporte para syntax highlighting (Prism/Shiki)
+- Header con nombre de archivo y lenguaje
+- Responsive y adaptable al modo oscuro
+
+## 🎮 EditableCode Component
+
+Editor de código interactivo con preview en vivo usando iframe.
+
+### Uso en MDX:
+
+```jsx
+import EditableCode from "../components/EditableCode.jsx";
+
+<EditableCode
+  filename="demo.html"
+  height={360}
+  initialHtml={`<div id="app"></div>`}
+  initialCss={`body{display:grid;place-items:center;height:100vh}`}
+  initialJs={`document.getElementById('app').textContent = 'Hola 👋';`}
+/>
+```
+
+### Props:
+- `initialHtml` (string): HTML inicial
+- `initialCss` (string): CSS inicial
+- `initialJs` (string): JavaScript inicial
+- `height` (number): Altura del preview (default: 340)
+- `filename` (string): Nombre del archivo (default: "demo.html")
+- `autoRunDelay` (number): Delay para auto-ejecutar cambios (default: 400ms)
+- `className` (string, opcional): Clases CSS adicionales
+
+### Características:
+- Editor con tabs HTML/CSS/JS
+- Preview en vivo con iframe
+- Auto-ejecución con debounce
+- Botones "Run" y "Reset"
+- Indicador de cambios pendientes
+- Manejo de errores JavaScript
+- Responsive (editor + preview en desktop, stack en mobile)
 
 ## 🧪 TypeScript
 
