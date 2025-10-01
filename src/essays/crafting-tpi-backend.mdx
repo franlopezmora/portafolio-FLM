@@ -6,7 +6,7 @@ description: "Un relato sobre la construcción de una arquitectura de microservi
 
 Hace unos meses arrancamos con un desafío ambicioso: construir, como parte del **Trabajo Práctico Integrador** de Backend, un sistema completo para gestionar **pruebas de manejo**. No queríamos quedarnos en lo académico; queríamos acercarnos a la realidad de una aplicación moderna, con microservicios, bases de datos reales y despliegues en contenedores. En este ensayo voy a contarte las decisiones que tomamos y cómo las implementamos.
 
-## Arquitectura y microservicios
+## Arquitectura
 
 Desde el principio optamos por una **arquitectura de microservicios**, porque nos permitía dividir el dominio en piezas independientes y trabajar de manera paralela. Terminamos con seis servicios principales:
 
@@ -27,25 +27,25 @@ import EssayImage from "../components/EssayImage.jsx";
   bleed
 />
 
-## Tecnologías y herramientas
+## Tecnologías
 
 Elegimos **Java 21** como lenguaje base y **Spring Boot 3.3.5** como framework, aprovechando su soporte para microservicios y la madurez de su ecosistema. Para la persistencia usamos **Spring Data JPA** y **PostgreSQL** como base de datos principal, mientras que **H2** nos sirvió para testear en memoria. Para el cliente HTTP declarativo utilizamos **OpenFeign** y documentamos cada API con **SpringDoc OpenAPI**. La construcción y gestión de dependencias se resolvieron con **Maven**.
 
 Aunque nuestro foco era el backend, también había un frontend en **Next.js 15.4.3** con **React 19.1.0** y **TailwindCSS 4**, lo que nos permitió probar los endpoints de manera interactiva. A nivel DevOps nos apoyamos en **Docker** y **Docker Compose** para orquestar todos los servicios.
 
-## Base de datos y comunicación
+## Persistencia
 
 Optamos por **PostgreSQL 15** como motor de base de datos y empaquetamos su inicialización en un script ubicado en `/docker/db/init.sql`. Cada microservicio se conecta a su propia instancia, con usuarios y contraseñas definidos como variables de entorno por defecto (`postgres/postgres`). Para las pruebas automatizadas utilizamos **H2** porque facilita la ejecución de tests en memoria sin depender de un contenedor externo. La comunicación entre microservicios se realiza via HTTP REST y, cuando fue necesario, utilizamos Feign para simplificar llamadas internas.
 
-## Gateway y unificación
+## API Gateway
 
 El **API Gateway** no es solo un router; también nos permitió concentrar políticas comunes como el manejo de errores, la documentación y los puntos de control. Exponemos todos los endpoints a través del puerto **8080**, y cada microservicio mantiene su URL interna. También configuramos **Spring Cloud Gateway** para exponer la documentación Swagger en un único punto (`/swagger-ui.html`).
 
-## Notificaciones y servicios externos
+## Notificaciones y Discord
 
 Una de las particularidades del proyecto fue el servicio de notificaciones. En lugar de enviar correos tradicionales, decidimos integrar un **webhook de Discord**: cada vez que se crea una nueva prueba o se registra un interesado, se dispara un mensaje en un canal que utilizamos para seguimiento. Para configurarlo, basta con cambiar la URL del webhook en el archivo de configuración del microservicio.
 
-## Desarrollo, scripts y despliegue
+## Scripts y despliegue
 
 Queríamos que el entorno de desarrollo fuera lo más simple posible. Por eso escribimos un script `build-all.sh` que compila todos los microservicios, construye las imágenes y levanta todo el stack con `docker-compose up --build`. También preparamos instrucciones para ejecutar los servicios manualmente con Maven y levantar la base de datos por separado. Para reiniciar desde cero, basta con ejecutar `docker-compose down -v` y volver a correr el script de build.
 
