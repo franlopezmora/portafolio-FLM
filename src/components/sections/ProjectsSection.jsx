@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { projects } from "../../content/projects";
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import UpdatedPill from "../UpdatedPill";
 
 export default function ProjectsSection() {
   const [ref, isVisible] = useScrollAnimation(200);
@@ -115,34 +116,32 @@ export default function ProjectsSection() {
                     <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
-                {p.updated && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">updated</span>
-                )}
               </div>
-              <div className="flex items-center gap-3 ml-4">
-                {p.github && (
-                  <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group">
-                    <img 
-                      src="/icons/GitHub_light.svg?v=4" 
-                      alt="GitHub" 
-                      className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity dark:hidden" 
-                    />
-                    <img 
-                      src="/icons/GitHub_dark.svg?v=4" 
-                      alt="GitHub" 
-                      className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity hidden dark:block" 
-                    />
-                  </a>
-                )}
-                {(p.href && !p.github) && (
-                  <a href={p.href} target="_blank" rel="noopener noreferrer" aria-label="Abrir enlace" className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </a>
-                )}
-              </div>
+                <div className="flex items-center gap-3 ml-4">
+                  <UpdatedPill on={!!p.updated} />
+                  {p.github && (
+                   <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group">
+                     <img 
+                       src="/icons/GitHub_light.svg?v=4" 
+                       alt="GitHub" 
+                       className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity dark:hidden" 
+                     />
+                     <img 
+                       src="/icons/GitHub_dark.svg?v=4" 
+                       alt="GitHub" 
+                       className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity hidden dark:block" 
+                     />
+                   </a>
+                 )}
+                 {(p.href && !p.github) && (
+                   <a href={p.href} target="_blank" rel="noopener noreferrer" aria-label="Abrir enlace" className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200">
+                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                       <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                     </svg>
+                   </a>
+                 )}
+               </div>
             </div>
             <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{p.description}</p>
             {p.tags && (

@@ -11,6 +11,7 @@ export const projects = [
     github: "https://github.com/franlopezmora/colorcheck",
     githubOwner: "franlopezmora",
     githubRepo: "colorcheck",
+    updated: true,
   },
   {
     id: "cruma",

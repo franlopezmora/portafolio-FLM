@@ -207,6 +207,23 @@ html {
   }
 }
 
+@keyframes shine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: 0 0; }
+}
+
+/* Animación sólida y suave */
+.badge-shine {
+  animation: shine 2.2s linear infinite;
+  will-change: background-position;
+}
+
+/* Respeta reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .badge-shine { animation: none; }
+}
+
+
 /* Clases de utilidad para animaciones */
 .animate-in {
   animation-fill-mode: both;
