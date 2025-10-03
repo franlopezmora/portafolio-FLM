@@ -77,6 +77,10 @@
   color: #1c1c1c; /* Gris oscuro para modo claro */
 }
 
+.essay-prose img {
+  border-radius: 12px;
+}
+
 /* Modo oscuro */
 .dark .essay-prose {
   color: #e6e6e6; /* Blanco suave para modo oscuro */
