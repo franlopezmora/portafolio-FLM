@@ -107,7 +107,9 @@ async function main() {
   const entries = [];
 
   for (const item of homeItems) {
-    const id = slugify(item.titulo);
+    // Handle translated titles - use Spanish version for slug generation
+    const titulo = typeof item.titulo === 'string' ? item.titulo : (item.titulo?.ES || item.titulo?.EN || 'untitled');
+    const id = slugify(titulo);
 
     const isWebm = item.webm && /\.webm$/i.test(item.webm);
     const isMp4  = item.gif  && /\.mp4$/i.test(item.gif ?? "");
