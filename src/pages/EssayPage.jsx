@@ -4,12 +4,17 @@ import "../styles/essay.css";
 import PrevNext from "../components/PrevNext";
 import PageLayout from "../components/PageLayout";
 import { homeItems } from "../content/homeItems";
+import { useLanguage } from "../context/LanguageContext";
 
 const parseDate = (d) => {
   if (!d) return 0;
-  const t = Date.parse(d);
+  
+  // Handle translated dates
+  const dateStr = typeof d === "string" ? d : d.ES;
+  
+  const t = Date.parse(dateStr);
   if (!Number.isNaN(t)) return t;
-  try { return Date.parse(d.replace(/(\w+)\s+(\d{4})/, "01 $1 $2")); } catch { return 0; }
+  try { return Date.parse(dateStr.replace(/(\w+)\s+(\d{4})/, "01 $1 $2")); } catch { return 0; }
 };
 
 const mdxModules = import.meta.glob("../essays/*.mdx");
@@ -20,6 +25,7 @@ function slugify(str = "") {
 
 export default function EssayPage() {
   const { slug } = useParams();
+  const { t, language } = useLanguage();
 
   const [Mod, setMod] = useState(null);
   const [frontmatter, setFrontmatter] = useState({});
@@ -36,9 +42,17 @@ export default function EssayPage() {
       setMod(null);
       setFrontmatter({});
 
+      // Determine which file to load based on language
+      let targetSlug = slug;
+      if (language === 'EN' && !slug.endsWith('-en')) {
+        targetSlug = `${slug}-en`;
+      } else if (language === 'ES' && slug.endsWith('-en')) {
+        targetSlug = slug.replace('-en', '');
+      }
+
       const entry = Object.entries(mdxModules).find(([path]) => {
         const name = path.split("/").pop().replace(/\.mdx$/i, "");
-        return name === slug;
+        return name === targetSlug;
       });
 
       if (!entry) {
@@ -54,7 +68,7 @@ export default function EssayPage() {
       setFrontmatter(mod.frontmatter || mod.metadata || {});
     })();
     return () => { cancelled = true; };
-  }, [slug]);
+  }, [slug, language]);
 
   // Construir TOC
   useEffect(() => {
@@ -85,9 +99,9 @@ export default function EssayPage() {
     return (
       <main className="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 min-h-screen">
         <div className="mx-auto max-w-[1000px] px-4 md:px-6 lg:px-8 py-10">
-          <Link className="essay-back block mb-6" to="/essays">← Volver</Link>
-          <h1 className="essay-title">No encontrado</h1>
-          <p className="essay-meta">El ensayo "{slug}" no existe.</p>
+          <Link className="essay-back block mb-6" to="/essays">{t('essay.back')}</Link>
+          <h1 className="essay-title">{t('essay.notFound')}</h1>
+          <p className="essay-meta">{t('essay.notFoundDescription', { slug })}</p>
         </div>
       </main>
     );
@@ -108,14 +122,14 @@ const nextItem = idx >= 0 && idx < proyectos.length - 1 ? proyectos[idx + 1] : n
 return (
   <PageLayout 
     backTo="/"
-    backText="← Volver"
+    backText={t('essay.back')}
     showToc={true}
     toc={toc}
     onTocItemClick={goTo}
   >
     {/* Header */}
     <header className="mb-6">
-      <h1 className="essay-title">{frontmatter.title || "Untitled"}</h1>
+      <h1 className="essay-title">{frontmatter.title || t('essay.untitled')}</h1>
       {(frontmatter.date || frontmatter.description) && (
         <p className="essay-meta mt-1">
           {frontmatter.date && <span>{frontmatter.date}</span>}
@@ -126,15 +140,12 @@ return (
 
     {/* Artículo */}
     <article ref={articleRef} className="essay-prose">
-      {Mod ? <Mod /> : <div className="text-neutral-500 dark:text-neutral-400">Cargando…</div>}
+      {Mod ? <Mod /> : <div className="text-neutral-500 dark:text-neutral-400">{t('essay.loading')}</div>}
     </article>
 
          {/* Prev / Next */}
      <div className="mt-10">
-       <PrevNext
-         prev={prevItem ? { title: prevItem.title, href: prevItem.href } : null}
-         next={nextItem ? { title: nextItem.title, href: nextItem.href } : null}
-       />
+       <PrevNext />
      </div>
     </PageLayout>
   );

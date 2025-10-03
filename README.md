@@ -11,6 +11,8 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
 - **MDX** – para contenido dinámico de ensayos
 - **Vite** – para el entorno de desarrollo ultrarrápido
 - **Lucide React** – para iconografía moderna
+- **Context API** – para gestión de estado global (idiomas, tema)
+- **EmailJS** – para formularios de contacto
 
 ## 📂 Estructura del proyecto
 
@@ -70,24 +72,28 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
 - **Modo oscuro** – Toggle automático con persistencia en localStorage
 - **Diseño centrado** – Contenido centrado a 1100px máximo
 - **Sin scroll horizontal** – Optimizado para evitar overflow
+- **Soporte multiidioma** – Español e inglés con cambio dinámico
 
 ### 📝 Sistema de Ensayos
 - **TOC fijo** – Tabla de contenidos que permanece en posición al hacer scroll
 - **Imágenes adaptativas** – Fijas a 900px, se adaptan fluidamente por debajo
 - **Texto centrado** – Contenido limitado a 720px para mejor legibilidad
 - **Responsive inteligente** – TOC se oculta <1200px, contenido se centra
+- **Ensayos bilingües** – Versiones en español e inglés
 
 ### 🎨 Prototipos Interactivos
 - **7 prototipos** – Demos en vivo de componentes UI
 - **Layout consistente** – Header con título, fecha y toggle de modo oscuro
 - **Navegación prev/next** – Entre prototipos y ensayos
 - **Componentes embebidos** – Sidebar, tooltips, inputs animados
+- **Descripciones traducidas** – Contenido en español e inglés
 
 ### 🎨 Diseño y UX
 - **Paleta neutral** – Grises y blancos con soporte para modo oscuro
 - **Tipografía clara** – Jerarquía visual bien definida
 - **Animaciones sutiles** – Transiciones suaves sin ser intrusivas
 - **Accesibilidad** – Navegación por teclado y ARIA labels
+- **Internacionalización** – Sistema completo de traducciones ES/EN
 
 ## 🖼️ LQIP (Low‑Quality Image Placeholder)
 

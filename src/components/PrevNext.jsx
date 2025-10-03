@@ -1,9 +1,20 @@
 import { Link, useLocation } from "react-router-dom";
 import { getSiblingsFor } from "../content/ordering";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function PrevNext() {
   const { pathname } = useLocation();
-  const { prev, next } = getSiblingsFor(pathname);
+  const { t, language } = useLanguage();
+  const { prev, next } = getSiblingsFor(pathname, language);
+  
+  // Helper function to get translated text
+  const getTranslatedText = (text) => {
+    if (!text) return "";
+    if (typeof text === "string") return text;
+    if (typeof text === "object" && text[language]) return text[language];
+    if (typeof text === "object" && text.ES) return text.ES; // Fallback to Spanish
+    return text;
+  };
 
   if (!prev && !next) return null;
 
@@ -15,8 +26,8 @@ export default function PrevNext() {
             to={prev.route}
             className="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
           >
-            <div className="uppercase tracking-wide text-[12px] mb-1">Anterior</div>
-            <div className="font-medium">{prev.title || "Anterior"}</div>
+            <div className="uppercase tracking-wide text-[12px] mb-1">{t('prevNext.previous')}</div>
+            <div className="font-medium">{getTranslatedText(prev.title) || t('prevNext.previous')}</div>
           </Link>
         )}
       </div>
@@ -27,8 +38,8 @@ export default function PrevNext() {
             to={next.route}
             className="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
           >
-            <div className="uppercase tracking-wide text-[12px] mb-1">Siguiente</div>
-            <div className="font-medium">{next.title || "Siguiente"}</div>
+            <div className="uppercase tracking-wide text-[12px] mb-1">{t('prevNext.next')}</div>
+            <div className="font-medium">{getTranslatedText(next.title) || t('prevNext.next')}</div>
           </Link>
         )}
       </div>

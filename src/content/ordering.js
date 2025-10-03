@@ -1,9 +1,14 @@
 import { homeItems } from "./homeItems";
 
 const ES_MONTHS = {
-  "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
-  "julio": 7, "agosto": 8, "septiembre": 9, "setiembre": 9, "octubre": 10,
-  "noviembre": 11, "diciembre": 12,
+  "enero": "January", "febrero": "February", "marzo": "March", "abril": "April", 
+  "mayo": "May", "junio": "June", "julio": "July", "agosto": "August", 
+  "septiembre": "September", "octubre": "October", 
+  "noviembre": "November", "diciembre": "December",
+  "Enero": "January", "Febrero": "February", "Marzo": "March", "Abril": "April", 
+  "Mayo": "May", "Junio": "June", "Julio": "July", "Agosto": "August", 
+  "Septiembre": "September", "Octubre": "October", 
+  "Noviembre": "November", "Diciembre": "December"
 };
 
 const pad2 = (n) => String(n).padStart(2, "0");
@@ -12,21 +17,22 @@ function parseDateLoose(d) {
   if (!d) return -Infinity;
   if (d instanceof Date) return +d;
   
-  const s = String(d).trim();
-  const t = Date.parse(s);
-  if (!Number.isNaN(t)) return t;
-
-  const m1 = s.toLowerCase().match(/^([a-záéíóúñ]+)\s+(\d{4})$/i);
-  if (m1) {
-    const mm = ES_MONTHS[m1[1]];
-    if (mm) return Date.parse(`${m1[2]}-${pad2(mm)}-01`);
+  // Handle translated dates
+  const dateStr = typeof d === "string" ? d : d.ES;
+  
+  // ej: "Agosto 2025" -> "01 August 2025"
+  const match = dateStr.match(/^([a-zA-ZáéíóúñÁÉÍÓÚÑ]+)\s+(\d{4})$/);
+  if (match) {
+    const [, month, year] = match;
+    const englishMonth = ES_MONTHS[month];
+    if (englishMonth) {
+      return Date.parse(`01 ${englishMonth} ${year}`);
+    }
   }
   
-  const m2 = s.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
-  if (m2) {
-    const [, dd, mm, yyyy] = m2;
-    return Date.parse(`${yyyy}-${pad2(mm)}-${pad2(dd)}`);
-  }
+  // Try standard Date.parse for other formats
+  const t = Date.parse(dateStr);
+  if (!Number.isNaN(t)) return t;
   
   return -Infinity;
 }
@@ -59,18 +65,27 @@ function toRoute(it) {
   return normalizeRoute(it.route || it.href || it.essay || it.prototype || null);
 }
 
-function toTitle(it, route) {
+function toTitle(it, route, language = 'ES') {
+  // Handle translated titles
+  const getTranslatedText = (text) => {
+    if (!text) return null;
+    if (typeof text === "string") return text;
+    if (typeof text === "object" && text[language]) return text[language];
+    if (typeof text === "object" && text.ES) return text.ES; // Fallback to Spanish
+    return text;
+  };
+
   return (
-    it.title ||
-    it.name ||
-    it.titulo ||
-    it.label ||
-    it.caption ||
+    getTranslatedText(it.title) ||
+    getTranslatedText(it.name) ||
+    getTranslatedText(it.titulo) ||
+    getTranslatedText(it.label) ||
+    getTranslatedText(it.caption) ||
     prettifyRouteTitle(route)
   );
 }
 
-export function getOrderedRoutables() {
+export function getOrderedRoutables(language = 'ES') {
   return homeItems
     .map((it, i) => {
       const route = toRoute(it);
@@ -78,7 +93,7 @@ export function getOrderedRoutables() {
       return {
         ...it,
         route,
-        title: toTitle(it, route),
+        title: toTitle(it, route, language),
         __i: i,
         __ts: parseDateLoose(it.fecha),
       };
@@ -90,9 +105,9 @@ export function getOrderedRoutables() {
     });
 }
 
-export function getSiblingsFor(pathname) {
+export function getSiblingsFor(pathname, language = 'ES') {
   const path = normalizeRoute(pathname);
-  const ordered = getOrderedRoutables();
+  const ordered = getOrderedRoutables(language);
   const idx = ordered.findIndex((it) => it.route === path);
   
   if (idx === -1) return { prev: null, next: null };

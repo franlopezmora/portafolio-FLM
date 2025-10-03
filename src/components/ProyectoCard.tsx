@@ -1,14 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, CSSProperties } from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 type ProyectoCardProps = {
-  titulo: string;
-  descripcion?: string;
+  titulo: string | { ES: string; EN: string };
+  descripcion?: string | { ES: string; EN: string };
   gif?: string;          // puede ser .mp4 si lo usás como video
   webm?: string;         // .webm
   poster?: string;
   essay?: string;
-  fecha?: string;
+  fecha?: string | { ES: string; EN: string };
   dateColor?: "light" | "dark"; // color del texto de la fecha
   prototype?: string;
   protoLabel?: string;
@@ -23,16 +24,30 @@ type ProyectoCardProps = {
 
 export default function ProyectoCard({
   titulo, descripcion, gif, webm, poster, essay, fecha, dateColor = "dark",
-  prototype, protoLabel = "View Prototype",
+  prototype, protoLabel,
   overlayPos = "bottom",
   titleColor = "light",
-  essayLabel = "Read Essay",
+  essayLabel,
   playbackRate = 1,
   videosReady = true,
   initialRatio,
   initialBlurSrc,
 }: ProyectoCardProps) {
   const navigate = useNavigate();
+  const { language, t } = useLanguage();
+  
+  // Helper function to get translated text
+  const getTranslatedText = (text: string | { ES: string; EN: string } | undefined): string => {
+    if (!text) return "";
+    if (typeof text === "string") return text;
+    return text[language as keyof typeof text] || text.ES;
+  };
+  
+  const translatedTitulo = getTranslatedText(titulo);
+  const translatedDescripcion = getTranslatedText(descripcion);
+  const translatedFecha = getTranslatedText(fecha);
+  const translatedProtoLabel = protoLabel || t('craft.viewPrototype');
+  const translatedEssayLabel = essayLabel || t('craft.readEssay');
 
   // ---- Estados ----
   const [firstFrameBlur, setFirstFrameBlur] = useState<string | null>(initialBlurSrc ?? null);
@@ -238,7 +253,7 @@ export default function ProyectoCard({
   };
 
   const hasDestRole: Partial<React.HTMLAttributes<HTMLElement>> = hasDest
-    ? { role: "link", tabIndex: 0, "aria-label": `Abrir: ${essay ? `essay de ${titulo}` : titulo}` }
+    ? { role: "link", tabIndex: 0, "aria-label": `Abrir: ${essay ? `essay de ${translatedTitulo}` : translatedTitulo}` }
     : {};
 
   return (
@@ -332,7 +347,7 @@ export default function ProyectoCard({
             {/* Imagen real */}
             <img
               src={gif}
-              alt={titulo}
+              alt={translatedTitulo}
               loading="lazy"
               decoding="async"
               fetchPriority="low"
@@ -395,11 +410,11 @@ export default function ProyectoCard({
               className={`truncate max-w-[70%] font-sans text-[13px] leading-[28px] font-normal
                 ${titleColor === "dark" ? "text-neutral-900" : "text-[hsl(0,0%,93%)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]"}`}
             >
-              {titulo}
+              {translatedTitulo}
             </h3>
-            {fecha && (
+            {translatedFecha && (
               <p className={`truncate max-w-[70%] font-sans text-[13px] leading-[28px] font-normal ${dateColor === "light" ? "text-[hsl(0,0%,93%)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)]" : "text-gray-500"}`}>
-                {fecha}
+                {translatedFecha}
               </p>
             )}
           </div>
@@ -418,7 +433,7 @@ export default function ProyectoCard({
                 className={ctaClasses}
                 onClick={(e) => e.stopPropagation()}
               >
-                {essayLabel}
+                {translatedEssayLabel}
               </a>
             ) : (
               <Link
@@ -426,7 +441,7 @@ export default function ProyectoCard({
                 className={ctaClasses}
                 onClick={(e) => e.stopPropagation()}
               >
-                {essayLabel}
+                {translatedEssayLabel}
               </Link>
             )
           ) : isExternalPrototype ? (
@@ -437,7 +452,7 @@ export default function ProyectoCard({
               className={ctaClasses}
               onClick={(e) => e.stopPropagation()}
             >
-              {protoLabel}
+              {translatedProtoLabel}
             </a>
           ) : (
             <Link
@@ -445,7 +460,7 @@ export default function ProyectoCard({
               className={ctaClasses}
               onClick={(e) => e.stopPropagation()}
             >
-              {protoLabel}
+              {translatedProtoLabel}
             </Link>
           )}
         </div>

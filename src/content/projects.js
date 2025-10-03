@@ -4,7 +4,10 @@ export const projects = [
   {
     id: "colorcheck",
     title: "ColorCheck",
-    description: "Analizador de Accesibilidad de Paletas de Colores",
+    description: {
+      ES: "Analizador de Accesibilidad de Paletas de Colores",
+      EN: "Color Palette Accessibility Analyzer"
+    },
     year: 2025,
     tags: ["React", "Next.js", "Node.js", "TypeScript", "Tailwind CSS"],
     href: "https://color-check-six.vercel.app",
@@ -16,7 +19,10 @@ export const projects = [
   {
     id: "cruma",
     title: "CRUMA",
-    description: "Planificador de horarios hecho por y para estudiantes",
+    description: {
+      ES: "Planificador de horarios hecho por y para estudiantes",
+      EN: "Schedule planner made by and for students"
+    },
     year: 2025,
     tags: ["React", "Java", "Spring Boot", "PostgreSQL", "Docker"],
     href: "/essay/crafting-cruma",
@@ -27,7 +33,10 @@ export const projects = [
   {
     id: "tpi-backend",
     title: "Driver Test Manager",
-    description: "Microservicios para gestionar pruebas de manejo",
+    description: {
+      ES: "Microservicios para gestionar pruebas de manejo",
+      EN: "Microservices to manage driving tests"
+    },
     year: 2025,
     tags: ["Next.js", "Java", "Spring Boot", "PostgreSQL", "Docker", "JWT"],
     href: "/essay/crafting-tpi-backend",

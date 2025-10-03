@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { projects } from "../../content/projects";
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { useLanguage } from '../../context/LanguageContext';
 import UpdatedPill from "../UpdatedPill";
 
 export default function ProjectsSection() {
   const [ref, isVisible] = useScrollAnimation(200);
+  const { t, language } = useLanguage();
   const getTechIcon = (tech) => {
     switch (tech) {
       case 'React':
@@ -79,9 +81,9 @@ export default function ProjectsSection() {
       }`}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium">Projects</h2>
+        <h2 className="text-xl font-medium">{t('projects.title')}</h2>
          <Link to="/proyectos" className="group inline-flex items-center gap-1 px-1 py-0.5 -mx-1 -my-0.5 rounded text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
-          More
+          {t('projects.more')}
           <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-all" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -146,7 +148,7 @@ export default function ProjectsSection() {
                  )}
                </div>
             </div>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{p.description}</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{p.description[language] || p.description.ES}</p>
             {p.tags && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.tags.map((t) => (

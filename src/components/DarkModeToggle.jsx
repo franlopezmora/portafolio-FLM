@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { Sun, Moon } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
 
 function getInitialDark() {
   try {
@@ -13,6 +14,7 @@ function getInitialDark() {
 }
 
 export default function DarkModeToggle() {
+  const { t } = useLanguage()
   const [dark, setDark] = useState(getInitialDark)
   const [showTooltip, setShowTooltip] = useState(false)
   const [hoverTimeout, setHoverTimeout] = useState(null)
@@ -83,7 +85,7 @@ export default function DarkModeToggle() {
       </button>
       {showTooltip && (
         <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2.5 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-          Change theme
+          {t('header.changeTheme')}
         </span>
       )}
     </div>

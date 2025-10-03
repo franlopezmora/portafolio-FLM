@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { PROTOTYPES } from "../prototypes";
 import PrevNext from "../components/PrevNext";
 import PageLayout from "../components/PageLayout";
+import { useLanguage } from "../context/LanguageContext";
 
 // 👇 importa tus componentes
 import CustomCursor from "../components/prototypes/CustomCursor";
@@ -18,6 +19,7 @@ import PrototypeLayout from "../components/PrototypeLayout";
 
 export default function PrototypePage() {
   const { id } = useParams();
+  const { t, language } = useLanguage();
   const data = PROTOTYPES[id];
   const [enabled, setEnabled] = useState(false);
   const [seed, setSeed] = useState(null);
@@ -34,7 +36,7 @@ export default function PrototypePage() {
     if (id === "1") {
       return (
         <PrototypeLayout
-          description="Probá pasar el mouse por la card y el botón. El cursor reacciona a elementos interactivos."
+          description={t('prototype.customCursor.description')}
           relative={true}
           customCursor={enabled && <CustomCursor seed={seed} />}
         >
@@ -58,12 +60,12 @@ export default function PrototypePage() {
     if (id === "2") {
       return (
         <PrototypeLayout
-          description="Escribí y presioná Enter: las letras se borran y el caret regresa a su lugar."
+          description={t('prototype.vanishInput.description')}
         >
           <div className="grid place-items-center py-8">
             <div className="w-full max-w-md">
               <VanishInput
-                placeholder="¿Qué necesitas?"
+                placeholder={t('prototype.vanishInput.placeholder')}
                 icon="🔍"
                 minWidth={172}
                 maxWidth={400}
@@ -79,9 +81,9 @@ export default function PrototypePage() {
     if (id === "3") {
       return (
         <PrototypeLayout
-          title="Dark Mode Toggle"
-          date="March 2025"
-          description="Alterná entre modo claro y oscuro para ver cómo cambian los componentes en tiempo real."
+          title={t('prototype.darkModeToggle.title')}
+          date={t('prototype.darkModeToggle.date')}
+          description={t('prototype.darkModeToggle.description')}
         >
           <div className="grid place-items-center py-6">
             <div className="scale-150">
@@ -96,9 +98,9 @@ export default function PrototypePage() {
     if (id === "4") {
       return (
         <PrototypeLayout
-          title="Gooey Tooltip"
-          date="March 2024"
-          description="Pasá el mouse por el botón para ver el tooltip con efecto 'gooey'."
+          title={t('prototype.gooeyTooltip.title')}
+          date={t('prototype.gooeyTooltip.date')}
+          description={t('prototype.gooeyTooltip.description')}
         >
           <div className="grid place-items-center py-8">
             {/* En card, no hace falta fullScreen */}
@@ -112,9 +114,9 @@ export default function PrototypePage() {
     if (id === "5") {
       return (
         <PrototypeLayout
-          title="Pill Nav Dock"
-          date="April 2025"
-          description="Navbar dock embebida dentro de la caja."
+          title={t('prototype.pillNavDock.title')}
+          date={t('prototype.pillNavDock.date')}
+          description={t('prototype.pillNavDock.description')}
         >
           {/* Área de demostración: la navbar se alinea al fondo de la caja */}
           <div className="relative h-48 flex items-end justify-center">
@@ -128,9 +130,9 @@ export default function PrototypePage() {
     if (id === "6") {
       return (
         <PrototypeLayout
-          title="Todo List + Animated Checkbox"
-          date="May 2025"
-          description="Checkbox con tick animado (stroke), glow y ripple al marcar."
+          title={t('prototype.todoList.title')}
+          date={t('prototype.todoList.date')}
+          description={t('prototype.todoList.description')}
         >
           <div className="grid place-items-center py-6">
             <TodoBasic />
@@ -143,8 +145,8 @@ export default function PrototypePage() {
     if (id === "7") {
       return (
         <PrototypeLayout
-          title="Sidebar Demo"
-          date="June 2025"
+          title={t('prototype.sidebar.title')}
+          date={t('prototype.sidebar.date')}
           className="overflow-x-hidden"
         >
           {/* Área de preview (tema dual) sin caja gris */}
@@ -157,7 +159,7 @@ export default function PrototypePage() {
 
             {/* Contenido de ejemplo */}
             <main className="flex-1 min-w-0 p-4 space-y-3 overflow-auto">
-              <h2 className="text-lg font-semibold ml-8">Content</h2>
+              <h2 className="text-lg font-semibold ml-8">{t('prototype.sidebar.content')}</h2>
               <div className="grid grid-cols-2 gap-3">
                 {Array.from({ length: 8 }).map((_, i) => (
                   <div key={i} className="rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 h-24" />
@@ -182,7 +184,7 @@ export default function PrototypePage() {
             </div>
 
             <div className="text-center">
-              <div className="p-6 text-sm text-neutral-400">No prototype found for "{id}".</div>
+              <div className="p-6 text-sm text-neutral-400">{t('prototype.notFound', { id })}</div>
             </div>
           </div>
         </div>
@@ -226,14 +228,14 @@ export default function PrototypePage() {
   return (
     <PageLayout 
       backTo="/"
-      backText="← Volver"
+      backText={t('prototype.back')}
       showToc={false}
     >
       {/* Header con título y fecha */}
       <header className="mb-6">
-        <h1 className="essay-title">{PROTOTYPES[id]?.title || `Prototype ${id}`}</h1>
+        <h1 className="essay-title">{PROTOTYPES[id]?.title || t('prototype.defaultTitle', { id })}</h1>
         <p className="essay-meta mt-1">
-          {PROTOTYPES[id]?.date || "January 2025"}
+          {PROTOTYPES[id]?.date || t('prototype.defaultDate')}
         </p>
       </header>
 
@@ -242,10 +244,7 @@ export default function PrototypePage() {
 
       {/* Prev / Next */}
       <div className="mt-10">
-        <PrevNext
-          prev={prevId ? { title: PROTOTYPES[prevId]?.title || `Prototype ${prevId}`, href: `/prototype/${prevId}` } : null}
-          next={nextId ? { title: PROTOTYPES[nextId]?.title || `Prototype ${nextId}`, href: `/prototype/${nextId}` } : null}
-        />
+        <PrevNext />
       </div>
     </PageLayout>
   );

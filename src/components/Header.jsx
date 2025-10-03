@@ -1,15 +1,26 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DarkModeToggle from "./DarkModeToggle";
+import ContactModal from "./ContactModal";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Header() {
   const [showTooltips, setShowTooltips] = useState({
     linkedin: false,
     github: false,
     email: false,
-    resume: false
+    resume: false,
+    language: false
   });
   const [hoverTimeouts, setHoverTimeouts] = useState({});
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const { language, t, changeLanguage } = useLanguage();
+
+  // Función para alternar idioma
+  const toggleLanguage = () => {
+    const newLanguage = language === 'ES' ? 'EN' : 'ES';
+    changeLanguage(newLanguage);
+  };
 
   const handleMouseEnter = (tooltip) => {
     const timeout = setTimeout(() => {
@@ -24,6 +35,22 @@ export default function Header() {
       setHoverTimeouts(prev => ({ ...prev, [tooltip]: null }));
     }
     setShowTooltips(prev => ({ ...prev, [tooltip]: false }));
+  };
+
+  // Función para limpiar todos los estados hover
+  const clearAllHoverStates = () => {
+    setShowTooltips({
+      linkedin: false,
+      github: false,
+      email: false,
+      resume: false,
+      language: false
+    });
+    // Limpiar todos los timeouts
+    Object.values(hoverTimeouts).forEach(timeout => {
+      if (timeout) clearTimeout(timeout);
+    });
+    setHoverTimeouts({});
   };
 
   return (
@@ -41,7 +68,7 @@ export default function Header() {
           </Link>
 
           {/* Iconos sociales */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-1">
             {/* LinkedIn */}
             <a 
               href="https://linkedin.com/in/franciscolopezmora" 
@@ -93,11 +120,11 @@ export default function Header() {
 </a>
 
 
-            {/* Email */}
-            <a 
-              href="mailto:francisco@example.com" 
+            {/* Contact Modal Button */}
+            <button 
+              onClick={() => setIsContactModalOpen(true)}
               className="group relative"
-              aria-label="Enviar email"
+              aria-label="Abrir formulario de contacto"
               onMouseEnter={() => handleMouseEnter('email')}
               onMouseLeave={() => handleMouseLeave('email')}
             >
@@ -109,10 +136,10 @@ export default function Header() {
               </div>
               {showTooltips.email && (
                 <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                  Email
+                  {t('header.contact')}
                 </span>
               )}
-            </a>
+            </button>
 
             {/* CV Download */}
             <a 
@@ -130,16 +157,45 @@ export default function Header() {
               </div>
               {showTooltips.resume && (
                 <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                  Resume
+                  {t('header.resume')}
                 </span>
               )}
             </a>
+
+            {/* Language Toggle */}
+            <button 
+              onClick={toggleLanguage}
+              className="group relative"
+              aria-label="Cambiar idioma"
+              onMouseEnter={() => handleMouseEnter('language')}
+              onMouseLeave={() => handleMouseLeave('language')}
+            >
+              <div className="w-9 h-9 rounded-md bg-neutral-50 dark:bg-neutral-900 group-hover:bg-neutral-100 dark:group-hover:bg-neutral-800 flex items-center justify-center">
+                <span className="text-sm font-mono font-medium text-neutral-600 dark:text-neutral-300 group-hover:text-neutral-700 dark:group-hover:text-neutral-200">
+                  {language}
+                </span>
+              </div>
+              {showTooltips.language && (
+                <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-2 py-1 text-xs text-white bg-black border border-white/20 rounded opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                  {language === 'ES' ? t('header.english') : t('header.spanish')}
+                </span>
+              )}
+            </button>
 
             {/* Dark Mode Toggle */}
             <DarkModeToggle />
           </div>
         </div>
       </div>
+
+      {/* Contact Modal */}
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => {
+          clearAllHoverStates();
+          setIsContactModalOpen(false);
+        }} 
+      />
     </header>
   );
 }

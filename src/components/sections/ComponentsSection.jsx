@@ -1,37 +1,40 @@
 import { Link } from "react-router-dom";
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function ComponentsSection() {
   const [ref, isVisible] = useScrollAnimation(300);
+  const { t } = useLanguage();
+  
   const components = [
     {
       id: "vanish-input",
-      title: "Vanish Input",
-      description: "Input que desaparece con animación suave",
+      title: t('components.vanishInput.title'),
+      description: t('components.vanishInput.description'),
       icon: "/icons/SVGRepo_iconCarrier-1.svg",
       gradient: "from-purple-400 to-blue-500",
       link: "/prototype/2"
     },
     {
       id: "gooey-tooltip",
-      title: "Gooey Tooltip",
-      description: "Tooltip con efecto gooey y animaciones",
+      title: t('components.gooeyTooltip.title'),
+      description: t('components.gooeyTooltip.description'),
       icon: "/icons/Vector.svg",
       gradient: "from-pink-400 to-purple-500",
       link: "/prototype/4"
     },
     {
       id: "animated-checkbox",
-      title: "Animated Checkbox",
-      description: "Checkbox con animaciones fluidas",
+      title: t('components.animatedCheckbox.title'),
+      description: t('components.animatedCheckbox.description'),
       icon: "/icons/Group 3.svg",
       gradient: "from-green-400 to-emerald-500",
       link: "/prototype/6"
     },
     {
       id: "pill-nav-bar",
-      title: "Pill Nav Bar",
-      description: "Barra de navegación estilo dock con animaciones",
+      title: t('components.pillNavBar.title'),
+      description: t('components.pillNavBar.description'),
       icon: null, // SVG inline
       gradient: "from-purple-400 to-purple-500",
       link: "/prototype/7"
@@ -56,9 +59,9 @@ export default function ComponentsSection() {
       }`}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium">Components</h2>
+        <h2 className="text-xl font-medium">{t('components.title')}</h2>
         <Link to="/craft" className="group inline-flex items-center gap-1 px-1 py-0.5 -mx-1 -my-0.5 rounded text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
-          More
+          {t('components.more')}
           <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-all" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

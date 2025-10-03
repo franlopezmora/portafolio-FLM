@@ -1,22 +1,24 @@
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function ExperienceSection() {
   const [ref, isVisible] = useScrollAnimation(100);
+  const { t } = useLanguage();
   
   const experiences = [
     {
-      period: "Abril 2025 - Present",
-      title: "Desarrollador Full Stack",
-      company: "CIDS",
+      period: t('experience.cids.period'),
+      title: t('experience.cids.title'),
+      company: t('experience.cids.company'),
       companyUrl: "http://www.cids.frc.utn.edu.ar/",
-      description: "Desarrollador de software con foco en backend Java y frontend AngularJS, participando en el Sistema de Gestión Electoral a nivel nacional. Diseño e implementación de APIs, consultas SQL optimizadas y reportes con JasperReports. Trabajo ágil (Scrum/Kanban), automatización de despliegues y mejoras de seguridad end-to-end."
+      description: t('experience.cids.description')
     },
     {
-      period: "Junio 2024 - Mayo 2025",
-      title: "Operador de Redes",
-      company: "LABSIS",
+      period: t('experience.labsis.period'),
+      title: t('experience.labsis.title'),
+      company: t('experience.labsis.company'),
       companyUrl: "https://labsys.frc.utn.edu.ar/",
-      description: "Operación y mantenimiento de infraestructura de red sísmica. Administración de servidores Linux, gestión de contenedores Docker y despliegue de servicios en AWS. Monitoreo continuo de sistemas críticos y resolución de incidencias técnicas."
+      description: t('experience.labsis.description')
     }
   ];
 
@@ -29,7 +31,7 @@ export default function ExperienceSection() {
           : 'opacity-0 translate-y-4'
       }`}
     >
-      <h2 className="text-xl font-medium mb-8">Experience</h2>
+      <h2 className="text-xl font-medium mb-8">{t('experience.title')}</h2>
       <div className="relative">
         {/* Timeline vertical */}
         <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-neutral-300 dark:bg-neutral-700"></div>

@@ -1,0 +1,87 @@
+---
+title: "Designing the Backend of a Driving Test Management System"
+date: "09-02-2025"
+description: "A story about building a microservices architecture to manage driving tests, from design decisions to teamwork."
+---
+
+A few months ago we started with an ambitious challenge: to build, as part of the **Integrative Practical Work** of Backend, a complete system to manage **driving tests**. We didn't want to stay in the academic; we wanted to get closer to the reality of a modern application, with microservices, real databases and container deployments. In this essay I'm going to tell you the decisions we made and how we implemented them.
+
+## Architecture
+
+From the beginning we opted for a **microservices architecture**, because it allowed us to divide the domain into independent pieces and work in parallel. We ended up with six main services:
+
+- **tpi-admin-service (8081)**: centralizes the management of employees, interested parties, tests and danger zones.
+- **tpi-vehiculos-service (8082)**: manages vehicles and their relationships.
+- **tpi-reportes-service (8083)**: generates reports and statistics from accumulated information.
+- **tpi-notificaciones-service (8084)**: sends notifications through a Discord webhook, which allowed us to have immediate feedback when a test was registered.
+- **tpi-pruebas-service (8085)**: handles all the specific logic of driving tests.
+- **tpi-gateway-service (8080)**: acts as **API Gateway** and single entry point, routing requests to the corresponding microservice.
+
+This division forced us to think about contracts between services and to use **Spring Cloud Gateway** to centralize authentication and routing. Each microservice has its own database, which simplifies internal consistency and reduces coupling.
+
+import EssayImage from "../components/EssayImage.jsx";
+
+<EssayImage
+  src="Captura de pantalla 2025-09-07 185845.png"
+  alt="Microservices system architecture"
+  bleed
+/>
+
+## Technologies
+
+We chose **Java 21** as the base language and **Spring Boot 3.3.5** as the framework, taking advantage of its microservices support and the maturity of its ecosystem. For persistence we used **Spring Data JPA** and **PostgreSQL** as the main database, while **H2** served us for testing in memory. For the declarative HTTP client we used **OpenFeign** and documented each API with **SpringDoc OpenAPI**. Construction and dependency management were resolved with **Maven**.
+
+Although our focus was the backend, there was also a frontend in **Next.js 15.4.3** with **React 19.1.0** and **TailwindCSS 4**, which allowed us to test the endpoints interactively. At the DevOps level we relied on **Docker** and **Docker Compose** to orchestrate all services.
+
+## Persistence
+
+We opted for **PostgreSQL 15** as the database engine and packaged its initialization in a script located in `/docker/db/init.sql`. Each microservice connects to its own instance, with users and passwords defined as default environment variables (`postgres/postgres`). For automated tests we used **H2** because it facilitates running tests in memory without depending on an external container. Communication between microservices is done via HTTP REST and, when necessary, we used Feign to simplify internal calls.
+
+## API Gateway
+
+The **API Gateway** is not just a router; it also allowed us to concentrate common policies such as error handling, documentation and control points. We expose all endpoints through port **8080**, and each microservice maintains its internal URL. We also configured **Spring Cloud Gateway** to expose Swagger documentation in a single point (`/swagger-ui.html`).
+
+## Notifications and Discord
+
+One of the particularities of the project was the notification service. Instead of sending traditional emails, we decided to integrate a **Discord webhook**: every time a new test is created or an interested party is registered, a message is triggered in a channel we use for tracking. To configure it, just change the webhook URL in the microservice configuration file.
+
+## Scripts and deployment
+
+We wanted the development environment to be as simple as possible. That's why we wrote a `build-all.sh` script that compiles all microservices, builds the images and raises the entire stack with `docker-compose up --build`. We also prepared instructions to run services manually with Maven and raise the database separately. To restart from scratch, just run `docker-compose down -v` and run the build script again.
+
+We thought about productive deployment and left clear guidelines: configure specific environment variables, use an external database, mount a reverse proxy with SSL and enable monitoring and logging. All this was documented so that anyone can replicate or improve the project.
+
+<EssayImage
+  src="Captura de pantalla 2025-09-07 192111.png"
+  alt="TPI system development and deployment process"
+  bleed
+/>
+
+## Testing and quality
+
+Each microservice includes unit and integration tests. We established a standard: no feature is merged without its corresponding tests. With `mvn test` all tests of a service or the complete project are executed, which gave us confidence to refactor without fear.
+
+<div className="flex gap-4 mb-6">
+  <EssayImage
+    src="Captura de pantalla 2025-09-07 194705.png"
+    alt="TPI system unit tests"
+    className="flex-1"
+  />
+  <EssayImage
+    src="Captura de pantalla 2025-09-07 194731.png"
+    alt="TPI system reports and statistics"
+    className="flex-1"
+  />
+</div>
+
+## Team and learnings
+
+None of this would have been possible without the team. I worked alongside **Nicolás Garay**, **Mariano Iturriza** and **Marcos Belli**, and each one took ownership of a different microservice. This allowed us to advance in parallel and then integrate in the gateway. We faced real problems: synchronizing database schemas, defining API contracts, handling asynchronous errors and organizing our repository so it was easy to navigate.
+
+## What's coming
+
+Although we met the academic requirements, the project has a lot of potential. We would like to add JWT authentication and authorization, refine the notification system to make it configurable (email, SMS, Discord), and deploy it on a cloud platform to test its scalability. We are also considering adding monitoring with Prometheus and Grafana and automating deployments with CI/CD.
+
+## Closing
+
+Building the backend of this driving test management system was more than a university task; it was an immersion in modern systems design. Dividing the domain into microservices forced us to communicate and document every decision. Containers, deployment scripts and tests taught us to think about reliability from day one. More importantly, working as a team showed us that code is the excuse to learn to collaborate. And although the project already works, we know that there is still much to explore and improve.

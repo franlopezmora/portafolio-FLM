@@ -6,6 +6,7 @@ import { homeItems } from "../content/homeItems";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useState, useEffect, useMemo } from "react";
 import { fetchManifest, buildBySrcMap, pickMeta } from "../utils/mediaManifest";
+import { useLanguage } from "../context/LanguageContext";
 
 // Mapeo directo de meses en español a inglés
 const ES_MONTHS = {
@@ -22,8 +23,11 @@ const ES_MONTHS = {
 const parseDate = (d) => {
   if (!d) return 0;
   
+  // Handle translated dates
+  const dateStr = typeof d === "string" ? d : d.ES;
+  
   // ej: "Agosto 2025" -> "01 August 2025"
-  const match = d.match(/^([a-zA-ZáéíóúñÁÉÍÓÚÑ]+)\s+(\d{4})$/);
+  const match = dateStr.match(/^([a-zA-ZáéíóúñÁÉÍÓÚÑ]+)\s+(\d{4})$/);
   if (match) {
     const [, month, year] = match;
     const englishMonth = ES_MONTHS[month];
@@ -35,6 +39,8 @@ const parseDate = (d) => {
 };
 
 export default function Craft() {
+  const { language } = useLanguage();
+  
   // Ordená igual que querés que navegue Prev/Next (más nuevo primero)
   const proyectos = [...homeItems].sort((a,b) => parseDate(b.fecha) - parseDate(a.fecha));
 
@@ -87,10 +93,13 @@ export default function Craft() {
               const initialRatio = meta ? (meta.w / meta.h) : null;
               const initialBlurSrc = meta?.lqip ?? null;
               const poster = meta?.poster ?? p.poster;
+              
+              // Get translated title for key
+              const tituloKey = typeof p.titulo === "string" ? p.titulo : p.titulo[language] || p.titulo.ES;
 
               return (
                 <ProyectoCard
-                  key={`${p.titulo}-${idx}`}
+                  key={`${tituloKey}-${idx}`}
                   {...p}
                   poster={poster}
                   initialRatio={initialRatio}
