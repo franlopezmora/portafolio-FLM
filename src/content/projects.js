@@ -3,7 +3,7 @@ export const projects = [
   // Proyectos reales del portfolio
   {
     id: "link-shorter",
-    title: "Link Shorter",
+    title: "Link Shortener",
     description: {
       ES: "Acortador de enlaces moderno",
       EN: "Modern link shortener"
