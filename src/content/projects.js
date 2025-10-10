@@ -2,6 +2,20 @@
 export const projects = [
   // Proyectos reales del portfolio
   {
+    id: "link-shorter",
+    title: "Link Shorter",
+    description: {
+      ES: "Acortador de enlaces moderno",
+      EN: "Modern link shortener"
+    },
+    year: 2025,
+    tags: ["Next.js", "NextAuth", "Prisma", "Node.js", "PostgreSQL", "TypeScript"],
+    href: "https://link-shortener-flm.vercel.app/",
+    github: "https://github.com/franlopezmora/link-shorter",
+    githubOwner: "franlopezmora",
+    githubRepo: "link-shorter",
+  },
+  {
     id: "colorcheck",
     title: "ColorCheck",
     description: {

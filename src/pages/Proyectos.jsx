@@ -210,6 +210,15 @@ export default function Proyectos() {
                                   <img src="/icons/nextjs_icon_dark.svg" alt="Next.js" className="w-4 h-4 hidden dark:block" />
                                 </>
                               );
+                            case 'NextAuth':
+                              return <img src="/icons/nextauth.svg" alt="NextAuth" className="w-4 h-4" />;
+                            case 'Prisma':
+                              return (
+                                <>
+                                  <img src="/icons/Prisma_light.svg" alt="Prisma" className="w-4 h-4 dark:hidden" />
+                                  <img src="/icons/Prisma_dark.svg" alt="Prisma" className="w-4 h-4 hidden dark:block" />
+                                </>
+                              );
                             case 'Java':
                               return <img src="/icons/java.svg" alt="Java" className="w-4 h-4" />;
                             case 'Spring Boot':

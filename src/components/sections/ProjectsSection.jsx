@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { projects } from "../../content/projects";
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { useLanguage } from '../../context/LanguageContext';
@@ -7,6 +8,20 @@ import UpdatedPill from "../UpdatedPill";
 export default function ProjectsSection() {
   const [ref, isVisible] = useScrollAnimation(200);
   const { t, language } = useLanguage();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
   const getTechIcon = (tech) => {
     switch (tech) {
       case 'React':
@@ -23,6 +38,14 @@ export default function ProjectsSection() {
             <img src="/icons/nextjs_icon_dark.svg" alt="Next.js" className="w-4 h-4" />
           </picture>
         );
+      case 'NextAuth':
+        return <img src="/icons/nextauth.svg" alt="NextAuth" className="w-4 h-4" />;
+      case 'Prisma':
+        if (isDark) {
+          return <img src="/icons/Prisma_dark.svg" alt="Prisma" className="w-4 h-4" />;
+        } else {
+          return <img src="/icons/Prisma_light.svg" alt="Prisma" className="w-4 h-4" />;
+        }
       case 'Java':
         return <img src="/icons/java.svg" alt="Java" className="w-4 h-4" />;
       case 'Spring Boot':
@@ -46,6 +69,10 @@ export default function ProjectsSection() {
 
   const getProjectIcon = (projectId) => {
     switch (projectId) {
+      case "link-shorter":
+        return (
+          <img src="/icons/link-shorter.svg" alt="Link Shorter" className="w-7 h-7" />
+        );
       case "colorcheck":
         return (
           <div className="w-7 h-7 rounded bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
@@ -69,7 +96,7 @@ export default function ProjectsSection() {
     }
   };
 
-  const featuredProjects = projects.filter(p => ["colorcheck","cruma","tpi-backend"].includes(p.id));
+  const featuredProjects = projects.filter(p => ["link-shorter","colorcheck","cruma","tpi-backend"].includes(p.id));
 
   return (
     <section 
