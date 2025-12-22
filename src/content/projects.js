@@ -1,6 +1,22 @@
 // Fuente de datos para la sección de proyectos destacados del Home y la página Proyectos
 export const projects = [
   // Proyectos reales del portfolio
+
+  {
+    id: "cruma",
+    title: "CRUMA",
+    description: {
+      ES: "Planificador de horarios hecho por y para estudiantes",
+      EN: "Schedule planner made by and for students"
+    },
+    year: 2025,
+    tags: ["React", "Java", "Spring Boot", "PostgreSQL", "Docker"],
+    href: "https://www.cruma.app/",
+    github: "https://github.com/franlopezmora/cruma",
+    githubOwner: "franlopezmora",
+    githubRepo: "cruma",
+    updated: true,
+  },
   {
     id: "link-shorter",
     title: "Link Shortener",
@@ -28,21 +44,6 @@ export const projects = [
     github: "https://github.com/franlopezmora/colorcheck",
     githubOwner: "franlopezmora",
     githubRepo: "colorcheck",
-    updated: true,
-  },
-  {
-    id: "cruma",
-    title: "CRUMA",
-    description: {
-      ES: "Planificador de horarios hecho por y para estudiantes",
-      EN: "Schedule planner made by and for students"
-    },
-    year: 2025,
-    tags: ["React", "Java", "Spring Boot", "PostgreSQL", "Docker"],
-    href: "/essay/crafting-cruma",
-    github: "https://github.com/franlopezmora/cruma",
-    githubOwner: "franlopezmora",
-    githubRepo: "cruma",
   },
   {
     id: "tpi-backend",
