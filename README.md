@@ -5,6 +5,7 @@ Este es mi portafolio como desarrollador fullstack, donde muestro proyectos dest
 ## 🛠️ Tecnologías utilizadas
 
 - **React 19** – para el frontend dinámico
+- **Next.js** – framework React para aplicaciones fullstack (App Router)
 - **TailwindCSS** – para el estilo moderno y responsivo
 - **React Masonry** – para el layout tipo masonry
 - **React Router** – para navegación SPA

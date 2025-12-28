@@ -71,7 +71,9 @@ export default function ProjectsSection() {
     switch (projectId) {
       case "link-shorter":
         return (
-          <img src="/icons/link-shorter.svg" alt="Link Shorter" className="w-7 h-7" />
+          <div className="w-7 h-7 rounded bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+            <img src="/icons/link-shorter.svg" alt="Link Shorter" className="w-7 h-7" />
+          </div>
         );
       case "colorcheck":
         return (
@@ -91,12 +93,18 @@ export default function ProjectsSection() {
             <img src="/icons/Group 5.svg" alt="Driver Test Manager" className="w-6 h-6" />
           </div>
         );
+      case "chess-analyzer":
+        return (
+          <div className="w-7 h-7 rounded bg-gradient-to-br from-blue-400 to-[#2563eb] dark:from-blue-700 dark:to-[#1e3a8a] flex items-center justify-center">
+            <img src="/icons/chess-analyzer.svg" alt="Chess Analyzer" className="w-5 h-5" />
+          </div>
+        );
       default:
         return null;
     }
   };
 
-  const featuredProjects = projects.filter(p => ["link-shorter","colorcheck","cruma","tpi-backend"].includes(p.id));
+  const featuredProjects = projects.filter(p => ["link-shorter","colorcheck","cruma","tpi-backend","chess-analyzer"].includes(p.id));
 
   return (
     <section 
@@ -150,7 +158,7 @@ export default function ProjectsSection() {
                 </a>
               </div>
                 <div className="flex items-center gap-3 ml-4">
-                  <UpdatedPill on={!!p.updated} />
+                   <UpdatedPill on={!!(p.status || p.updated)} label={p.status ? p.status : undefined} />
                   {p.github && (
                    <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group">
                      <img 

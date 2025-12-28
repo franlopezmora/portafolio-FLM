@@ -46,6 +46,21 @@ export const projects = [
     githubRepo: "colorcheck",
   },
   {
+    id: "chess-analyzer",
+    title: "Chess Analyzer",
+    description: {
+      ES: "Analizador de partidas de ajedrez",
+      EN: "Chess game analyzer"
+    },
+    year: 2025,
+    tags: ["React", "TypeScript", "Node.js", "Next.js", "Tailwind CSS"],
+    href: "https://chess-analyzer-puce.vercel.app/",
+    github: "https://github.com/franlopezmora/chess-analyzer",
+    githubOwner: "franlopezmora",
+    githubRepo: "chess-analyzer",
+    status: "beta",
+  },
+  {
     id: "tpi-backend",
     title: "Driver Test Manager",
     description: {
