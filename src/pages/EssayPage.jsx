@@ -43,16 +43,23 @@ export default function EssayPage() {
       setFrontmatter({});
 
       // Determine which file to load based on language
-      let targetSlug = slug;
-      if (language === 'EN' && !slug.endsWith('-en')) {
-        targetSlug = `${slug}-en`;
-      } else if (language === 'ES' && slug.endsWith('-en')) {
-        targetSlug = slug.replace('-en', '');
+      const unique = (arr) => [...new Set(arr.filter(Boolean))];
+      let baseSlug = slug || "";
+      if (baseSlug.endsWith("-en") || baseSlug.endsWith(".en")) {
+        baseSlug = baseSlug.slice(0, -3);
       }
+      if (baseSlug.endsWith(".es")) {
+        baseSlug = baseSlug.slice(0, -3);
+      }
+
+      const resolvedSlug = baseSlug === "crafting-cruma" ? "crafting-cruma-v2" : baseSlug;
+      const candidates = language === "EN"
+        ? unique([`${resolvedSlug}-en`, `${resolvedSlug}.en`, resolvedSlug])
+        : unique([resolvedSlug, `${resolvedSlug}.es`]);
 
       const entry = Object.entries(mdxModules).find(([path]) => {
         const name = path.split("/").pop().replace(/\.mdx$/i, "");
-        return name === targetSlug;
+        return candidates.includes(name);
       });
 
       if (!entry) {

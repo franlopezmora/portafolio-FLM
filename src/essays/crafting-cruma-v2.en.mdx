@@ -1,0 +1,166 @@
+---
+title: "Crafting Cruma"
+date: "20-01-2026"
+description: "How we built Cruma and how we hardened it for V2."
+---
+
+import EssayImage from "../components/EssayImage.jsx";
+
+In July, with **Nicolás Garay**, we set out to solve a problem that all students know: **building schedules without going crazy**.
+The idea of Cruma sounded simple: choose subjects, see sections, avoid conflicts... but behind it there were a lot of small decisions that, together, make the experience **fluid** and not a fight against the computer.
+
+More than telling you *what* we did, in this essay I tell you **how we built it**: what we decided, how we divided it to show something quickly, and above all, what details we put love into.
+And in V2 we added something key: **robustness**. We made the system easier to maintain, more stable under errors, and more consistent across the experience.
+
+<EssayImage
+    src="Inicio de CRUMA grande.png"
+    alt="CRUMA landing"
+    bleed
+/>
+
+## The grid
+
+We worked with 5-minute steps and a common origin at 08:00. This way, any schedule can be translated to pixels without surprises.
+
+**Always** we order by day and start time, so nothing "jumps" in the view. And we map the days by hand: Monday = 1, Tuesday = 2... no weird magic.
+
+In recent updates we made the grid more **responsive** and resilient to browser zoom: controlled overflow, more stable layout, and exports that do not break on mobile.
+
+## Preview vs. fixed
+
+When you are testing sections, what you see as **preview** always stays above what you already chose.
+Why? Because if you are evaluating something, it is what matters most to you at that moment. A simple, well-placed `z-index` makes all the difference.
+
+## Conflicts between previews
+
+If two previews conflict on the same day and time slot, **they do not overlap**: the column splits in half and each one occupies its side.
+If there are three or more, it keeps subdividing and that is it.
+
+In those tight cases, we only show the basics: code, section and time. Less noise = more clarity.
+
+<EssayImage
+    src="Grilla vacia CRUMA.png"
+    alt="Preview conflicts in CRUMA"
+    bleed
+/>
+
+<EssayImage
+    src="Grilla con materia preview.png"
+    alt="Grid with a preview class"
+    bleed
+/>
+
+## The flow
+
+Cruma does not make you think about the app, it facilitates building your schedule:
+
+1. Without a chosen career, we show nothing.
+2. You choose semester -> we bring subjects from that period and annual ones.
+3. Only then we enable search and filters.
+4. If you change career or semester, we reset everything.
+
+<EssayImage
+    src="Flujo 1 2 3 CRUMA.png"
+    alt="Flow steps"
+    bleed
+/>
+
+## Sessions and profile
+
+We added **OAuth2 sessions** and protected routes, so your schedules stay tied to your account.
+From your profile you can see the prerequisites summary and manage your user from a dedicated menu.
+
+<EssayImage
+    src="Inicio de sesion.png"
+    alt="CRUMA sign in"
+    bleed
+/>
+
+<EssayImage
+    src="Foto de perfil cruma.png"
+    alt="CRUMA profile"
+    bleed
+/>
+
+In V2 we organized the core: we centralized error handling and messaging so failures are clear and consistent. That gave us more confidence to evolve without breaking the experience.
+
+## Subject search
+
+Year filter on the left, search on the right.
+The listing only appears if you type something.
+You check a subject and the input clears to keep adding quickly.
+And you always have the "Selected" panel handy to remove what you want.
+
+<EssayImage
+    src="Grilla con seleccionadas.png"
+    alt="Selected subjects panel"
+    bleed
+/>
+
+## Prerequisites, saved and visible
+
+Prerequisites are now saved **per user** and summarized in the profile, so you do not lose context between sessions.
+If you build an invalid schedule, a clear error modal appears, and tooltips explain the why without clutter.
+We also warn when a subject has no schedules loaded, so you do not pick something impossible.
+
+<EssayImage
+    src="Correlativas 2 CRUMA.png"
+    alt="Prerequisites detail"
+    bleed
+/>
+
+## Export and save schedules
+
+We added **Excel** export and a "Save as" flow to clone variants quickly.
+The active schedule now shows a badge, so you always know what you are editing.
+
+<EssayImage
+    src="Exportacion PDF.png"
+    alt="Schedule export"
+    bleed
+/>
+
+## From PDF to useful data
+
+This part was the most complicated. The schedules came in PDF format:
+And the question arose, how do we translate them to raw data?
+
+We ended up building all the tables by hand, to be able to pass them to CSV, a format easy to import to any Database.
+
+## The invisible part of V2
+
+V2 is also what you do not see:
+better backend error handling, shared utilities for dates and periods, and structured logging that helps spot issues without polluting the console.
+That gave us real **maintainability** and fewer surprises when something fails.
+
+## Beyond Systems
+
+For now Cruma works with Systems schedules, because they were our priority.
+But the system is already ready for any career at the university: you just need to load the data in the correct format and that is it.
+All the backend and frontend logic are designed to scale without drama.
+
+## Open repo
+
+The code is in a public repo: [github.com/franlopezmora/cruma](https://github.com/franlopezmora/cruma).
+If you want to join, whether fixing a bug, loading schedules from another career or adding a visual improvement, go ahead.
+
+## Recent wins
+
+* **Stable hosting** so it is online all year.
+* **Own domain** and **HTTPS certificate** for security and trust.
+* **Polished mobile** so using it from your phone is as comfortable as on the computer.
+* **Prerequisites to enroll** integrated into the experience.
+
+## What's left
+
+* **Add more careers** from the university.
+* **Automate** the schedule loading process.
+
+## Closing
+
+Cruma was born to take a weight off our shoulders, and without meaning to, it ended up ready to help anyone who builds their course schedule.
+Today it serves Systems, tomorrow it can serve the entire university.
+
+The code is open, the system is prepared and the only thing missing is giving it the infrastructure it deserves so it lives all year.
+
+At its core, Cruma is that: **an invitation to use it, improve it and make building your week something simple and even fun**, not a headache with PDFs and spreadsheets.

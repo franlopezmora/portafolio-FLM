@@ -1,0 +1,166 @@
+---
+title: "Crafting Cruma"
+date: "20-01-2026"
+description: "Cómo construimos Cruma y cómo lo endurecimos para V2."
+---
+
+import EssayImage from "../components/EssayImage.jsx";
+
+En julio, con **Nicolás Garay**, nos pusimos a resolver un problema que todos los estudiantes conocemos: **armar horarios sin volverse loco**.
+La idea de Cruma sonaba simple: elegir materias, ver comisiones, evitar choques... pero atrás había un montón de decisiones chiquitas que, juntas, hacen que la experiencia sea **fluida** y no una lucha contra la compu.
+
+Más que contarte *qué* hicimos, en este ensayo te cuento **cómo lo construimos**: qué fuimos decidiendo, cómo lo dividimos para poder mostrar algo rápido y, sobre todo, en qué detalles le pusimos cariño.
+Y en V2 sumamos algo clave: **robustez**. Hicimos que el sistema sea más claro de mantener, más estable frente a errores y más consistente en toda la experiencia.
+
+<EssayImage
+    src="Inicio de CRUMA grande.png"
+    alt="Inicio de CRUMA"
+    bleed
+/>
+
+## La grilla
+
+Trabajamos con pasos de 5 minutos y origen común en las 08:00. Así, cualquier horario lo podés traducir a píxeles sin sorpresas.
+
+**Siempre** ordenamos por día y hora de entrada, para que nada "salte" en la vista. Y mapeamos los días a mano: lunes = 1, martes = 2... nada de magia rara.
+
+En los últimos ajustes hicimos la grilla más **responsiva** y resistente al zoom del navegador: overflow controlado, layout más estable y exportaciones que no se desarman en mobile.
+
+## Preview vs. fijo
+
+Cuando estás probando comisiones, lo que ves como **preview** siempre queda arriba de lo que ya elegiste.
+¿Por qué? Porque si estás evaluando algo, es lo que más te importa en ese momento. Un simple `z-index` bien pensado hace toda la diferencia.
+
+## Choques entre previews
+
+Si dos previews chocan en el mismo día y franja, **no se tapan**: la columna se parte a la mitad y cada uno ocupa su lado.
+Si hay tres o más, se sigue subdividiendo y listo.
+
+En esos casos apretados, mostramos solo lo básico: código, sección y hora. Menos ruido = más claridad.
+
+<EssayImage
+    src="Grilla vacia CRUMA.png"
+    alt="Manejo de choques entre previews en CRUMA"
+    bleed
+/>
+
+<EssayImage
+    src="Grilla con materia preview.png"
+    alt="Manejo de choques entre previews en CRUMA"
+    bleed
+/>
+
+## El flujo
+
+Cruma no te hace pensar en la app, facilita el armado de tu cronograma:
+
+1. Sin carrera elegida, no mostramos nada.
+2. Elegís cuatrimestre -> traemos materias de ese período y anuales.
+3. Ahí recién habilitamos búsqueda y filtros.
+4. Si cambiás carrera o cuatri, reseteamos todo.
+
+<EssayImage
+    src="Flujo 1 2 3 CRUMA.png"
+    alt="Flujo de seleccion"
+    bleed
+/>
+
+## Sesiones y perfil
+
+Sumamos **sesión con OAuth2** y rutas protegidas, para que tus cronogramas queden vinculados a tu cuenta.
+Desde el perfil podés ver el resumen de correlativas y gestionar tu usuario con un menú dedicado.
+
+<EssayImage
+    src="Inicio de sesion.png"
+    alt="Inicio de sesion en CRUMA"
+    bleed
+/>
+
+<EssayImage
+    src="Foto de perfil cruma.png"
+    alt="Perfil de usuario en CRUMA"
+    bleed
+/>
+
+En V2 ordenamos la casa: centralizamos el manejo de errores y mensajes para que, si algo falla, la respuesta sea clara y consistente. Eso nos dio más confianza para crecer sin romper la experiencia.
+
+## Búsqueda de materias
+
+Filtro de año a la izquierda, búsqueda a la derecha.
+El listado aparece solo si escribís algo.
+Tildás una materia y se limpia el input para seguir sumando rápido.
+Y siempre tenés el panel de "Seleccionadas" a mano para sacar lo que quieras.
+
+<EssayImage
+    src="Grilla con seleccionadas.png"
+    alt="Panel de seleccionadas"
+    bleed
+/>
+
+## Correlativas visibles y guardadas
+
+Las correlativas ahora se guardan **por usuario** y se resumen en el perfil, para no perder contexto entre sesiones.
+Si armás un cronograma inválido, aparece un modal claro con el error, y los tooltips te marcan el por qué sin ensuciar la interfaz.
+También avisamos cuando una materia no tiene horarios cargados, evitando que elijas algo imposible.
+
+<EssayImage
+    src="Correlativas 2 CRUMA.png"
+    alt="Detalle de correlativas"
+    bleed
+/>
+
+## Exportar y guardar cronogramas
+
+Sumamos exportación a **Excel** y un flujo de "Guardar como" para clonar variantes rápido.
+Además, el cronograma activo muestra un badge, así sabés cuál estás editando sin perderte.
+
+<EssayImage
+    src="Exportacion PDF.png"
+    alt="Exportacion de cronogramas"
+    bleed
+/>
+
+## De PDF a datos útiles
+
+Esta parte fue lo más complicado. Los horarios venían en formato PDF:
+Y surgió la duda, ¿cómo los traducimos a datos crudos?
+
+Terminamos armando todas las tablas a mano, para poder pasarlos a CSV, un formato fácil de importar a cualquier Base de Datos.
+
+## La parte invisible de V2
+
+V2 también es lo que no se ve:
+un mejor manejo de errores en backend, utilidades compartidas para fechas y períodos, y un logging estructurado que ayuda a detectar problemas sin ensuciar la consola.
+Eso nos dio **mantenibilidad** real y menos sobresaltos cuando algo falla.
+
+## Más allá de Sistemas
+
+Por ahora Cruma anda con los horarios de Sistemas, porque eran nuestra prioridad.
+Pero el sistema ya está listo para cualquier carrera de la facu: solo falta cargar los datos en el formato correcto y listo.
+Todo el backend y la lógica del front están pensados para escalar sin dramas.
+
+## Repo abierto
+
+El código está en un repo público: [github.com/franlopezmora/cruma](https://github.com/franlopezmora/cruma).
+Si querés sumarte, ya sea corrigiendo un bug, cargando horarios de otra carrera o metiendo una mejora visual, adelante.
+
+## Logros recientes
+
+* **Hosting estable** para que esté online todo el año.
+* **Dominio propio** y **certificado HTTPS** para seguridad y confianza.
+* **Mobile pulido** para que usarlo desde el celu sea tan cómodo como en la compu.
+* **Correlativas para cursar** integradas en la experiencia.
+
+## Lo que falta
+
+* **Sumar más carreras** de la facu.
+* **Automatizar** el proceso de carga de horarios.
+
+## Cierre
+
+Cruma nació para sacarnos un peso de encima, y sin quererlo, terminó listo para ayudar a cualquiera que arme su cursada.
+Hoy sirve a Sistemas, mañana puede servir a toda la facu.
+
+El código está abierto, el sistema está preparado y lo único que falta es darle la infraestructura que se merece para que viva todo el año.
+
+En el fondo, Cruma es eso: **una invitación a usarlo, mejorarlo y hacer que armar tu semana sea algo simple y hasta divertido**, no un dolor de cabeza con PDFs y planillas.
