@@ -57,7 +57,7 @@ const translations = {
     
     // Footer
     footer: {
-      copyright: "© 2025 Francisco López Mora."
+      copyright: "© 2026 Francisco López Mora."
     },
     
     // Proyectos Page
@@ -220,7 +220,7 @@ const translations = {
     
     // Footer
     footer: {
-      copyright: "© 2025 Francisco López Mora."
+      copyright: "© 2026 Francisco López Mora."
     },
     
     // Proyectos Page
