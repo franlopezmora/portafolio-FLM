@@ -84,11 +84,14 @@ export default function ContactModal({ isOpen, onClose }) {
         await new Promise(resolve => setTimeout(resolve, 1500));
       } else {
         // Enviar email real con EmailJS
+        // Incluir el email del remitente en el mensaje
+        const messageWithEmail = `Email del remitente: ${formData.email}\n\n${formData.message}`;
+        
         const templateParams = {
           from_name: formData.name,
           from_email: formData.email,
           subject: formData.subject,
-          message: formData.message,
+          message: messageWithEmail,
           to_email: EMAILJS_CONFIG.TO_EMAIL
         };
 
