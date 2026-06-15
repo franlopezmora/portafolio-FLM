@@ -220,7 +220,18 @@ html {
 
 /* Respeta reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .badge-shine { animation: none; }
+  html.loaded {
+    scroll-behavior: auto;
+  }
+
+  .badge-shine {
+    animation: none;
+  }
+
+  .card-glow::after,
+  .card-glow-border::before {
+    display: none;
+  }
 }
 
 

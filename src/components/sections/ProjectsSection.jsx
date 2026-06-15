@@ -1,201 +1,62 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { projects } from "../../content/projects";
-import { useScrollAnimation } from '../../hooks/useScrollAnimation';
-import { useLanguage } from '../../context/LanguageContext';
-import UpdatedPill from "../UpdatedPill";
+import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { useLanguage } from "../../context/LanguageContext";
+import ProductProjectCard from "../ProductProjectCard";
+import SectionHeading from "../SectionHeading";
+
+const featuredProjectIds = [
+  "pique",
+  "sge",
+  "calip-backoffice",
+  "cruma",
+  "link-shorter",
+  "tpi-backend",
+];
 
 export default function ProjectsSection() {
   const [ref, isVisible] = useScrollAnimation(200);
   const { t, language } = useLanguage();
-  const [isDark, setIsDark] = useState(false);
+  const featuredProjects = projects.filter((project) => featuredProjectIds.includes(project.id));
 
-  useEffect(() => {
-    const checkDarkMode = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    };
-    
-    checkDarkMode();
-    
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    
-    return () => observer.disconnect();
-  }, []);
-  const getTechIcon = (tech) => {
-    switch (tech) {
-      case 'React':
-        return (
-          <picture>
-            <source media="(prefers-color-scheme: dark)" srcSet="/icons/React_dark.svg" />
-            <img src="/icons/React_light.svg" alt="React" className="w-4 h-4" />
-          </picture>
-        );
-      case 'Next.js':
-        return (
-          <picture>
-            <source media="(prefers-color-scheme: dark)" srcSet="/icons/nextjs_icon_dark.svg" />
-            <img src="/icons/nextjs_icon_dark.svg" alt="Next.js" className="w-4 h-4" />
-          </picture>
-        );
-      case 'NextAuth':
-        return <img src="/icons/nextauth.svg" alt="NextAuth" className="w-4 h-4" />;
-      case 'Prisma':
-        if (isDark) {
-          return <img src="/icons/Prisma_dark.svg" alt="Prisma" className="w-4 h-4" />;
-        } else {
-          return <img src="/icons/Prisma_light.svg" alt="Prisma" className="w-4 h-4" />;
-        }
-      case 'Java':
-        return <img src="/icons/java.svg" alt="Java" className="w-4 h-4" />;
-      case 'Spring Boot':
-        return <img src="/icons/spring.svg" alt="Spring Boot" className="w-4 h-4" />;
-      case 'PostgreSQL':
-        return <img src="/icons/postgresql.svg" alt="PostgreSQL" className="w-4 h-4" />;
-      case 'Docker':
-        return <img src="/icons/docker.svg" alt="Docker" className="w-4 h-4" />;
-      case 'JWT':
-        return <img src="/icons/jwt.svg" alt="JWT" className="w-4 h-4" />;
-      case 'TypeScript':
-        return <img src="/icons/typescript.svg" alt="TypeScript" className="w-4 h-4" />;
-      case 'Tailwind CSS':
-        return <img src="/icons/tailwindcss.svg" alt="Tailwind CSS" className="w-4 h-4" />;
-      case 'Node.js':
-        return <img src="/icons/nodejs.svg" alt="Node.js" className="w-4 h-4" />;
-      default:
-        return null;
-    }
-  };
-
-  const getProjectIcon = (projectId) => {
-    switch (projectId) {
-      case "link-shorter":
-        return (
-          <div className="w-7 h-7 rounded bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
-            <img src="/icons/link-shorter.svg" alt="Link Shorter" className="w-7 h-7" />
-          </div>
-        );
-      case "colorcheck":
-        return (
-          <div className="w-7 h-7 rounded bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
-            <img src="/icons/icon.svg" alt="ColorCheck" className="w-5 h-5" />
-          </div>
-        );
-      case "cruma":
-        return (
-          <div className="w-7 h-7 rounded bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center">
-            <img src="/icons/Group 4.svg" alt="CRUMA" className="w-6 h-6" />
-          </div>
-        );
-      case "tpi-backend":
-        return (
-          <div className="w-7 h-7 rounded bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
-            <img src="/icons/Group 5.svg" alt="Driver Test Manager" className="w-6 h-6" />
-          </div>
-        );
-      case "chess-analyzer":
-        return (
-          <div className="w-7 h-7 rounded bg-gradient-to-br from-blue-400 to-[#2563eb] dark:from-blue-700 dark:to-[#1e3a8a] flex items-center justify-center">
-            <img src="/icons/chess-analyzer.svg" alt="Chess Analyzer" className="w-5 h-5" />
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
-
-  const featuredProjects = projects.filter(p => ["link-shorter","colorcheck","cruma","tpi-backend","chess-analyzer"].includes(p.id));
+  const moreLink = (
+    <Link
+      to="/proyectos"
+      className="group inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-500 transition-colors hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white"
+    >
+      {t("projects.more")}
+      <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transform-none" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <path d="M13 6L19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </Link>
+  );
 
   return (
-    <section 
+    <section
       ref={ref}
-      className={`flex flex-col space-y-4 mb-14 transition-all duration-500 ${
-        isVisible 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-4'
+      className={`mb-24 transition-all duration-500 motion-reduce:transform-none motion-reduce:transition-none ${
+        isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
       }`}
     >
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium">{t('projects.title')}</h2>
-         <Link to="/proyectos" className="group inline-flex items-center gap-1 px-1 py-0.5 -mx-1 -my-0.5 rounded text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
-          {t('projects.more')}
-          <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-all" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </Link>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {featuredProjects.map((p) => (
-          <article
-            key={p.id}
-            className="p-4 rounded-lg border-[0.5px] border-neutral-200/60 dark:border-neutral-800/60 bg-neutral-50 dark:bg-neutral-900 shadow-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] card-glow card-glow-border"
-            onMouseMove={(e) => {
-              const r = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - r.left;
-              const y = e.clientY - r.top;
-              e.currentTarget.style.setProperty('--x', x + 'px');
-              e.currentTarget.style.setProperty('--y', y + 'px');
-            }}
-          >
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                 <a href={p.href} className="group inline-flex items-center gap-2 px-1 py-0.5 -mx-1 -my-0.5 rounded hover:text-neutral-600 dark:hover:text-white transition-colors overflow-hidden">
-                  {getProjectIcon(p.id)}
-                   <span className="relative inline-block font-medium text-neutral-700 dark:text-neutral-100 group-hover:text-neutral-900 dark:group-hover:text-white">
-                     {p.title}
-                      <span className="absolute left-0 -bottom-0.5 h-[1.6px] w-0 bg-current transition-all duration-300 ease-out group-hover:w-full"></span>
-                   </span>
-                  <svg
-                    className="w-3 h-3 text-neutral-700 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white group-hover:translate-x-0.5 transition-all"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              </div>
-                <div className="flex items-center gap-3 ml-4">
-                   <UpdatedPill on={!!(p.status || p.updated)} label={p.status ? p.status : undefined} />
-                  {p.github && (
-                   <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="group">
-                     <img 
-                       src="/icons/GitHub_light.svg?v=4" 
-                       alt="GitHub" 
-                       className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity dark:hidden" 
-                     />
-                     <img 
-                       src="/icons/GitHub_dark.svg?v=4" 
-                       alt="GitHub" 
-                       className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity hidden dark:block" 
-                     />
-                   </a>
-                 )}
-                 {(p.href && !p.github) && (
-                   <a href={p.href} target="_blank" rel="noopener noreferrer" aria-label="Abrir enlace" className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200">
-                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                       <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                       <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                     </svg>
-                   </a>
-                 )}
-               </div>
-            </div>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">{p.description[language] || p.description.ES}</p>
-            {p.tags && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-neutral-100 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 text-xs font-mono border border-neutral-200 dark:border-neutral-600">
-                    {getTechIcon(t)}
-                    {t}
-                  </span>
-                ))}
-              </div>
-            )}
-          </article>
-        ))}
+      <SectionHeading title={t("projects.title")} description={t("projects.description")} action={moreLink} />
+
+      <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2">
+        {featuredProjects.map((project) => {
+          const isPrimary = project.id === "pique";
+          const isEnterprise = project.id === "sge";
+
+          return (
+            <ProductProjectCard
+              key={project.id}
+              project={project}
+              language={language}
+              tone={isPrimary ? "primary" : isEnterprise ? "enterprise" : "default"}
+              prominent={isPrimary || isEnterprise}
+              className={isPrimary || isEnterprise ? "md:col-span-2" : ""}
+            />
+          );
+        })}
       </div>
     </section>
   );

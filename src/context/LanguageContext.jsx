@@ -5,19 +5,23 @@ const translations = {
   ES: {
     // Hero Section
     hero: {
-      title: "Soy <strong>Francisco López Mora</strong>, desarrollador full‑stack.",
-      description1: "Desarrollador full-stack especializado en Java, React y microservicios. Me gustan las interfaces simples, la performance web y construir cosas útiles.",
-      description2: "Paso mis días creando prototipos y mis noches escribiendo sobre desarrollo y diseño de producto."
+      kicker: "Desarrollador full-stack",
+      title: "Soy Francisco López Mora, desarrollador full-stack.",
+      description1: "Estudio Ingeniería en Sistemas en la UTN y trabajo desarrollando aplicaciones web. Me muevo entre frontend, backend y bases de datos, principalmente con React, Node.js, Java y PostgreSQL.",
+      description2: "Actualmente estoy construyendo Pique, un sistema para clubes deportivos. También trabajo en el Sistema de Gestión Electoral, donde desarrollo funcionalidades con Java, Oracle y tecnologías enterprise.",
+      primaryCta: "Ver proyectos",
+      secondaryCta: "Descargar CV"
     },
     
     // Experience Section
     experience: {
       title: "Experiencia",
+      description: "Trabajo sobre sistemas reales, operaciones críticas y flujos que necesitan claridad, validaciones y entregas confiables.",
       cids: {
         period: "Abril 2025 - Presente",
-        title: "Desarrollador Full Stack",
+        title: "Desarrollador Full Stack — Sistema de Gestión Electoral",
         company: "CIDS",
-        description: "Desarrollador de software con foco en backend Java y frontend AngularJS, participando en el Sistema de Gestión Electoral a nivel nacional. Diseño e implementación de APIs, consultas SQL optimizadas y reportes con JasperReports. Trabajo ágil (Scrum/Kanban), automatización de despliegues y mejoras de seguridad end-to-end."
+        description: "Trabajo profesional sobre flujos empresariales con Java, Struts, EJB, WildFly/JBoss, Oracle, Maven e Hibernate/JPA. Implemento validaciones y requerimientos de clientes, realizo análisis técnico y revisión de código, y preparo cambios para despliegues a testing."
       },
       labsis: {
         period: "Junio 2024 - Mayo 2025",
@@ -30,13 +34,15 @@ const translations = {
     // Projects Section
     projects: {
       title: "Proyectos",
-      more: "Más"
+      description: "Productos y sistemas donde conecto decisiones de negocio, experiencia de usuario y ejecución técnica.",
+      more: "Ver todos"
     },
     
     // Components Section
     components: {
       title: "Componentes",
-      more: "Más",
+      description: "Exploraciones de interacción y detalles de interfaz construidos para aprender, probar y refinar.",
+      more: "Ver craft",
       vanishInput: {
         title: "Vanish Input",
         description: "Input que desaparece con animación suave"
@@ -62,10 +68,13 @@ const translations = {
     
     // Proyectos Page
     proyectos: {
-      searchPlaceholder: "Buscar Repositorios",
-      repositories: "repositorios",
-      viewOnGitHub: "Ver en GitHub",
-      repositoriesAlt: "Repositorios",
+      title: "Proyectos y productos",
+      description: "SaaS, sistemas empresariales, backoffices y herramientas construidas alrededor de problemas reales.",
+      searchPlaceholder: "Buscar proyectos",
+      project: "proyecto",
+      repositories: "proyectos",
+      viewOnGitHub: "Ver perfil en GitHub",
+      repositoriesAlt: "Proyectos",
       githubAlt: "GitHub",
       cmdKey: "Cmd"
     },
@@ -168,19 +177,23 @@ const translations = {
   EN: {
     // Hero Section
     hero: {
-      title: "I'm <strong>Francisco López Mora</strong>, full‑stack developer.",
-      description1: "Full-stack developer specialized in Java, React and microservices. I like simple interfaces, web performance and building useful things.",
-      description2: "I spend my days creating prototypes and my nights writing about development and product design."
+      kicker: "Full-stack developer",
+      title: "I'm Francisco López Mora, a full-stack developer.",
+      description1: "I study Information Systems Engineering at UTN and work developing web applications. I work across frontend, backend and databases, mainly with React, Node.js, Java and PostgreSQL.",
+      description2: "I'm currently building Pique, a system for sports clubs. I also work on the Electoral Management System, where I develop features using Java, Oracle and enterprise technologies.",
+      primaryCta: "View projects",
+      secondaryCta: "Download resume"
     },
     
     // Experience Section
     experience: {
       title: "Experience",
+      description: "I work on real systems, critical operations and workflows that require clarity, validation and reliable delivery.",
       cids: {
         period: "April 2025 - Present",
-        title: "Full Stack Developer",
+        title: "Full Stack Developer — Electoral Management System",
         company: "CIDS",
-        description: "Software developer focused on Java backend and AngularJS frontend, participating in the National Electoral Management System. API design and implementation, optimized SQL queries and JasperReports reports. Agile work (Scrum/Kanban), deployment automation and end-to-end security improvements."
+        description: "Professional work on enterprise workflows using Java, Struts, EJB, WildFly/JBoss, Oracle, Maven and Hibernate/JPA. I implement validations and client requests, perform technical analysis and code review, and prepare changes for testing deployments."
       },
       labsis: {
         period: "June 2024 - May 2025",
@@ -193,13 +206,15 @@ const translations = {
     // Projects Section
     projects: {
       title: "Projects",
-      more: "More"
+      description: "Products and systems where I connect business decisions, user experience and technical execution.",
+      more: "View all"
     },
     
     // Components Section
     components: {
       title: "Components",
-      more: "More",
+      description: "Interaction explorations and interface details built to learn, test and refine.",
+      more: "View craft",
       vanishInput: {
         title: "Vanish Input",
         description: "Input that disappears with smooth animation"
@@ -225,10 +240,13 @@ const translations = {
     
     // Proyectos Page
     proyectos: {
-      searchPlaceholder: "Search Repositories",
-      repositories: "repositories",
-      viewOnGitHub: "View on GitHub",
-      repositoriesAlt: "Repositories",
+      title: "Projects and products",
+      description: "SaaS, enterprise systems, backoffices and tools built around real problems.",
+      searchPlaceholder: "Search projects",
+      project: "project",
+      repositories: "projects",
+      viewOnGitHub: "View GitHub profile",
+      repositoriesAlt: "Projects",
       githubAlt: "GitHub",
       cmdKey: "Cmd"
     },

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import { useLanguage } from '../../context/LanguageContext';
+import SectionHeading from "../SectionHeading";
 
 export default function ComponentsSection() {
   const [ref, isVisible] = useScrollAnimation(300);
@@ -52,27 +53,30 @@ export default function ComponentsSection() {
   return (
     <section 
       ref={ref}
-      className={`flex flex-col space-y-4 mb-16 transition-all duration-500 ${
+      className={`mb-24 transition-all duration-500 motion-reduce:transition-none motion-reduce:transform-none ${
         isVisible 
           ? 'opacity-100 translate-y-0' 
           : 'opacity-0 translate-y-4'
       }`}
     >
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium">{t('components.title')}</h2>
-        <Link to="/craft" className="group inline-flex items-center gap-1 px-1 py-0.5 -mx-1 -my-0.5 rounded text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
+      <SectionHeading
+        title={t('components.title')}
+        description={t('components.description')}
+        action={(
+        <Link to="/craft" className="group inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
           {t('components.more')}
-          <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-all" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 17L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M9 7H17V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200 motion-reduce:transform-none" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path d="M13 6L19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        )}
+      />
+      <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-4">
         {components.map((component) => (
           <div
             key={component.id}
-            className={`p-4 rounded-lg border ${component.id === 'pill-nav-bar' ? 'border-[0.5px] border-neutral-200/60 dark:border-neutral-800/60 bg-neutral-50 dark:bg-neutral-900 shadow-sm' : 'border-neutral-200 dark:border-neutral-800'} card-glow card-glow-border`}
+            className="card-glow card-glow-border rounded-2xl border border-neutral-200/90 bg-white/60 p-5 dark:border-neutral-800 dark:bg-neutral-900/60"
             onMouseMove={handleMouseMove}
           >
             <div className="flex items-start justify-between">

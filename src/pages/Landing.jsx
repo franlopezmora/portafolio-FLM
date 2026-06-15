@@ -12,8 +12,8 @@ export default function Landing() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-neutral-50 text-black dark:bg-neutral-900 dark:text-white overflow-x-hidden pt-28 md:pt-28 mt-1">
-        <div className="mx-auto max-w-[850px] px-5 py-3">
+      <main className="min-h-screen overflow-x-hidden bg-neutral-50 pt-24 text-black dark:bg-neutral-900 dark:text-white sm:pt-28">
+        <div className="mx-auto max-w-[960px] px-4 py-4 sm:px-6">
 
         <HeroSection />
 
