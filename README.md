@@ -1,13 +1,13 @@
 # Portafolio personal — Francisco López Mora
 
-Portafolio bilingüe de Francisco López Mora, desarrollador full-stack enfocado en construir productos web reales: sistemas SaaS, backoffices, dashboards, reservas, pagos y flujos de negocio.
+Portafolio bilingüe de Francisco López Mora, desarrollador full-stack. Presenta aplicaciones web, sistemas SaaS, backoffices, dashboards, reservas, pagos y trabajo profesional con Java.
 
 La aplicación presenta proyectos, experiencia profesional, ensayos técnicos en MDX y prototipos interactivos. Mantiene una interfaz minimalista con modo oscuro, cambio de idioma, animaciones sutiles y placeholders LQIP para medios.
 
 ## Proyectos destacados
 
 - **Pique**: proyecto principal de producto y startup. SaaS multi-club para reservas, agenda, clientes, caja, pagos, dashboards, clases, profesores, stock, POS básico y operaciones del club. Sitio público: [pique.ar](https://pique.ar/).
-- **SGE — Sistema de Gestión Electoral**: experiencia profesional full-stack sobre flujos empresariales con Java, Struts, EJB, WildFly/JBoss, Oracle, Maven e Hibernate/JPA.
+- **SGE — Sistema de Gestión Electoral**: experiencia profesional full-stack con Java, Struts, EJB, WildFly/JBoss, Oracle, Maven e Hibernate/JPA.
 - **Calip Backoffice**: backoffice privado orientado a ventas, inventario, pagos, caja y dashboards administrativos, acompañado por una [web pública](https://calip-backoffice-storefront.vercel.app/).
 - **CRUMA**: producto web para planificar horarios universitarios y resolver conflictos de materias y correlativas.
 - **Driver Test Manager**: sistema distribuido con microservicios para coordinar pruebas de manejo.

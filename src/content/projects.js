@@ -79,9 +79,9 @@ export const projects = [
     year: 2025,
     tags: ["Next.js", "NextAuth", "Prisma", "Node.js", "PostgreSQL", "TypeScript"],
     href: "https://link-shortener-flm.vercel.app/",
-    github: "https://github.com/franlopezmora/link-shorter",
+    github: "https://github.com/franlopezmora/link-shortener",
     githubOwner: "franlopezmora",
-    githubRepo: "link-shorter",
+    githubRepo: "link-shortener",
   },
   {
     id: "colorcheck",

@@ -16,25 +16,25 @@ const translations = {
     // Experience Section
     experience: {
       title: "Experiencia",
-      description: "Trabajo sobre sistemas reales, operaciones críticas y flujos que necesitan claridad, validaciones y entregas confiables.",
+      description: "Experiencia en desarrollo web, sistemas empresariales e infraestructura.",
       cids: {
         period: "Abril 2025 - Presente",
         title: "Desarrollador Full Stack — Sistema de Gestión Electoral",
         company: "CIDS",
-        description: "Trabajo profesional sobre flujos empresariales con Java, Struts, EJB, WildFly/JBoss, Oracle, Maven e Hibernate/JPA. Implemento validaciones y requerimientos de clientes, realizo análisis técnico y revisión de código, y preparo cambios para despliegues a testing."
+        description: "Trabajo en el Sistema de Gestión Electoral con Java, Struts, EJB, WildFly/JBoss, Oracle, Maven e Hibernate/JPA. Desarrollo validaciones y cambios solicitados por clientes, reviso código y preparo despliegues a testing."
       },
       labsis: {
         period: "Junio 2024 - Mayo 2025",
         title: "Operador de Redes",
         company: "LABSIS",
-        description: "Operación y mantenimiento de infraestructura de red sísmica. Administración de servidores Linux, gestión de contenedores Docker y despliegue de servicios en AWS. Monitoreo continuo de sistemas críticos y resolución de incidencias técnicas."
+        description: "Operación y mantenimiento de infraestructura de red sísmica. Administración de servidores Linux, contenedores Docker y servicios en AWS. Monitoreo y resolución de incidencias técnicas."
       }
     },
     
     // Projects Section
     projects: {
       title: "Proyectos",
-      description: "Productos y sistemas donde conecto decisiones de negocio, experiencia de usuario y ejecución técnica.",
+      description: "Proyectos donde combino interfaz, backend y datos para resolver necesidades concretas.",
       more: "Ver todos"
     },
     
@@ -69,7 +69,7 @@ const translations = {
     // Proyectos Page
     proyectos: {
       title: "Proyectos y productos",
-      description: "SaaS, sistemas empresariales, backoffices y herramientas construidas alrededor de problemas reales.",
+      description: "SaaS, sistemas empresariales, backoffices y herramientas construidas alrededor de necesidades concretas.",
       searchPlaceholder: "Buscar proyectos",
       project: "proyecto",
       repositories: "proyectos",
@@ -93,7 +93,8 @@ const translations = {
       sending: "Enviando...",
       required: "Todos los campos son obligatorios",
       alternativeContact: "O contacta directamente por email:",
-      copyEmail: "Haz clic para copiar el email"
+      copyEmail: "Haz clic para copiar el email",
+      close: "Cerrar modal"
     },
     
     // Header
@@ -188,25 +189,25 @@ const translations = {
     // Experience Section
     experience: {
       title: "Experience",
-      description: "I work on real systems, critical operations and workflows that require clarity, validation and reliable delivery.",
+      description: "Experience in web development, enterprise systems and infrastructure.",
       cids: {
         period: "April 2025 - Present",
         title: "Full Stack Developer — Electoral Management System",
         company: "CIDS",
-        description: "Professional work on enterprise workflows using Java, Struts, EJB, WildFly/JBoss, Oracle, Maven and Hibernate/JPA. I implement validations and client requests, perform technical analysis and code review, and prepare changes for testing deployments."
+        description: "I work on the Electoral Management System with Java, Struts, EJB, WildFly/JBoss, Oracle, Maven and Hibernate/JPA. I build validations and client-requested changes, review code and prepare testing deployments."
       },
       labsis: {
         period: "June 2024 - May 2025",
         title: "Network Operator",
         company: "LABSIS",
-        description: "Operation and maintenance of seismic network infrastructure. Linux server administration, Docker container management and AWS service deployment. Continuous monitoring of critical systems and technical incident resolution."
+        description: "Operation and maintenance of seismic network infrastructure. Linux server administration, Docker containers and AWS services. Monitoring and technical incident resolution."
       }
     },
     
     // Projects Section
     projects: {
       title: "Projects",
-      description: "Products and systems where I connect business decisions, user experience and technical execution.",
+      description: "Projects where I combine interface work, backend and data to solve concrete needs.",
       more: "View all"
     },
     
@@ -241,7 +242,7 @@ const translations = {
     // Proyectos Page
     proyectos: {
       title: "Projects and products",
-      description: "SaaS, enterprise systems, backoffices and tools built around real problems.",
+      description: "SaaS, enterprise systems, backoffices and tools built around concrete needs.",
       searchPlaceholder: "Search projects",
       project: "project",
       repositories: "projects",
@@ -265,7 +266,8 @@ const translations = {
       sending: "Sending...",
       required: "All fields are required",
       alternativeContact: "Or contact directly by email:",
-      copyEmail: "Click to copy email"
+      copyEmail: "Click to copy email",
+      close: "Close modal"
     },
     
     // Header

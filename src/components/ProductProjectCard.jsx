@@ -65,8 +65,8 @@ function ProjectIcon({ projectId, prominent = false }) {
   switch (projectId) {
     case "pique":
       return (
-        <div className={`${size} flex items-center justify-center bg-neutral-100 dark:bg-neutral-800`}>
-          <img src="/icons/pique-isotipo.svg" alt="" className={imageSize} />
+        <div className={`${size} flex items-center justify-center overflow-hidden`}>
+          <img src="/icons/pique-isotipo.svg" alt="" className="h-full w-full" />
         </div>
       );
     case "sge":
@@ -77,14 +77,14 @@ function ProjectIcon({ projectId, prominent = false }) {
       );
     case "calip-backoffice":
       return (
-        <div className={`${size} flex items-center justify-center bg-neutral-100 dark:bg-neutral-800`}>
-          <img src="/icons/calip-mark.svg" alt="" className={imageSize} />
+        <div className={`${size} flex items-center justify-center overflow-hidden`}>
+          <img src="/icons/calip-mark.svg" alt="" className="h-full w-full" />
         </div>
       );
     case "link-shorter":
       return (
-        <div className={`${size} flex items-center justify-center bg-neutral-100 dark:bg-neutral-800`}>
-          <img src="/icons/link-shorter.svg" alt="" className={imageSize} />
+        <div className={`${size} flex items-center justify-center overflow-hidden`}>
+          <img src="/icons/link-shorter.svg" alt="" className="h-full w-full" />
         </div>
       );
     case "colorcheck":

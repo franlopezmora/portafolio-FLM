@@ -2,34 +2,51 @@ import { useState, useEffect } from 'react';
 
 export const useGitHubStars = (owner, repo) => {
   const [stars, setStars] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!owner || !repo) {
+      setStars(null);
+      setLoading(false);
+      setError(null);
+      return;
+    }
+
+    const controller = new AbortController();
+
     const fetchStars = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+        setError(null);
+        const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+          signal: controller.signal,
+        });
         
         if (!response.ok) {
-          throw new Error(`Error ${response.status}: ${response.statusText}`);
+          setStars(null);
+          setError(response.status);
+          return;
         }
         
         const data = await response.json();
-        setStars(data.stargazers_count);
+        setStars(typeof data.stargazers_count === "number" ? data.stargazers_count : null);
         setError(null);
       } catch (err) {
-        console.error(`Error fetching stars for ${owner}/${repo}:`, err);
-        setError(err.message);
-        setStars(0); // Fallback a 0 si hay error
+        if (err.name !== "AbortError") {
+          setStars(null);
+          setError(err);
+        }
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
-    if (owner && repo) {
-      fetchStars();
-    }
+    fetchStars();
+
+    return () => controller.abort();
   }, [owner, repo]);
 
   return { stars, loading, error };

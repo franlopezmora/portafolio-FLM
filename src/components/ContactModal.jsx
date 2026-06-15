@@ -132,19 +132,24 @@ export default function ContactModal({ isOpen, onClose }) {
       />
       
       {/* Modal */}
-      <div className="relative bg-white dark:bg-neutral-900 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div
+        className="relative bg-white dark:bg-neutral-900 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-neutral-200 dark:border-neutral-700">
           <div className="flex items-center space-x-2">
             <Mail className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
-            <h2 className="text-lg font-medium text-neutral-900 dark:text-white">
+            <h2 id="contact-modal-title" className="text-lg font-medium text-neutral-900 dark:text-white">
               {isSubmitted ? t('contact.successTitle') : t('contact.title')}
             </h2>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-md bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 flex items-center justify-center transition-colors"
-            aria-label="Cerrar modal"
+            aria-label={t('contact.close')}
           >
             <X className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
           </button>
@@ -264,6 +269,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 onClick={handleCopyEmail}
                 className="text-neutral-700 dark:text-neutral-300 hover:underline inline-flex items-center space-x-1 group"
                 title={t('contact.copyEmail')}
+                aria-label={t('contact.copyEmail')}
               >
                 <span>franciscolopezmora3@gmail.com</span>
                 {emailCopied ? (
