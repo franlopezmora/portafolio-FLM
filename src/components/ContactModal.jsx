@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Mail, Send, CheckCircle, Copy, Check } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../config/emailjs';
@@ -123,8 +124,8 @@ export default function ContactModal({ isOpen, onClose }) {
   // No renderizar si no está abierto
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto px-4 py-6 sm:items-center sm:py-8">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -133,13 +134,13 @@ export default function ContactModal({ isOpen, onClose }) {
       
       {/* Modal */}
       <div
-        className="relative bg-white dark:bg-neutral-900 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto"
+        className="relative flex max-h-[calc(100vh-3rem)] w-full max-w-md flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-xl dark:border-neutral-700 dark:bg-neutral-900 sm:max-h-[calc(100vh-4rem)]"
         role="dialog"
         aria-modal="true"
         aria-labelledby="contact-modal-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-neutral-200 dark:border-neutral-700">
+        <div className="flex shrink-0 items-center justify-between p-6 border-b border-neutral-200 dark:border-neutral-700">
           <div className="flex items-center space-x-2">
             <Mail className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
             <h2 id="contact-modal-title" className="text-lg font-medium text-neutral-900 dark:text-white">
@@ -156,7 +157,7 @@ export default function ContactModal({ isOpen, onClose }) {
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="min-h-0 overflow-y-auto p-6">
           {isSubmitted ? (
             // Estado de éxito
             <div className="text-center py-8">
@@ -262,7 +263,7 @@ export default function ContactModal({ isOpen, onClose }) {
 
         {/* Footer */}
         {!isSubmitted && (
-          <div className="px-6 py-4 border-t border-neutral-200 dark:border-neutral-700">
+          <div className="shrink-0 px-6 py-4 border-t border-neutral-200 dark:border-neutral-700">
             <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
               {t('contact.alternativeContact')}{' '}
               <button 
@@ -282,6 +283,7 @@ export default function ContactModal({ isOpen, onClose }) {
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
